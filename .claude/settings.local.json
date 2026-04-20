@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(supabase db *)",
+      "Bash(mkdir -p supabase/migrations)",
+      "Bash(head -1031 docs/03-database/migrations/001_initial_schema.sql)",
+      "Bash(supabase status *)",
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(gunzip -c \"C:/Users/Matiasemc/.claude/projects/c--Users-Matiasemc-OneDrive-Documentos-git-Condomais/d7fb0221-11bd-4a80-9033-682a5d0e1883/tool-results/webfetch-1776686965861-88hq3i.bin\")",
+      "Read(//tmp/**)",
+      "Bash(gunzip -c \"C:/Users/Matiasemc/.claude/projects/c--Users-Matiasemc-OneDrive-Documentos-git-Condomais/d7fb0221-11bd-4a80-9033-682a5d0e1883/tool-results/webfetch-1776686964747-321ad4.bin\")",
+      "Bash(python3)",
+      "Bash(node -e ' *)",
+      "Bash(npx ng *)",
+      "Bash(node_modules/.bin/ng build *)",
+      "Bash(npm install *)",
+      "Bash(cat C:\\\\\\\\Users\\\\\\\\MATIAS~1\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\claude\\\\\\\\c--Users-Matiasemc-OneDrive-Documentos-git-Condomais\\\\\\\\5d558973-ebbd-4015-af2a-1bfc8abd2e44\\\\\\\\tasks\\\\\\\\bmrcblwk6.output)"
+    ]
+  }
+}

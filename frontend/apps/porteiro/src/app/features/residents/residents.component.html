@@ -1,0 +1,42 @@
+<div class="residents-page">
+  <cm-section-header title="Moradores" eyebrow="GESTÃO"></cm-section-header>
+
+  <div class="search-bar">
+    <cm-search-input [(model)]="search" placeholder="Buscar por nome ou apto…"></cm-search-input>
+  </div>
+
+  <div class="filter-chips">
+    @for (f of filters; track f.id) {
+      <button class="chip" [class.chip--active]="activeFilter() === f.id" (click)="setFilter(f.id)">
+        {{ f.label }}
+      </button>
+    }
+  </div>
+
+  @if (filtered().length === 0) {
+    <cm-empty-state icon="👤" title="Nenhum morador" subtitle="Tente outro filtro ou busca"></cm-empty-state>
+  } @else {
+    <div class="resident-list">
+      @for (r of filtered(); track r.id) {
+        <a class="resident-card" [routerLink]="['/moradores', r.id]">
+          <cm-avatar [name]="r.name" [color]="r.status === 'inativo' ? '#aaa' : undefined"></cm-avatar>
+          <div class="resident-info">
+            <span class="resident-name">{{ r.name }}</span>
+            <span class="resident-unit">Apto {{ r.unit }}</span>
+          </div>
+          <div class="resident-end">
+            @if (r.pendingDeliveries > 0) {
+              <cm-badge variant="warn">{{ r.pendingDeliveries }} entrega{{ r.pendingDeliveries > 1 ? 's' : '' }}</cm-badge>
+            }
+            @if (r.status === 'inativo') {
+              <cm-badge variant="neutral">Inativo</cm-badge>
+            }
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </a>
+      }
+    </div>
+  }
+</div>

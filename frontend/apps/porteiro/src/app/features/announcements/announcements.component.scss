@@ -1,0 +1,11 @@
+.announcements-page { padding: var(--s-4); display: flex; flex-direction: column; gap: var(--s-4); }
+.aviso-list { display: flex; flex-direction: column; gap: var(--s-3); }
+.aviso-card {
+  display: flex; background: var(--c-card); border-radius: var(--r-md); overflow: hidden;
+}
+.aviso-bar { width: 3px; background: var(--priority-color, var(--c-text-muted)); flex-shrink: 0; }
+.aviso-body { flex: 1; padding: var(--s-3) var(--s-4); display: flex; flex-direction: column; gap: var(--s-1); }
+.aviso-header { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); }
+.aviso-title { font-size: 15px; font-weight: 600; color: var(--c-text); }
+.aviso-text { font-size: 14px; color: var(--c-text-muted); margin: 0; line-height: 1.5; }
+.aviso-date { font-size: 12px; color: var(--c-text-muted); }

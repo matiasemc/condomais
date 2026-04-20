@@ -1,6 +1,6 @@
 # Database Schema — CondoMais Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Gerar um único script SQL produção-ready que cria o schema completo do CondoMais (multi-tenant SaaS de condomínios) no Supabase/PostgreSQL, incluindo tabelas, índices, funções helper, RLS e seed data.
 
@@ -499,7 +499,7 @@ docs/03-database/migrations/
 **Files:**
 - Create: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Criar o arquivo com cabeçalho e extensões**
+- [x] **Step 1: Criar o arquivo com cabeçalho e extensões**
 
 ```sql
 -- ============================================================
@@ -529,14 +529,14 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 CREATE EXTENSION IF NOT EXISTS "unaccent";
 ```
 
-- [ ] **Step 2: Verificar que o arquivo foi criado**
+- [x] **Step 2: Verificar que o arquivo foi criado**
 
 ```bash
 ls docs/03-database/migrations/
 # Expected: 001_initial_schema.sql
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql
@@ -550,7 +550,7 @@ git commit -m "feat(db): scaffold migration file with extensions"
 **Files:**
 - Modify: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Adicionar função update_updated_at e tabela condominios**
+- [x] **Step 1: Adicionar função update_updated_at e tabela condominios**
 
 ```sql
 -- ============================================================
@@ -700,7 +700,7 @@ CREATE TABLE public.users (
 );
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql
@@ -714,7 +714,7 @@ git commit -m "feat(db): add condominios and users tables"
 **Files:**
 - Modify: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Adicionar tabela user_condominios**
+- [x] **Step 1: Adicionar tabela user_condominios**
 
 ```sql
 -- ------------------------------------------------------------
@@ -745,7 +745,7 @@ CREATE TABLE public.user_condominios (
 );
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql
@@ -759,7 +759,7 @@ git commit -m "feat(db): add user_condominios membership table"
 **Files:**
 - Modify: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Adicionar tabela equipamentos**
+- [x] **Step 1: Adicionar tabela equipamentos**
 
 ```sql
 -- ------------------------------------------------------------
@@ -786,7 +786,7 @@ CREATE TABLE public.equipamentos (
 );
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql
@@ -800,7 +800,7 @@ git commit -m "feat(db): add equipamentos table"
 **Files:**
 - Modify: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Adicionar avisos**
+- [x] **Step 1: Adicionar avisos**
 
 ```sql
 -- ------------------------------------------------------------
@@ -831,7 +831,7 @@ CREATE TABLE public.avisos (
 );
 ```
 
-- [ ] **Step 2: Adicionar entregas**
+- [x] **Step 2: Adicionar entregas**
 
 ```sql
 -- ------------------------------------------------------------
@@ -870,7 +870,7 @@ CREATE TABLE public.entregas (
 );
 ```
 
-- [ ] **Step 3: Adicionar ocorrencias**
+- [x] **Step 3: Adicionar ocorrencias**
 
 ```sql
 -- ------------------------------------------------------------
@@ -902,7 +902,7 @@ CREATE TABLE public.ocorrencias (
 );
 ```
 
-- [ ] **Step 4: Adicionar ocorrencia_imagens**
+- [x] **Step 4: Adicionar ocorrencia_imagens**
 
 ```sql
 -- ------------------------------------------------------------
@@ -917,7 +917,7 @@ CREATE TABLE public.ocorrencia_imagens (
 );
 ```
 
-- [ ] **Step 5: Adicionar reservas**
+- [x] **Step 5: Adicionar reservas**
 
 ```sql
 -- ------------------------------------------------------------
@@ -953,7 +953,7 @@ CREATE TABLE public.reservas (
 );
 ```
 
-- [ ] **Step 6: Adicionar classificados**
+- [x] **Step 6: Adicionar classificados**
 
 ```sql
 -- ------------------------------------------------------------
@@ -986,7 +986,7 @@ CREATE TABLE public.classificados (
 );
 ```
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql
@@ -1000,7 +1000,7 @@ git commit -m "feat(db): add all business tables"
 **Files:**
 - Modify: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Adicionar todos os índices**
+- [x] **Step 1: Adicionar todos os índices**
 
 ```sql
 -- ============================================================
@@ -1098,7 +1098,7 @@ CREATE INDEX idx_classificados_expira
   WHERE status = 'ativo';
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql
@@ -1112,7 +1112,7 @@ git commit -m "feat(db): add all performance indexes"
 **Files:**
 - Modify: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Adicionar funções is_master_admin, is_member, get_user_role, has_role, has_any_role, get_my_memberships**
+- [x] **Step 1: Adicionar funções is_master_admin, is_member, get_user_role, has_role, has_any_role, get_my_memberships**
 
 ```sql
 -- ============================================================
@@ -1237,7 +1237,7 @@ AS $$
 $$;
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql
@@ -1251,7 +1251,7 @@ git commit -m "feat(db): add RLS helper functions"
 **Files:**
 - Modify: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Habilitar RLS em todas as tabelas**
+- [x] **Step 1: Habilitar RLS em todas as tabelas**
 
 ```sql
 -- ============================================================
@@ -1270,7 +1270,7 @@ ALTER TABLE public.reservas           ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.classificados      ENABLE ROW LEVEL SECURITY;
 ```
 
-- [ ] **Step 2: Policies para condominios**
+- [x] **Step 2: Policies para condominios**
 
 ```sql
 -- ============================================================
@@ -1302,7 +1302,7 @@ CREATE POLICY "condominios_delete_master"
   USING (public.is_master_admin());
 ```
 
-- [ ] **Step 3: Policies para users**
+- [x] **Step 3: Policies para users**
 
 ```sql
 -- 7.2 users
@@ -1331,7 +1331,7 @@ CREATE POLICY "users_update_own"
   WITH CHECK (id = auth.uid());
 ```
 
-- [ ] **Step 4: Policies para user_condominios**
+- [x] **Step 4: Policies para user_condominios**
 
 ```sql
 -- 7.3 user_condominios
@@ -1369,7 +1369,7 @@ CREATE POLICY "uc_delete_master"
   USING (public.is_master_admin());
 ```
 
-- [ ] **Step 5: Policies para equipamentos**
+- [x] **Step 5: Policies para equipamentos**
 
 ```sql
 -- 7.4 equipamentos
@@ -1392,7 +1392,7 @@ CREATE POLICY "equipamentos_write_admin"
   );
 ```
 
-- [ ] **Step 6: Policies para avisos**
+- [x] **Step 6: Policies para avisos**
 
 ```sql
 -- 7.5 avisos
@@ -1435,7 +1435,7 @@ CREATE POLICY "avisos_delete_admin"
   );
 ```
 
-- [ ] **Step 7: Policies para entregas**
+- [x] **Step 7: Policies para entregas**
 
 ```sql
 -- 7.6 entregas
@@ -1472,7 +1472,7 @@ CREATE POLICY "entregas_delete_sindico"
   );
 ```
 
-- [ ] **Step 8: Policies para ocorrencias e ocorrencia_imagens**
+- [x] **Step 8: Policies para ocorrencias e ocorrencia_imagens**
 
 ```sql
 -- 7.7 ocorrencias
@@ -1554,7 +1554,7 @@ CREATE POLICY "ocorrencia_imagens_delete"
   );
 ```
 
-- [ ] **Step 9: Policies para reservas**
+- [x] **Step 9: Policies para reservas**
 
 ```sql
 -- 7.9 reservas
@@ -1596,7 +1596,7 @@ CREATE POLICY "reservas_delete_sindico"
   );
 ```
 
-- [ ] **Step 10: Policies para classificados**
+- [x] **Step 10: Policies para classificados**
 
 ```sql
 -- 7.10 classificados
@@ -1636,7 +1636,7 @@ CREATE POLICY "classificados_delete_admin"
   );
 ```
 
-- [ ] **Step 11: Commit**
+- [x] **Step 11: Commit**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql
@@ -1650,7 +1650,7 @@ git commit -m "feat(db): enable RLS and create all policies"
 **Files:**
 - Modify: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Triggers de updated_at**
+- [x] **Step 1: Triggers de updated_at**
 
 ```sql
 -- ============================================================
@@ -1694,7 +1694,7 @@ CREATE TRIGGER trg_classificados_updated_at
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at();
 ```
 
-- [ ] **Step 2: Trigger de validação de reserva**
+- [x] **Step 2: Trigger de validação de reserva**
 
 ```sql
 CREATE OR REPLACE FUNCTION public.validar_reserva()
@@ -1728,7 +1728,7 @@ CREATE TRIGGER trg_validar_reserva
   FOR EACH ROW EXECUTE FUNCTION public.validar_reserva();
 ```
 
-- [ ] **Step 3: Trigger de sincronização auth → users**
+- [x] **Step 3: Trigger de sincronização auth → users**
 
 ```sql
 -- ============================================================
@@ -1762,7 +1762,7 @@ CREATE TRIGGER trg_on_auth_user_created
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql
@@ -1776,7 +1776,7 @@ git commit -m "feat(db): add updated_at triggers, reserva validation, and auth s
 **Files:**
 - Modify: `docs/03-database/migrations/001_initial_schema.sql`
 
-- [ ] **Step 1: Adicionar seed data (dev apenas)**
+- [x] **Step 1: Adicionar seed data (dev apenas)**
 
 ```sql
 -- ============================================================
@@ -1850,7 +1850,7 @@ END;
 $$;
 ```
 
-- [ ] **Step 2: Verificações finais**
+- [x] **Step 2: Verificações finais**
 
 ```sql
 -- Tabelas criadas
@@ -1879,7 +1879,7 @@ ORDER BY routine_name;
 --           update_updated_at, validar_reserva
 ```
 
-- [ ] **Step 3: Commit final**
+- [x] **Step 3: Commit final**
 
 ```bash
 git add docs/03-database/migrations/001_initial_schema.sql

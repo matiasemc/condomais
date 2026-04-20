@@ -1,0 +1,71 @@
+.page { min-height: 100%; padding-bottom: 80px; }
+
+.page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--s-6) var(--s-5) var(--s-5);
+  background: var(--c-bg-raised);
+  border-bottom: 1px solid var(--c-border);
+}
+
+.page__title {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+.spaces {
+  padding: var(--s-5);
+
+  &__label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--c-text-muted); margin: 0 0 var(--s-3); }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-3);
+  }
+}
+
+.space-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-2);
+  background: var(--c-card);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-sm);
+  text-decoration: none;
+  color: var(--c-text);
+  transition: transform var(--t-fast);
+
+  &:active { transform: scale(0.96); }
+
+  &__emoji { font-size: 28px; }
+  &__name  { font-size: 12px; font-weight: 500; }
+}
+
+.list {
+  padding: 0 var(--s-5);
+
+  &__label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--c-text-muted); margin: 0 0 var(--s-3); }
+}
+
+.res-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--c-card);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-sm);
+  margin-bottom: var(--s-3);
+
+  &__icon { font-size: 24px; }
+  &__body { flex: 1; }
+  &__title { font-size: 14px; font-weight: 600; margin: 0 0 2px; }
+  &__sub { font-size: 12px; color: var(--c-text-muted); margin: 0; }
+}

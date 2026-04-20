@@ -1,0 +1,37 @@
+<div class="page">
+  <div class="page__header">
+    <button class="back-btn" (click)="location.back()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg>
+    </button>
+    <h1 class="page__title">Integracoes Google</h1>
+  </div>
+  <div class="connect-card">
+    <div class="connect-card__logo">G</div>
+    <div class="connect-card__info">
+      <p class="connect-card__title">Google Account</p>
+      <p class="connect-card__sub">{{ connected() ? 'Conectado' : 'Desconectado' }}</p>
+    </div>
+    <cm-button [variant]="connected() ? 'ghost' : 'accent'" size="sm" (clicked)="toggleConnect()">
+      {{ connected() ? 'Desconectar' : 'Conectar' }}
+    </cm-button>
+  </div>
+  @if (connected()) {
+    <div class="prefs">
+      <p class="prefs__label">Preferencias</p>
+      <div class="pref-list">
+        <div class="pref-row">
+          <div><p class="pref-row__title">Google Calendar</p><p class="pref-row__sub">Sincronizar reservas</p></div>
+          <cm-toggle [checked]="calendar()" (toggled)="calendar.set($event)"></cm-toggle>
+        </div>
+        <div class="pref-row">
+          <div><p class="pref-row__title">E-mail — Entregas</p><p class="pref-row__sub">Notificacoes de entrega</p></div>
+          <cm-toggle [checked]="emailDelivery()" (toggled)="emailDelivery.set($event)"></cm-toggle>
+        </div>
+        <div class="pref-row">
+          <div><p class="pref-row__title">E-mail — Reservas</p><p class="pref-row__sub">Confirmacoes de reserva</p></div>
+          <cm-toggle [checked]="emailReservation()" (toggled)="emailReservation.set($event)"></cm-toggle>
+        </div>
+      </div>
+    </div>
+  }
+</div>

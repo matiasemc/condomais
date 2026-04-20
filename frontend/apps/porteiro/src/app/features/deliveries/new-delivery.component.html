@@ -1,0 +1,58 @@
+<div class="new-delivery-page">
+  <cm-section-header title="Nova Entrega" eyebrow="PORTARIA"></cm-section-header>
+  <cm-stepper [steps]="steps" [activeStep]="activeStep()"></cm-stepper>
+
+  @if (activeStep() === 0) {
+    <div class="step">
+      <cm-search-input [(model)]="search" placeholder="Buscar morador…"></cm-search-input>
+      <div class="resident-options">
+        @for (r of filteredResidents(); track r.id) {
+          <button class="resident-opt" (click)="selectResident(r)">
+            <cm-avatar [name]="r.name"></cm-avatar>
+            <div class="opt-info">
+              <span class="opt-name">{{ r.name }}</span>
+              <span class="opt-unit">Apto {{ r.unit }}</span>
+            </div>
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  @if (activeStep() === 1) {
+    <div class="step">
+      @if (selected(); as r) {
+        <div class="selected-resident">
+          <cm-avatar [name]="r.name"></cm-avatar>
+          <span>{{ r.name }} · Apto {{ r.unit }}</span>
+        </div>
+      }
+      <div class="field">
+        <label class="field-label">Tipo de entrega</label>
+        <select class="field-select" [value]="deliveryType()" (change)="deliveryType.set($any($event.target).value)">
+          <option value="">Selecione…</option>
+          <option value="caixa">Caixa / encomenda</option>
+          <option value="carta">Carta / documento</option>
+          <option value="alimento">Alimento / bag</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">Observações (opcional)</label>
+        <textarea class="field-textarea" [value]="notes()" (input)="notes.set($any($event.target).value)" placeholder="Ex: frágil, requer assinatura…"></textarea>
+      </div>
+      <div class="step-actions">
+        <cm-button variant="ghost" (click)="voltar()">Voltar</cm-button>
+        <cm-button variant="accent" (click)="confirmar()" [disabled]="!deliveryType()">Confirmar</cm-button>
+      </div>
+    </div>
+  }
+
+  @if (activeStep() === 2) {
+    <div class="step step--success">
+      <div class="success-icon">✅</div>
+      <h3 class="success-title">Entrega registrada!</h3>
+      <p class="success-sub">O morador será notificado.</p>
+    </div>
+  }
+</div>

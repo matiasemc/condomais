@@ -1,0 +1,38 @@
+<div class="new-occurrence-page">
+  <cm-section-header title="Nova Ocorrência" eyebrow="REGISTRO"></cm-section-header>
+
+  @if (!saved()) {
+    <div class="form">
+      <div class="field">
+        <label class="field-label">Tipo</label>
+        <div class="type-chips">
+          @for (t of types; track t.id) {
+            <button class="type-chip" [class.type-chip--active]="selectedType() === t.id" (click)="selectedType.set(t.id)">
+              {{ t.label }}
+            </button>
+          }
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Descrição</label>
+        <textarea
+          class="field-textarea"
+          [value]="description()"
+          (input)="description.set($any($event.target).value)"
+          placeholder="Descreva a ocorrência com detalhes…"
+          rows="5">
+        </textarea>
+      </div>
+      <div class="form-actions">
+        <cm-button variant="ghost" (click)="voltar()">Cancelar</cm-button>
+        <cm-button variant="accent" (click)="salvar()" [disabled]="!selectedType() || !description()">Salvar</cm-button>
+      </div>
+    </div>
+  } @else {
+    <div class="success">
+      <div class="success-icon">✅</div>
+      <h3>Ocorrência registrada!</h3>
+      <p>Redirecionando…</p>
+    </div>
+  }
+</div>

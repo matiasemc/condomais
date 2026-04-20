@@ -1,0 +1,23 @@
+<div class="announcements-page">
+  <cm-section-header title="Avisos" eyebrow="COMUNICADOS"></cm-section-header>
+
+  @if (announcements().length === 0) {
+    <cm-empty-state icon="📋" title="Sem avisos" subtitle="Nenhum comunicado publicado"></cm-empty-state>
+  } @else {
+    <div class="aviso-list">
+      @for (a of announcements(); track a.id) {
+        <div class="aviso-card" [style.--priority-color]="priorityColor(a.priority)">
+          <div class="aviso-bar"></div>
+          <div class="aviso-body">
+            <div class="aviso-header">
+              <span class="aviso-title">{{ a.title }}</span>
+              @if (a.pinned) { <cm-badge variant="neutral">Fixado</cm-badge> }
+            </div>
+            <p class="aviso-text">{{ a.body }}</p>
+            <span class="aviso-date">{{ a.publishedAt | date:"dd/MM/yyyy" }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

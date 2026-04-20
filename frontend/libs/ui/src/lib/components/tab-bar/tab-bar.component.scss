@@ -1,0 +1,28 @@
+.tab-bar {
+  display: flex;
+  gap: var(--s-2);
+  padding: var(--s-2);
+  background: var(--c-card-muted);
+  border-radius: var(--r-sm);
+
+  &__item {
+    flex: 1;
+    height: 34px;
+    border: none;
+    border-radius: var(--r-xs);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--c-text-muted);
+    background: transparent;
+    cursor: pointer;
+    transition: all var(--t-fast);
+
+    &--active {
+      background: var(--c-card);
+      color: var(--c-text);
+      font-weight: 600;
+      box-shadow: var(--sh-xs);
+    }
+  }
+}

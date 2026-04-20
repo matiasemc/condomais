@@ -1,0 +1,17 @@
+.card {
+  background: var(--c-card);
+  border-radius: var(--r-md);
+  padding: var(--s-5);
+  box-shadow: var(--sh-sm);
+
+  &--accent {
+    background: var(--c-accent);
+    color: #fff;
+    box-shadow: var(--sh-accent);
+  }
+
+  &--flat {
+    box-shadow: none;
+    border: 1px solid var(--c-border);
+  }
+}

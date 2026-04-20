@@ -1,0 +1,26 @@
+<div class="page">
+  <div class="profile-header">
+    <cm-avatar name="Joao Silva" [size]="72" color="#E8D5C4"></cm-avatar>
+    <h1 class="profile-header__name">Joao Silva</h1>
+    <p class="profile-header__apto">Apto 1204 - Torre B</p>
+    <cm-badge variant="accent">Morador</cm-badge>
+  </div>
+  <div class="section">
+    <p class="section__label">Conta</p>
+    <div class="menu-list">
+      <a class="menu-row" routerLink="/integracoes">
+        <span class="menu-row__icon">🔗</span>
+        <span class="menu-row__label">Integracoes Google</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a class="menu-row" routerLink="/notificacoes">
+        <span class="menu-row__icon">🔔</span>
+        <span class="menu-row__label">Notificacoes</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="section">
+    <cm-button variant="ghost" size="md" style="width:100%" (clicked)="sair()">Sair da conta</cm-button>
+  </div>
+</div>

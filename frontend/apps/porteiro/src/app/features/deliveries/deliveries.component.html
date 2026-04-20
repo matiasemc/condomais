@@ -1,0 +1,30 @@
+<div class="deliveries-page">
+  <cm-section-header title="Entregas" eyebrow="PORTARIA">
+    <a routerLink="/entregas/nova" class="new-btn">+ Nova</a>
+  </cm-section-header>
+
+  <cm-tab-bar [tabs]="tabs" [activeId]="activeTab()" (tabChange)="activeTab.set($event)"></cm-tab-bar>
+
+  @if (filtered().length === 0) {
+    <cm-empty-state icon="📦" title="Nenhuma entrega" subtitle="Registre uma nova entrega"></cm-empty-state>
+  } @else {
+    <div class="delivery-list">
+      @for (d of filtered(); track d.id) {
+        <div class="delivery-item">
+          <cm-list-row
+            [title]="d.description"
+            [subtitle]="d.residentName + ' · Apto ' + d.unit"
+            icon="📦"
+            [clickable]="false">
+            <div slot="end" class="delivery-actions">
+              <cm-badge [variant]="d.status === 'pendente' ? 'warn' : 'success'">{{ d.status }}</cm-badge>
+              @if (d.status === 'pendente') {
+                <button class="confirm-btn" (click)="marcarRetirada(d)">✓</button>
+              }
+            </div>
+          </cm-list-row>
+        </div>
+      }
+    </div>
+  }
+</div>
