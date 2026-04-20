@@ -1,7 +1,13 @@
 import { Injectable, inject, signal } from '@angular/core';
+import { Subject } from 'rxjs';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 import { SUPABASE_CLIENT } from '../supabase/client';
-import type { Delivery, CreateDeliveryInput } from '../models/index';
+import type { Delivery, CreateDeliveryInput, AppNotification } from '../models/index';
+
+export interface DeliveryRealtimeEvent {
+  eventType: 'INSERT' | 'UPDATE';
+  delivery: Delivery;
+}
 
 export interface ResidentOption {
   id: string;
@@ -40,6 +46,8 @@ export class DeliveryService {
 
   private channel: RealtimeChannel | null = null;
 
+  readonly realtimeEvents$ = new Subject<DeliveryRealtimeEvent>();
+
   subscribeToTenant(condominioId: string): void {
     this.stopRealtime();
     this.channel = this.supabase
@@ -76,12 +84,14 @@ export class DeliveryService {
     if (eventType === 'INSERT') {
       const delivery = mapRow(newRow);
       this.deliveries.update(list => [delivery, ...list]);
+      this.realtimeEvents$.next({ eventType: 'INSERT', delivery });
     } else if (eventType === 'UPDATE') {
       const delivery = mapRow(newRow);
       if (newRow.deleted_at) {
         this.deliveries.update(list => list.filter(d => d.id !== delivery.id));
       } else {
         this.deliveries.update(list => list.map(d => d.id === delivery.id ? delivery : d));
+        this.realtimeEvents$.next({ eventType: 'UPDATE', delivery });
       }
     } else if (eventType === 'DELETE') {
       this.deliveries.update(list => list.filter(d => d.id !== oldRow.id));

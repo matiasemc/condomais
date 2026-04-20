@@ -12,7 +12,8 @@ export { AuthService } from './lib/services/auth.service';
 export { MembershipService } from './lib/services/membership.service';
 export { TenantService } from './lib/services/tenant.service';
 export { DeliveryService } from './lib/services/delivery.service';
-export type { ResidentOption } from './lib/services/delivery.service';
+export type { ResidentOption, DeliveryRealtimeEvent } from './lib/services/delivery.service';
+export { NotificationService } from './lib/services/notification.service';
 
 // Guards
 export { authGuard } from './lib/guards/auth.guard';

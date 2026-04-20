@@ -29,6 +29,18 @@ export interface AuthState {
   error: string | null;
 }
 
+export type NotificationType = 'nova_entrega' | 'entrega_retirada';
+
+export interface AppNotification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  body: string;
+  deliveryId: string;
+  read: boolean;
+  createdAt: Date;
+}
+
 export type DeliveryStatus = 'pendente' | 'notificada' | 'retirada' | 'devolvida' | 'expirada' | 'cancelada';
 export type DeliveryTipo = 'encomenda' | 'sedex' | 'cafe' | 'jantar' | 'documento' | 'medicamento' | 'outro';
 
