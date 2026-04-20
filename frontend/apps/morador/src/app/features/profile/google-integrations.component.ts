@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { Location } from '@angular/common';
-import { ToggleComponent } from '../../../../../libs/ui/src/lib/components/toggle/toggle.component';
-import { ButtonComponent } from '../../../../../libs/ui/src/lib/components/button/button.component';
+import { ToggleComponent } from '@condomais/ui';
+import { ButtonComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
 
 @Component({

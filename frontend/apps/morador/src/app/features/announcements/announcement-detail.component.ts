@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject, input } from '@angular/core';
 import { Location } from '@angular/common';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
+import { BadgeComponent } from '@condomais/ui';
 
 @Component({
   selector: 'cm-announcement-detail',

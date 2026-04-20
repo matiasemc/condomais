@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, signal, inject, input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ButtonComponent } from '../../../../../libs/ui/src/lib/components/button/button.component';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
+import { ButtonComponent } from '@condomais/ui';
+import { BadgeComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
 
 @Component({

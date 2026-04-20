@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
+import { BadgeComponent } from '@condomais/ui';
 import { MarketplaceItem } from '../../core/models';
 
 @Component({
   selector: 'cm-marketplace',
   standalone: true,
-  imports: [RouterLink, BadgeComponent],
+  imports: [DecimalPipe, RouterLink, BadgeComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">

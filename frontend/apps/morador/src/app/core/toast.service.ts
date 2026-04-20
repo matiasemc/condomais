@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { ToastData } from '../../../../libs/ui/src/index';
+import { ToastData } from '@condomais/ui';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {

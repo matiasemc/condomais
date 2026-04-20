@@ -1,14 +1,15 @@
 import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { TabBarComponent, TabItem } from '../../../../../libs/ui/src/lib/components/tab-bar/tab-bar.component';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
-import { EmptyStateComponent } from '../../../../../libs/ui/src/lib/components/empty-state/empty-state.component';
+import { TabBarComponent, TabItem } from '@condomais/ui';
+import { BadgeComponent } from '@condomais/ui';
+import { EmptyStateComponent } from '@condomais/ui';
 import { Delivery } from '../../core/models';
 
 @Component({
   selector: 'cm-deliveries',
   standalone: true,
-  imports: [RouterLink, TabBarComponent, BadgeComponent, EmptyStateComponent],
+  imports: [DatePipe, RouterLink, TabBarComponent, BadgeComponent, EmptyStateComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">

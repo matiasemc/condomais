@@ -18,7 +18,10 @@
       "Bash(sed -n '18,27p' apps/porteiro/src/app/features/deliveries/deliveries.component.ts)",
       "Bash(sed -n '12,18p' apps/porteiro/src/app/features/deliveries/new-delivery.component.ts)",
       "Bash(sed -n '19,25p' apps/porteiro/src/app/features/deliveries/deliveries.component.ts)",
-      "Bash(sed -n '13,18p' apps/porteiro/src/app/features/deliveries/new-delivery.component.ts)"
+      "Bash(sed -n '13,18p' apps/porteiro/src/app/features/deliveries/new-delivery.component.ts)",
+      "Bash(grep -v \"^\\\\s*$\")",
+      "Bash(sed -n '1,8p' apps/porteiro/src/app/features/residents/resident-detail.component.ts)",
+      "Bash(sed -n '25,30p' apps/porteiro/src/app/features/residents/resident-detail.component.ts)"
     ]
   }
 }

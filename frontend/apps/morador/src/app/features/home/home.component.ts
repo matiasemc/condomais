@@ -1,15 +1,16 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CardComponent } from '../../../../../libs/ui/src/lib/components/card/card.component';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
-import { SectionHeaderComponent } from '../../../../../libs/ui/src/lib/components/section-header/section-header.component';
-import { AvatarComponent } from '../../../../../libs/ui/src/lib/components/avatar/avatar.component';
+import { CardComponent } from '@condomais/ui';
+import { BadgeComponent } from '@condomais/ui';
+import { SectionHeaderComponent } from '@condomais/ui';
+import { AvatarComponent } from '@condomais/ui';
 import { Delivery, Reservation, Announcement } from '../../core/models';
 
 @Component({
   selector: 'cm-home',
   standalone: true,
-  imports: [RouterLink, CardComponent, BadgeComponent, SectionHeaderComponent, AvatarComponent],
+  imports: [DatePipe, RouterLink, CardComponent, BadgeComponent, SectionHeaderComponent, AvatarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="home">

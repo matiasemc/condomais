@@ -1,6 +1,5 @@
 import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DatePipe } from '@angular/common';
 import { TabBarComponent, BadgeComponent, ListRowComponent, SectionHeaderComponent, EmptyStateComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
 import type { TabItem } from '@condomais/ui';
@@ -18,7 +17,7 @@ interface Delivery {
   selector: 'cm-deliveries',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DatePipe, TabBarComponent, BadgeComponent, ListRowComponent, SectionHeaderComponent, EmptyStateComponent],
+  imports: [RouterLink, TabBarComponent, BadgeComponent, ListRowComponent, SectionHeaderComponent, EmptyStateComponent],
   templateUrl: './deliveries.component.html',
   styleUrl: './deliveries.component.scss',
 })

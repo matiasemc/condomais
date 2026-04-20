@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AvatarComponent } from '../../../../../libs/ui/src/lib/components/avatar/avatar.component';
-import { ButtonComponent } from '../../../../../libs/ui/src/lib/components/button/button.component';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
+import { AvatarComponent } from '@condomais/ui';
+import { ButtonComponent } from '@condomais/ui';
+import { BadgeComponent } from '@condomais/ui';
 
 @Component({
   selector: 'cm-profile',

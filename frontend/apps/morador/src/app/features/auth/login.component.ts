@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ButtonComponent } from '../../../../../libs/ui/src/lib/components/button/button.component';
+import { ButtonComponent } from '@condomais/ui';
 
 @Component({
   selector: 'cm-login',

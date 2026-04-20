@@ -1,7 +1,7 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ToastComponent } from '../../../../../libs/ui/src/lib/components/toast/toast.component';
-import { ToastService } from '../../app/core/toast.service';
+import { ToastComponent } from '@condomais/ui';
+import { ToastService } from '../../core/toast.service';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { BadgeComponent, ButtonComponent, AvatarComponent, SectionHeaderComponent, ListRowComponent } from '@condomais/ui';
+import { BadgeComponent, ButtonComponent, AvatarComponent, ListRowComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
 
 interface ResidentDelivery {
@@ -24,7 +24,7 @@ interface ResidentProfile {
   selector: 'cm-resident-detail',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DatePipe, BadgeComponent, ButtonComponent, AvatarComponent, SectionHeaderComponent, ListRowComponent],
+  imports: [RouterLink, DatePipe, BadgeComponent, ButtonComponent, AvatarComponent, ListRowComponent],
   templateUrl: './resident-detail.component.html',
   styleUrl: './resident-detail.component.scss',
 })

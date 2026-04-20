@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
+import { BadgeComponent } from '@condomais/ui';
 import { Announcement } from '../../core/models';
 
 @Component({
   selector: 'cm-announcements',
   standalone: true,
-  imports: [RouterLink, BadgeComponent],
+  imports: [DatePipe, RouterLink, BadgeComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">

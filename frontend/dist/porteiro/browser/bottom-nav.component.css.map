@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/porteiro/src/app/layout/bottom-nav/bottom-nav.component.scss"],
+  "sourcesContent": [".bottom-nav {\n  display: flex;\n  background: var(--c-bg-raised);\n  border-top: 1px solid var(--c-border);\n  padding: var(--s-2) 0;\n  padding-bottom: calc(var(--s-2) + env(safe-area-inset-bottom));\n  position: fixed;\n  bottom: 0; left: 0; right: 0;\n  z-index: 100;\n\n  &__item {\n    flex: 1;\n    display: flex; flex-direction: column; align-items: center; gap: 3px;\n    padding: var(--s-2) 0;\n    text-decoration: none;\n    color: var(--c-text-faint);\n    font-size: 10px; font-weight: 500;\n    transition: color var(--t-fast);\n\n    &--active { color: var(--c-accent); }\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,cAAA,IAAA;AACA,cAAA,IAAA,MAAA,IAAA;AACA,WAAA,IAAA,OAAA;AACA,kBAAA,KAAA,IAAA,OAAA,EAAA,IAAA;AACA,YAAA;AACA,UAAA;AAAW,QAAA;AAAS,SAAA;AACpB,WAAA;;AAEA,CAAA;AACE,QAAA;AACA,WAAA;AAAe,kBAAA;AAAwB,eAAA;AAAqB,OAAA;AAC5D,WAAA,IAAA,OAAA;AACA,mBAAA;AACA,SAAA,IAAA;AACA,aAAA;AAAiB,eAAA;AACjB,cAAA,MAAA,IAAA;;AAEA,CAAA;AAAY,SAAA,IAAA;;",
+  "names": []
+}

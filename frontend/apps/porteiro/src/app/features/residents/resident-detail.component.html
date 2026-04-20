@@ -6,7 +6,7 @@
           <path d="M12 5l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
-      <cm-avatar [name]="r.name" size="lg"></cm-avatar>
+      <cm-avatar [name]="r.name" [size]="56"></cm-avatar>
       <div class="detail-identity">
         <h2 class="detail-name">{{ r.name }}</h2>
         <span class="detail-unit">Apto {{ r.unit }}</span>
@@ -21,7 +21,7 @@
       <section class="detail-section">
         <h3 class="section-title">Entregas pendentes</h3>
         @for (d of pendingDeliveries(); track d.id) {
-          <cm-list-row [title]="d.description" [subtitle]="(d.arrivedAt | date:"dd/MM/yyyy HH:mm") || """ icon="📦">
+          <cm-list-row [title]="d.description" [subtitle]="(d.arrivedAt | date:'dd/MM/yyyy HH:mm') || ''" icon="📦">
             <cm-badge slot="end" variant="warn">Pendente</cm-badge>
           </cm-list-row>
         }
@@ -31,7 +31,7 @@
       <section class="detail-section">
         <h3 class="section-title">Histórico</h3>
         @for (d of pastDeliveries(); track d.id) {
-          <cm-list-row [title]="d.description" [subtitle]="(d.arrivedAt | date:"dd/MM/yyyy HH:mm") || """ icon="✅">
+          <cm-list-row [title]="d.description" [subtitle]="(d.arrivedAt | date:'dd/MM/yyyy HH:mm') || ''" icon="✅">
           </cm-list-row>
         }
       </section>

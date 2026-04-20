@@ -1,13 +1,14 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
-import { ButtonComponent } from '../../../../../libs/ui/src/lib/components/button/button.component';
+import { DatePipe } from '@angular/common';
+import { BadgeComponent } from '@condomais/ui';
+import { ButtonComponent } from '@condomais/ui';
 import { Reservation } from '../../core/models';
 
 @Component({
   selector: 'cm-reservations',
   standalone: true,
-  imports: [RouterLink, BadgeComponent, ButtonComponent],
+  imports: [RouterLink, DatePipe, BadgeComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/toggle/toggle.component.scss"],
+  "sourcesContent": [".toggle {\n  width: 50px;\n  height: 30px;\n  border-radius: 15px;\n  border: none;\n  cursor: pointer;\n  background: var(--c-card-muted);\n  position: relative;\n  transition: background var(--t-fast);\n  flex-shrink: 0;\n\n  &--on { background: var(--c-accent); }\n\n  &__thumb {\n    position: absolute;\n    top: 3px;\n    left: 3px;\n    width: 24px;\n    height: 24px;\n    border-radius: 12px;\n    background: #fff;\n    box-shadow: 0 1px 3px rgba(0,0,0,0.2);\n    transition: transform var(--t-fast);\n  }\n\n  &--on &__thumb { transform: translateX(20px); }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,SAAA;AACA,UAAA;AACA,iBAAA;AACA,UAAA;AACA,UAAA;AACA,cAAA,IAAA;AACA,YAAA;AACA,cAAA,WAAA,IAAA;AACA,eAAA;;AAEA,CAAA;AAAQ,cAAA,IAAA;;AAER,CAAA;AACE,YAAA;AACA,OAAA;AACA,QAAA;AACA,SAAA;AACA,UAAA;AACA,iBAAA;AACA,cAAA;AACA,cAAA,EAAA,IAAA,IAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;AACA,cAAA,UAAA,IAAA;;AAGF,CAdA,WAcA,CAZA;AAYiB,aAAA,WAAA;;",
+  "names": []
+}

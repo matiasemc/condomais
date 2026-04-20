@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { Location, DatePipe } from '@angular/common';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
+import { BadgeComponent } from '@condomais/ui';
 import { Notification } from '../../core/models';
 
 @Component({
   selector: 'cm-notifications',
   standalone: true,
-  imports: [DatePipe, BadgeComponent],
+  imports: [DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.scss',

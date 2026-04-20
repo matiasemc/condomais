@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/section-header/section-header.component.scss"],
+  "sourcesContent": [".section-header {\n  display: flex;\n  align-items: baseline;\n  justify-content: space-between;\n  margin-bottom: var(--s-4);\n\n  &__eyebrow {\n    font-size: 11px;\n    font-weight: 600;\n    text-transform: uppercase;\n    letter-spacing: 0.8px;\n    color: var(--c-text-muted);\n    margin-bottom: var(--s-1);\n  }\n\n  &__title {\n    font-family: var(--font-serif);\n    font-size: 19px;\n    font-weight: 400;\n    letter-spacing: -0.2px;\n    color: var(--c-text);\n    margin: 0;\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,eAAA;AACA,mBAAA;AACA,iBAAA,IAAA;;AAEA,CAAA;AACE,aAAA;AACA,eAAA;AACA,kBAAA;AACA,kBAAA;AACA,SAAA,IAAA;AACA,iBAAA,IAAA;;AAGF,CAAA;AACE,eAAA,IAAA;AACA,aAAA;AACA,eAAA;AACA,kBAAA;AACA,SAAA,IAAA;AACA,UAAA;;",
+  "names": []
+}

@@ -1,0 +1,150 @@
+/* apps/porteiro/src/styles.scss */
+:root {
+  --c-bg: #F6F1EA;
+  --c-bg-raised: #FFFBF4;
+  --c-card: #FFFFFF;
+  --c-card-muted: #F2ECE1;
+  --c-text: #1C1A14;
+  --c-text-muted: rgba(28, 26, 20, 0.56);
+  --c-text-faint: rgba(28, 26, 20, 0.38);
+  --c-border: rgba(28, 26, 20, 0.07);
+  --c-border-strong: rgba(28, 26, 20, 0.12);
+  --c-accent: oklch(0.66 0.13 40);
+  --c-accent-soft: oklch(0.94 0.04 40);
+  --c-accent-dark: oklch(0.52 0.14 40);
+  --c-accent-fb: #C4724A;
+  --c-accent-soft-fb: #FAF0EB;
+  --c-accent-dark-fb: #8A3F22;
+  --c-success: oklch(0.68 0.12 150);
+  --c-success-soft: oklch(0.94 0.05 150);
+  --c-warn: oklch(0.72 0.13 70);
+  --c-warn-soft: oklch(0.95 0.06 70);
+  --c-danger: #C0392B;
+  --c-whatsapp: #25D366;
+  --font-serif:
+    "Playfair Display",
+    Georgia,
+    serif;
+  --font-sans:
+    "Geist",
+    "Helvetica Neue",
+    -apple-system,
+    system-ui,
+    sans-serif;
+  --font-mono:
+    "JetBrains Mono",
+    ui-monospace,
+    "SF Mono",
+    Menlo,
+    monospace;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+  --s-9: 56px;
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 20px;
+  --r-pill: 9999px;
+  --sh-xs: 0 1px 2px rgba(28, 26, 20, 0.04);
+  --sh-sm: 0 1px 2px rgba(28, 26, 20, 0.04), 0 4px 14px rgba(28, 26, 20, 0.04);
+  --sh-md: 0 8px 30px rgba(28, 26, 20, 0.12);
+  --sh-accent: 0 10px 30px rgba(180, 100, 60, 0.22);
+  --t-fast: 150ms ease;
+  --t-base: 240ms ease;
+  --t-slow: 400ms ease;
+}
+.porteiro-theme {
+  --c-accent: oklch(0.66 0.13 130);
+  --c-accent-soft: oklch(0.94 0.04 130);
+  --c-accent-dark: oklch(0.52 0.14 130);
+  --c-accent-fb: #3A8C5A;
+  --c-accent-soft-fb: #EBF7EF;
+  --c-accent-dark-fb: #1F5C38;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #0E0D0A;
+    --c-bg-raised: #1A1813;
+    --c-card: #201E18;
+    --c-card-muted: #2A2820;
+    --c-text: #F5EEDF;
+    --c-text-muted: rgba(245, 238, 223, 0.56);
+    --c-text-faint: rgba(245, 238, 223, 0.38);
+    --c-border: rgba(245, 238, 223, 0.08);
+    --c-border-strong: rgba(245, 238, 223, 0.14);
+  }
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background: var(--c-bg);
+  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@keyframes checkDraw {
+  from {
+    stroke-dashoffset: 40;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.screen-enter {
+  animation: fadeIn var(--t-base) ease-out;
+}
+
+/* angular:styles/global:styles */
+/*# sourceMappingURL=styles.css.map */

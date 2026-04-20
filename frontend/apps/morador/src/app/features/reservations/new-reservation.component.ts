@@ -2,9 +2,9 @@ import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/cor
 import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StepperComponent } from '../../../../../libs/ui/src/lib/components/stepper/stepper.component';
-import { ButtonComponent } from '../../../../../libs/ui/src/lib/components/button/button.component';
-import { ToggleComponent } from '../../../../../libs/ui/src/lib/components/toggle/toggle.component';
+import { StepperComponent } from '@condomais/ui';
+import { ButtonComponent } from '@condomais/ui';
+import { ToggleComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
 
 @Component({

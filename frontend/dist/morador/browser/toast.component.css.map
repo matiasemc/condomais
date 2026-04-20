@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/toast/toast.component.scss"],
+  "sourcesContent": [".toast {\n  position: fixed;\n  bottom: 90px;\n  left: 50%;\n  transform: translateX(-50%);\n  background: var(--c-text);\n  color: var(--c-bg);\n  border-radius: var(--r-pill);\n  padding: var(--s-3) var(--s-5);\n  display: flex;\n  align-items: center;\n  gap: var(--s-2);\n  font-size: 13px;\n  font-weight: 500;\n  white-space: nowrap;\n  z-index: 1000;\n  box-shadow: var(--sh-md);\n  animation: toastIn 240ms ease-out;\n\n  &__icon { font-size: 14px; }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,YAAA;AACA,UAAA;AACA,QAAA;AACA,aAAA,WAAA;AACA,cAAA,IAAA;AACA,SAAA,IAAA;AACA,iBAAA,IAAA;AACA,WAAA,IAAA,OAAA,IAAA;AACA,WAAA;AACA,eAAA;AACA,OAAA,IAAA;AACA,aAAA;AACA,eAAA;AACA,eAAA;AACA,WAAA;AACA,cAAA,IAAA;AACA,aAAA,QAAA,MAAA;;AAEA,CAAA;AAAU,aAAA;;",
+  "names": []
+}

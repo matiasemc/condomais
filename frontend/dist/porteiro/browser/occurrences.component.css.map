@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/porteiro/src/app/features/occurrences/occurrences.component.scss"],
+  "sourcesContent": [".occurrences-page { padding: var(--s-4); display: flex; flex-direction: column; gap: var(--s-4); }\n.new-btn {\n  font-size: 13px; font-weight: 600; color: var(--c-accent); text-decoration: none;\n  padding: var(--s-1) var(--s-3); border: 1.5px solid var(--c-accent); border-radius: var(--r-pill);\n}\n.occurrence-list { display: flex; flex-direction: column; gap: var(--s-3); }\n.occurrence-card {\n  background: var(--c-card); border-radius: var(--r-md); padding: var(--s-4);\n  display: flex; flex-direction: column; gap: var(--s-2);\n}\n.occurrence-header { display: flex; align-items: center; justify-content: space-between; }\n.occurrence-type { font-size: 15px; font-weight: 700; color: var(--c-text); }\n.occurrence-desc { font-size: 14px; color: var(--c-text-muted); margin: 0; line-height: 1.5; }\n.occurrence-meta { font-size: 12px; color: var(--c-text-muted); }"],
+  "mappings": ";AAAA,CAAA;AAAoB,WAAA,IAAA;AAAqB,WAAA;AAAe,kBAAA;AAAwB,OAAA,IAAA;;AAChF,CAAA;AACE,aAAA;AAAiB,eAAA;AAAkB,SAAA,IAAA;AAAwB,mBAAA;AAC3D,WAAA,IAAA,OAAA,IAAA;AAAgC,UAAA,MAAA,MAAA,IAAA;AAAqC,iBAAA,IAAA;;AAEvE,CAAA;AAAmB,WAAA;AAAe,kBAAA;AAAwB,OAAA,IAAA;;AAC1D,CAAA;AACE,cAAA,IAAA;AAA2B,iBAAA,IAAA;AAA4B,WAAA,IAAA;AACvD,WAAA;AAAe,kBAAA;AAAwB,OAAA,IAAA;;AAEzC,CAAA;AAAqB,WAAA;AAAe,eAAA;AAAqB,mBAAA;;AACzD,CAAA;AAAmB,aAAA;AAAiB,eAAA;AAAkB,SAAA,IAAA;;AACtD,CAAA;AAAmB,aAAA;AAAiB,SAAA,IAAA;AAA4B,UAAA;AAAW,eAAA;;AAC3E,CAAA;AAAmB,aAAA;AAAiB,SAAA,IAAA;;",
+  "names": []
+}

@@ -1,7 +1,7 @@
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { SearchInputComponent, ButtonComponent, StepperComponent, AvatarComponent, SectionHeaderComponent, BadgeComponent } from '@condomais/ui';
+import { SearchInputComponent, ButtonComponent, StepperComponent, AvatarComponent, SectionHeaderComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
 
 interface ResidentOption {
@@ -12,7 +12,7 @@ interface ResidentOption {
   selector: 'cm-new-delivery',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, SearchInputComponent, ButtonComponent, StepperComponent, AvatarComponent, SectionHeaderComponent, BadgeComponent],
+  imports: [FormsModule, SearchInputComponent, ButtonComponent, StepperComponent, AvatarComponent, SectionHeaderComponent],
   templateUrl: './new-delivery.component.html',
   styleUrl: './new-delivery.component.scss',
 })
