@@ -14,7 +14,11 @@
       "Bash(npx ng *)",
       "Bash(node_modules/.bin/ng build *)",
       "Bash(npm install *)",
-      "Bash(cat C:\\\\\\\\Users\\\\\\\\MATIAS~1\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\claude\\\\\\\\c--Users-Matiasemc-OneDrive-Documentos-git-Condomais\\\\\\\\5d558973-ebbd-4015-af2a-1bfc8abd2e44\\\\\\\\tasks\\\\\\\\bmrcblwk6.output)"
+      "Bash(cat C:\\\\\\\\Users\\\\\\\\MATIAS~1\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\claude\\\\\\\\c--Users-Matiasemc-OneDrive-Documentos-git-Condomais\\\\\\\\5d558973-ebbd-4015-af2a-1bfc8abd2e44\\\\\\\\tasks\\\\\\\\bmrcblwk6.output)",
+      "Bash(sed -n '18,27p' apps/porteiro/src/app/features/deliveries/deliveries.component.ts)",
+      "Bash(sed -n '12,18p' apps/porteiro/src/app/features/deliveries/new-delivery.component.ts)",
+      "Bash(sed -n '19,25p' apps/porteiro/src/app/features/deliveries/deliveries.component.ts)",
+      "Bash(sed -n '13,18p' apps/porteiro/src/app/features/deliveries/new-delivery.component.ts)"
     ]
   }
 }

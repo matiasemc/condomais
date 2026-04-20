@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { KpiCardComponent } from '../../../../../libs/ui/src/lib/components/kpi-card/kpi-card.component';
-import { BadgeComponent } from '../../../../../libs/ui/src/lib/components/badge/badge.component';
+import { KpiCardComponent } from '@condomais/ui';
+import { BadgeComponent } from '@condomais/ui';
 
 @Component({
   selector: 'cm-porteiro-home',

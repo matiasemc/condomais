@@ -1,6 +1,3 @@
-// Tokens
-export * from './lib/tokens/_tokens.scss';
-
 // Components
 export { ButtonComponent }       from './lib/components/button/button.component';
 export { BadgeComponent }        from './lib/components/badge/badge.component';

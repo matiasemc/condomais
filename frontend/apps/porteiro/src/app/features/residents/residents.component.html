@@ -2,7 +2,7 @@
   <cm-section-header title="Moradores" eyebrow="GESTÃO"></cm-section-header>
 
   <div class="search-bar">
-    <cm-search-input [(model)]="search" placeholder="Buscar por nome ou apto…"></cm-search-input>
+    <cm-search-input [(value)]="search" placeholder="Buscar por nome ou apto…"></cm-search-input>
   </div>
 
   <div class="filter-chips">
@@ -19,7 +19,7 @@
     <div class="resident-list">
       @for (r of filtered(); track r.id) {
         <a class="resident-card" [routerLink]="['/moradores', r.id]">
-          <cm-avatar [name]="r.name" [color]="r.status === 'inativo' ? '#aaa' : undefined"></cm-avatar>
+          <cm-avatar [name]="r.name" [color]="r.status === 'inativo' ? '#aaa' : ''"></cm-avatar>
           <div class="resident-info">
             <span class="resident-name">{{ r.name }}</span>
             <span class="resident-unit">Apto {{ r.unit }}</span>

@@ -4,7 +4,7 @@
 
   @if (activeStep() === 0) {
     <div class="step">
-      <cm-search-input [(model)]="search" placeholder="Buscar morador…"></cm-search-input>
+      <cm-search-input [(value)]="search" placeholder="Buscar morador…"></cm-search-input>
       <div class="resident-options">
         @for (r of filteredResidents(); track r.id) {
           <button class="resident-opt" (click)="selectResident(r)">

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 export interface ToastData {
   message: string;
   icon?: string;
+  type?: 'success' | 'info' | 'warn' | 'error';
   duration?: number;
 }
 

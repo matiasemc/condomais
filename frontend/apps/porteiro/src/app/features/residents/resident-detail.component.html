@@ -21,7 +21,7 @@
       <section class="detail-section">
         <h3 class="section-title">Entregas pendentes</h3>
         @for (d of pendingDeliveries(); track d.id) {
-          <cm-list-row [title]="d.description" [subtitle]="d.arrivedAt | date:'dd/MM/yyyy HH:mm'" icon="📦">
+          <cm-list-row [title]="d.description" [subtitle]="(d.arrivedAt | date:"dd/MM/yyyy HH:mm") || """ icon="📦">
             <cm-badge slot="end" variant="warn">Pendente</cm-badge>
           </cm-list-row>
         }
@@ -31,7 +31,7 @@
       <section class="detail-section">
         <h3 class="section-title">Histórico</h3>
         @for (d of pastDeliveries(); track d.id) {
-          <cm-list-row [title]="d.description" [subtitle]="d.arrivedAt | date:'dd/MM/yyyy HH:mm'" icon="✅">
+          <cm-list-row [title]="d.description" [subtitle]="(d.arrivedAt | date:"dd/MM/yyyy HH:mm") || """ icon="✅">
           </cm-list-row>
         }
       </section>
