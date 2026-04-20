@@ -1,10 +1,9 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed, inject, effect, DestroyRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { TabBarComponent, TabItem } from '@condomais/ui';
-import { BadgeComponent } from '@condomais/ui';
-import { EmptyStateComponent } from '@condomais/ui';
-import { Delivery } from '../../core/models';
+import { TabBarComponent, BadgeComponent, EmptyStateComponent } from '@condomais/ui';
+import { DeliveryService, AuthState } from '@condomais/core';
+import type { TabItem } from '@condomais/ui';
 
 @Component({
   selector: 'cm-deliveries',
@@ -20,21 +19,25 @@ import { Delivery } from '../../core/models';
         <cm-tab-bar [tabs]="tabs" [activeId]="activeTab()" (tabChange)="activeTab.set($event)"></cm-tab-bar>
       </div>
       <div class="delivery-list">
-        @for (d of filtered(); track d.id) {
-          <a class="delivery-row" [routerLink]="['/entregas', d.id]">
-            <div class="delivery-row__icon">📦</div>
-            <div class="delivery-row__body">
-              <p class="delivery-row__title">{{ d.remetente }}</p>
-              <p class="delivery-row__sub">{{ d.tipo }} · {{ d.criadaEm | date:'dd/MM HH:mm' }}</p>
-            </div>
-            <cm-badge [variant]="d.status === 'pendente' ? 'accent' : 'success'">
-              {{ d.status === 'pendente' ? 'Aguardando' : 'Retirada' }}
-            </cm-badge>
-          </a>
-        } @empty {
-          <cm-empty-state icon="📭" title="Nenhuma entrega"
-            subtitle="Você não tem entregas {{ activeTab() === 'pendente' ? 'pendentes' : 'retiradas' }} no momento.">
-          </cm-empty-state>
+        @if (isLoading()) {
+          <cm-empty-state icon="⏳" title="Carregando…" subtitle="Buscando suas entregas"></cm-empty-state>
+        } @else {
+          @for (d of filtered(); track d.id) {
+            <a class="delivery-row" [routerLink]="['/entregas', d.id]">
+              <div class="delivery-row__icon">📦</div>
+              <div class="delivery-row__body">
+                <p class="delivery-row__title">{{ d.transportadora ?? d.tipo }}</p>
+                <p class="delivery-row__sub">{{ d.tipo }} · {{ d.createdAt | date:'dd/MM HH:mm' }}</p>
+              </div>
+              <cm-badge [variant]="d.status === 'pendente' || d.status === 'notificada' ? 'accent' : 'success'">
+                {{ d.status === 'retirada' ? 'Retirada' : 'Aguardando' }}
+              </cm-badge>
+            </a>
+          } @empty {
+            <cm-empty-state icon="📭" title="Nenhuma entrega"
+              [subtitle]="'Você não tem entregas ' + (activeTab() === 'pendente' ? 'pendentes' : 'retiradas') + ' no momento.'">
+            </cm-empty-state>
+          }
         }
       </div>
     </div>
@@ -42,17 +45,33 @@ import { Delivery } from '../../core/models';
   styleUrl: './deliveries.component.scss',
 })
 export class DeliveriesComponent {
+  private readonly deliveryService = inject(DeliveryService);
+  private readonly authState       = inject(AuthState);
+
   tabs: TabItem[] = [
     { id: 'pendente', label: 'Aguardando' },
     { id: 'retirada', label: 'Retiradas' },
   ];
-  activeTab = signal('pendente');
 
-  deliveries = signal<Delivery[]>([
-    { id: '1', morador: 'João Silva', apto: '1204', torre: 'B', remetente: 'Mercado Livre', tipo: 'Caixa pequena', status: 'pendente', criadaEm: new Date() },
-    { id: '2', morador: 'João Silva', apto: '1204', torre: 'B', remetente: 'Amazon', tipo: 'Envelope', status: 'pendente', criadaEm: new Date(Date.now() - 86400000) },
-    { id: '3', morador: 'João Silva', apto: '1204', torre: 'B', remetente: 'Shopee', tipo: 'Caixa grande', status: 'retirada', criadaEm: new Date(Date.now() - 3 * 86400000) },
-  ]);
+  activeTab  = signal('pendente');
+  isLoading  = this.deliveryService.isLoading;
+  deliveries = this.deliveryService.deliveries;
 
-  filtered = computed(() => this.deliveries().filter(d => d.status === this.activeTab()));
+  filtered = computed(() => {
+    const tab  = this.activeTab();
+    const list = this.deliveries();
+    if (tab === 'pendente') return list.filter(d => d.status === 'pendente' || d.status === 'notificada');
+    return list.filter(d => d.status === 'retirada');
+  });
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => this.deliveryService.stopRealtime());
+    effect(() => {
+      const user   = this.authState.user();
+      const tenant = this.authState.currentTenant();
+      if (user && tenant) {
+        this.deliveryService.loadForUser(user.id);
+      }
+    });
+  }
 }

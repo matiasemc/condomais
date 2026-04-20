@@ -1,0 +1,14 @@
+<div class="login">
+  <div class="login__card">
+    <h1 class="login__title">CondoMais</h1>
+    <p class="login__subtitle">Área do Morador</p>
+    @if (state.error()) {
+      <p class="login__error">{{ state.error() }}</p>
+    }
+    <input class="login__input" type="email" [(ngModel)]="email" placeholder="E-mail" />
+    <input class="login__input" type="password" [(ngModel)]="password" placeholder="Senha" />
+    <button class="login__btn login__btn--accent" (click)="login()" [disabled]="state.isLoading()">
+      {{ state.isLoading() ? "Aguarde…" : "Entrar" }}
+    </button>
+  </div>
+</div>

@@ -19,9 +19,17 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"],
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
     "paths": {
-      "@condomais/ui": ["libs/ui/src/index.ts"]
+      "@condomais/ui": [
+        "libs/ui/src/index.ts"
+      ],
+      "@condomais/core": [
+        "libs/core/src/index.ts"
+      ]
     }
   },
   "angularCompilerOptions": {

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;5d6023e019de4309dd23453e0c244341a54bb0a17701e57efb7921635c8ee212;C:/Users/Matiasemc/OneDrive/Documentos/git/Condomais/frontend/apps/master-admin/src/app/features/login/login.component.ts"],
+  "sourcesContent": [".login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f4f4f4}\n    .login-card{background:#fff;padding:40px;border-radius:12px;display:flex;flex-direction:column;gap:16px;min-width:320px}\n    .login-title{margin:0;font-size:22px;font-weight:700}\n    .login-input{padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:15px}\n    .login-btn{padding:12px;background:#1C1A14;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer}\n    .login-error{color:#c0392b;font-size:13px;margin:0}"],
+  "mappings": ";AAAA,CAAC;AAAW,WAAQ;AAAK,eAAY;AAAO,mBAAgB;AAAO,cAAW;AAAM,cAAW;AAAO;AAClG,CAAC;AAAW,cAAW;AAAK,WAAQ;AAAK,iBAAc;AAAK,WAAQ;AAAK,kBAAe;AAAO,OAAI;AAAK,aAAU;AAAK;AACvH,CAAC;AAAY,UAAO;AAAE,aAAU;AAAK,eAAY;AAAG;AACpD,CAAC;AAAY,WAAQ,KAAK;AAAK,UAAO,MAAM,MAAM;AAAK,iBAAc;AAAI,aAAU;AAAI;AACvF,CAAC;AAAU,WAAQ;AAAK,cAAW;AAAQ,SAAM;AAAK,UAAO;AAAK,iBAAc;AAAI,aAAU;AAAK,UAAO;AAAO;AACjH,CAAC;AAAY,SAAM;AAAQ,aAAU;AAAK,UAAO;AAAC;",
+  "names": []
+}

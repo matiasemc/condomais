@@ -1,12 +1,10 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, computed, inject, effect, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SearchInputComponent, ButtonComponent, StepperComponent, AvatarComponent, SectionHeaderComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
-
-interface ResidentOption {
-  id: string; name: string; unit: string;
-}
+import { DeliveryService, AuthState } from '@condomais/core';
+import type { ResidentOption, DeliveryTipo } from '@condomais/core';
 
 @Component({
   selector: 'cm-new-delivery',
@@ -17,42 +15,72 @@ interface ResidentOption {
   styleUrl: './new-delivery.component.scss',
 })
 export class NewDeliveryComponent {
+  private readonly deliveryService = inject(DeliveryService);
+  private readonly authState       = inject(AuthState);
+  private readonly router          = inject(Router);
+  private readonly toast           = inject(ToastService);
+
   readonly steps = ['Morador', 'Detalhes', 'Concluído'];
   activeStep = signal(0);
 
-  search = signal("");
-  selected = signal<ResidentOption | null>(null);
-  deliveryType = signal("");
-  notes = signal("");
+  search        = signal('');
+  selected      = signal<ResidentOption | null>(null);
+  deliveryType  = signal<DeliveryTipo | ''>('');
+  notes         = signal('');
 
-  readonly residents: ResidentOption[] = [
-    { id: '1', name: 'Ana Lima',       unit: '101' },
-    { id: '2', name: 'Bruno Costa',    unit: '102' },
-    { id: '3', name: 'Carla Souza',    unit: '201' },
-    { id: '4', name: 'Elisa Ferreira', unit: '301' },
-    { id: '5', name: 'Felipe Nunes',   unit: '302' },
-  ];
+  readonly residents    = signal<ResidentOption[]>([]);
+  readonly isLoadingRes = signal(false);
 
-  filteredResidents = () => {
+  filteredResidents = computed(() => {
     const q = this.search().toLowerCase();
-    return this.residents.filter(r => r.name.toLowerCase().includes(q) || r.unit.includes(q));
-  };
+    return this.residents().filter(r =>
+      r.name.toLowerCase().includes(q) || r.unit.includes(q)
+    );
+  });
 
-  constructor(private router: Router, private toast: ToastService) {}
+  constructor() {
+    effect(() => {
+      const tenant = this.authState.currentTenant();
+      if (tenant) {
+        this.isLoadingRes.set(true);
+        this.deliveryService.loadResidents(tenant.id).then(list => {
+          this.residents.set(list);
+          this.isLoadingRes.set(false);
+        });
+      }
+    });
+  }
 
-  selectResident(r: ResidentOption) {
+  selectResident(r: ResidentOption): void {
     this.selected.set(r);
     this.activeStep.set(1);
   }
 
-  confirmar() {
-    this.activeStep.set(2);
-    this.toast.show({ message: "Entrega registrada com sucesso", type: "success" });
-    setTimeout(() => this.router.navigate(["/entregas"]), 2000);
+  async confirmar(): Promise<void> {
+    const tenant   = this.authState.currentTenant();
+    const resident = this.selected();
+    const tipo     = this.deliveryType() as DeliveryTipo;
+    if (!tenant || !resident || !tipo) return;
+
+    const delivery = await this.deliveryService.create({
+      condominioId: tenant.id,
+      unidade:      resident.unit,
+      moradorId:    resident.id,
+      tipo,
+      descricao:    this.notes() || undefined,
+    });
+
+    if (delivery) {
+      this.activeStep.set(2);
+      this.toast.show({ message: 'Entrega registrada com sucesso', type: 'success' });
+      setTimeout(() => this.router.navigate(['/entregas']), 2000);
+    } else {
+      this.toast.show({ message: 'Erro ao registrar entrega', type: 'error' });
+    }
   }
 
-  voltar() {
+  voltar(): void {
     if (this.activeStep() > 0) this.activeStep.update(s => s - 1);
-    else this.router.navigate(["/entregas"]);
+    else this.router.navigate(['/entregas']);
   }
 }

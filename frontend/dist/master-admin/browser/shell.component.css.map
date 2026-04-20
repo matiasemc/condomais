@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;1ed20d334d6cdd461b515a02f065e78d6c4be98b99c2fcb84e7bc4c5e1b8a9bd;C:/Users/Matiasemc/OneDrive/Documentos/git/Condomais/frontend/apps/master-admin/src/app/layout/shell.component.ts"],
+  "sourcesContent": [".shell{display:flex;flex-direction:column;min-height:100vh}\n    .shell__header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#1C1A14;color:#fff}\n    .shell__logo{font-weight:700;font-size:16px}\n    .shell__logout{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer}\n    .shell__main{flex:1;padding:24px}"],
+  "mappings": ";AAAA,CAAC;AAAM,WAAQ;AAAK,kBAAe;AAAO,cAAW;AAAK;AACtD,CAAC;AAAc,WAAQ;AAAK,mBAAgB;AAAc,eAAY;AAAO,WAAQ,KAAK;AAAK,cAAW;AAAQ,SAAM;AAAI;AAC5H,CAAC;AAAY,eAAY;AAAI,aAAU;AAAI;AAC3C,CAAC;AAAc,cAAW;AAAK,UAAO,IAAI,MAAM,KAAK,GAAG,EAAC,GAAG,EAAC,GAAG,EAAC;AAAI,SAAM;AAAK,WAAQ,IAAI;AAAK,iBAAc;AAAI,UAAO;AAAO;AACjI,CAAC;AAAY,QAAK;AAAE,WAAQ;AAAI;",
+  "names": []
+}

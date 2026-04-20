@@ -6,7 +6,10 @@
     "morador": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": { "style": "scss", "standalone": true }
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": true
+        }
       },
       "root": "apps/morador",
       "sourceRoot": "apps/morador/src",
@@ -18,29 +21,55 @@
             "outputPath": "dist/morador",
             "index": "apps/morador/src/index.html",
             "browser": "apps/morador/src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "apps/morador/tsconfig.app.json",
-            "assets": [{ "glob": "**/*", "input": "apps/morador/src/assets", "output": "assets" }],
-            "styles": ["apps/morador/src/styles.scss"],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/morador/src/assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "apps/morador/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
             "production": {
               "budgets": [
-                { "type": "initial", "maximumWarning": "500kB", "maximumError": "1MB" },
-                { "type": "anyComponentStyle", "maximumWarning": "4kB", "maximumError": "8kB" }
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
               ],
               "outputHashing": "all"
             },
-            "development": { "optimization": false, "extractLicenses": false, "sourceMap": true }
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": { "buildTarget": "morador:build:production" },
-            "development": { "buildTarget": "morador:build:development" }
+            "production": {
+              "buildTarget": "morador:build:production"
+            },
+            "development": {
+              "buildTarget": "morador:build:development"
+            }
           },
           "defaultConfiguration": "development"
         }
@@ -49,7 +78,10 @@
     "porteiro": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": { "style": "scss", "standalone": true }
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": true
+        }
       },
       "root": "apps/porteiro",
       "sourceRoot": "apps/porteiro/src",
@@ -61,29 +93,211 @@
             "outputPath": "dist/porteiro",
             "index": "apps/porteiro/src/index.html",
             "browser": "apps/porteiro/src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "apps/porteiro/tsconfig.app.json",
-            "assets": [{ "glob": "**/*", "input": "apps/porteiro/src/assets", "output": "assets" }],
-            "styles": ["apps/porteiro/src/styles.scss"],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/porteiro/src/assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "apps/porteiro/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
             "production": {
               "budgets": [
-                { "type": "initial", "maximumWarning": "500kB", "maximumError": "1MB" },
-                { "type": "anyComponentStyle", "maximumWarning": "4kB", "maximumError": "8kB" }
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
               ],
               "outputHashing": "all"
             },
-            "development": { "optimization": false, "extractLicenses": false, "sourceMap": true }
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": { "buildTarget": "porteiro:build:production" },
-            "development": { "buildTarget": "porteiro:build:development" }
+            "production": {
+              "buildTarget": "porteiro:build:production"
+            },
+            "development": {
+              "buildTarget": "porteiro:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "master-admin": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": true
+        }
+      },
+      "root": "apps/master-admin",
+      "sourceRoot": "apps/master-admin/src",
+      "prefix": "cm",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/master-admin",
+            "index": "apps/master-admin/src/index.html",
+            "browser": "apps/master-admin/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "apps/master-admin/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/master-admin/src/assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "apps/master-admin/src/styles.scss"
+            ],
+            "scripts": [],
+            "fileReplacements": [
+              {
+                "replace": "apps/master-admin/src/environments/environment.ts",
+                "with": "apps/master-admin/src/environments/environment.prod.ts"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "master-admin:build:production"
+            },
+            "development": {
+              "buildTarget": "master-admin:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "admin": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": true
+        }
+      },
+      "root": "apps/admin",
+      "sourceRoot": "apps/admin/src",
+      "prefix": "cm",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/admin",
+            "index": "apps/admin/src/index.html",
+            "browser": "apps/admin/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "apps/admin/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/admin/src/assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "apps/admin/src/styles.scss"
+            ],
+            "scripts": [],
+            "fileReplacements": [
+              {
+                "replace": "apps/admin/src/environments/environment.ts",
+                "with": "apps/admin/src/environments/environment.prod.ts"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "admin:build:production"
+            },
+            "development": {
+              "buildTarget": "admin:build:development"
+            }
           },
           "defaultConfiguration": "development"
         }

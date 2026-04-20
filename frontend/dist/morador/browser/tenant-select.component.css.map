@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;bb93fe4d7bff220a438ad7bef241b56a41dc3771abfacb86b6ffc96bc71ce484;C:/Users/Matiasemc/OneDrive/Documentos/git/Condomais/frontend/apps/morador/src/app/features/tenant-select/tenant-select.component.ts"],
+  "sourcesContent": [".select-page{max-width:400px;margin:60px auto;display:flex;flex-direction:column;gap:12px;padding:24px}"],
+  "mappings": ";AAAA,CAAC;AAAY,aAAU;AAAM,UAAO,KAAK;AAAK,WAAQ;AAAK,kBAAe;AAAO,OAAI;AAAK,WAAQ;AAAI;",
+  "names": []
+}

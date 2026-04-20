@@ -5,20 +5,22 @@
 
   <cm-tab-bar [tabs]="tabs" [activeId]="activeTab()" (tabChange)="activeTab.set($event)"></cm-tab-bar>
 
-  @if (filtered().length === 0) {
+  @if (isLoading()) {
+    <cm-empty-state icon="⏳" title="Carregando…" subtitle="Buscando entregas"></cm-empty-state>
+  } @else if (filtered().length === 0) {
     <cm-empty-state icon="📦" title="Nenhuma entrega" subtitle="Registre uma nova entrega"></cm-empty-state>
   } @else {
     <div class="delivery-list">
       @for (d of filtered(); track d.id) {
         <div class="delivery-item">
           <cm-list-row
-            [title]="d.description"
-            [subtitle]="d.residentName + ' · Apto ' + d.unit"
+            [title]="d.descricao ?? d.tipo"
+            [subtitle]="'Apto ' + d.unidade + (d.transportadora ? ' · ' + d.transportadora : '')"
             icon="📦"
             [clickable]="false">
             <div slot="end" class="delivery-actions">
-              <cm-badge [variant]="d.status === 'pendente' ? 'warn' : 'success'">{{ d.status }}</cm-badge>
-              @if (d.status === 'pendente') {
+              <cm-badge [variant]="d.status === 'pendente' || d.status === 'notificada' ? 'warn' : 'success'">{{ d.status }}</cm-badge>
+              @if (d.status === 'pendente' || d.status === 'notificada') {
                 <button class="confirm-btn" (click)="marcarRetirada(d)">✓</button>
               }
             </div>

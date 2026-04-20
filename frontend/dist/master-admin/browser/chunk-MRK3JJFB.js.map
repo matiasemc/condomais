@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/master-admin/src/app/features/dashboard/dashboard.component.ts"],
+  "sourcesContent": ["import { Component, inject, ChangeDetectionStrategy } from '@angular/core';\nimport { AuthState } from '@condomais/core';\n\n@Component({\n  selector: 'cm-dashboard',\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  template: `\n    <h2>Painel Master Admin</h2>\n    <p>Usuário: {{ state.user()?.email }}</p>\n  `,\n})\nexport class DashboardComponent {\n  state = inject(AuthState);\n}"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAYM,IAAO,qBAAP,MAAO,oBAAkB;EAT/B,cAAA;AAUE,SAAA,QAAQ,OAAO,SAAS;;;;uCADb,qBAAkB;IAAA;EAAA;;yEAAlB,qBAAkB,WAAA,CAAA,CAAA,cAAA,CAAA,GAAA,OAAA,GAAA,MAAA,GAAA,UAAA,SAAA,4BAAA,IAAA,KAAA;AAAA,UAAA,KAAA,GAAA;AAJ3B,QAAA,yBAAA,GAAA,IAAA;AAAI,QAAA,iBAAA,GAAA,qBAAA;AAAmB,QAAA,uBAAA;AACvB,QAAA,yBAAA,GAAA,GAAA;AAAG,QAAA,iBAAA,CAAA;AAAkC,QAAA,uBAAA;;;;AAAlC,QAAA,oBAAA,CAAA;AAAA,QAAA,6BAAA,iBAAA,UAAA,IAAA,MAAA,KAAA,MAAA,OAAA,OAAA,QAAA,OAAA,EAAA;;;;;;sEAGM,oBAAkB,CAAA;UAT9B;WAAU;MACT,UAAU;MACV,YAAY;MACZ,iBAAiB,wBAAwB;MACzC,UAAU;;;;KAIX;;;;6EACY,oBAAkB,EAAA,WAAA,sBAAA,UAAA,uEAAA,YAAA,GAAA,CAAA;AAAA,GAAA;",
+  "names": []
+}

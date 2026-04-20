@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;c7b883ea9d75f07780cad70935aa4adc8282f22e64c25679c3672ff8d62af55d;C:/Users/Matiasemc/OneDrive/Documentos/git/Condomais/frontend/apps/admin/src/app/features/tenant-select/tenant-select.component.ts"],
+  "sourcesContent": [".w{max-width:480px;margin:60px auto;display:flex;flex-direction:column;gap:12px}.tb{display:flex;justify-content:space-between;padding:16px 20px;background:#fff;border:1.5px solid #ddd;border-radius:10px;cursor:pointer;font-size:15px}.r{color:#888;font-size:13px}"],
+  "mappings": ";AAAA,CAAC;AAAE,aAAU;AAAM,UAAO,KAAK;AAAK,WAAQ;AAAK,kBAAe;AAAO,OAAI;AAAI;AAAC,CAAC;AAAG,WAAQ;AAAK,mBAAgB;AAAc,WAAQ,KAAK;AAAK,cAAW;AAAK,UAAO,MAAM,MAAM;AAAK,iBAAc;AAAK,UAAO;AAAQ,aAAU;AAAI;AAAC,CAAC;AAAE,SAAM;AAAK,aAAU;AAAI;",
+  "names": []
+}

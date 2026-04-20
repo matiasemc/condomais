@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/admin/src/styles.scss"],
+  "sourcesContent": ["body { margin: 0; font-family: system-ui, sans-serif; background: #f4f4f4; }\n"],
+  "mappings": ";AAAA;AAAO,UAAA;AAAW,eAAA,SAAA,EAAA;AAAoC,cAAA;;",
+  "names": []
+}

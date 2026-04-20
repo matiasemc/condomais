@@ -21,7 +21,10 @@
       "Bash(sed -n '13,18p' apps/porteiro/src/app/features/deliveries/new-delivery.component.ts)",
       "Bash(grep -v \"^\\\\s*$\")",
       "Bash(sed -n '1,8p' apps/porteiro/src/app/features/residents/resident-detail.component.ts)",
-      "Bash(sed -n '25,30p' apps/porteiro/src/app/features/residents/resident-detail.component.ts)"
+      "Bash(sed -n '25,30p' apps/porteiro/src/app/features/residents/resident-detail.component.ts)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(list\\(d['projects'].keys\\(\\)\\)\\)\")",
+      "Bash(node -e \"const d=require\\('./frontend/angular.json'\\); console.log\\(Object.keys\\(d.projects\\)\\)\")",
+      "Bash(xargs grep *)"
     ]
   }
 }
