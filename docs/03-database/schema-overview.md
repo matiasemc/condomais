@@ -100,8 +100,8 @@ This document covers:
 
 | Table | Purpose | Rows/Building |
 |-------|--------|---------------|
-| usuarios | All users (residents, doormen, admins) | 100-1000 per building |
-| usuarios_sessions | Active sessions | Dynamic |
+| users | User profiles (global) | Global |
+| user_condominios | Membership junction (MANY-TO-MANY) | Per user/condominio |
 
 ### 4.3 Core Features
 
@@ -143,6 +143,9 @@ usuarios (1) ─────── (N) ocorrencias
 equipamentos (1) ─────── (N) reservas
 
 avisos (1) ─────── (N) aviso_leituras
+
+user_condominios (N) ─────── (1) users
+user_condominios (N) ─────── (1) condominios
 ```
 
 ---

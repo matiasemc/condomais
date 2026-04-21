@@ -13,7 +13,7 @@ This document covers all three primary user roles:
 
 ## 3. Primary Personas
 
-### 3.1 Maria – A忙碌的职场妈妈 (Busy Working Mom)
+### 3.1 Maria – busy职场妈妈 (Busy Working Mom)
 
 | Attribute | Details |
 |-----------|---------|
@@ -56,7 +56,7 @@ This document covers all three primary user roles:
 
 ---
 
-### 3.2 João – 退休老人 (Retired Senior)
+### 3.2 João – 退休长者 (Retired Senior)
 
 | Attribute | Details |
 |-----------|---------|
@@ -181,7 +181,7 @@ This document covers all three primary user roles:
 
 ---
 
-### 5.1 Dona Glória – 公寓管理员 (Building Administrator)
+### 3.5 Dona Glória – 公寓管理员 (Building Administrator)
 
 | Attribute | Details |
 |-----------|---------|

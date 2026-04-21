@@ -11,63 +11,53 @@ This document describes the complete authentication and authorization system for
 ### 1.1 Google OAuth 2.0 (Primary)
 
 ```typescript
-import { signInWithPopup, GoogleAuthProvider, signInWithRedirect } from 'firebase/auth';
+import { SupabaseClient, GoogleLoginCredentials } from '@supabase/supabase-js';
 
-async signInWithGoogle(): Promise<UserCredential> {
-  const provider = new GoogleAuthProvider();
-  provider.addScope('email');
-  provider.addScope('profile');
-  
-  if (this.platform.isMobile) {
-    return signInWithRedirect(this.auth, provider);
-  }
-  
-  return signInWithPopup(this.auth, provider);
-}
-
-async handleOAuthCallback(): Promise<boolean> {
-  const { user } = await getRedirectResult(this.auth);
-  if (user) {
-    await this.linkUsuarioRecord(user);
-    return true;
-  }
-  return false;
+async signInWithGoogle(): Promise<any> {
+  const { data, error } = await this.supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `${window.location.origin}/auth/callback`
+    }
+  });
+  return data;
 }
 ```
 
 ### 1.2 Email/Password
 
 ```typescript
-async registerWithEmail(email: string, password: string): Promise<UserCredential> {
-  const { user } = await createUserWithEmailAndPassword(this.auth, email, password);
-  await sendEmailVerification(this.auth.currentUser);
-  return { user };
+async registerWithEmail(email: string, password: string): Promise<any> {
+  const { data, error } = await this.supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: `${window.location.origin}/auth/callback`
+    }
+  });
+  return data;
 }
 
-async signInWithEmail(email: string, password: string): Promise<UserCredential> {
-  return signInWithEmailAndPassword(this.auth, email, password);
+async signInWithEmail(email: string, password: string): Promise<any> {
+  const { data, error } = await this.supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+  return data;
 }
 ```
 
-### 1.3 Magic Link
+### 1.3 Magic Link (Supabase)
 
 ```typescript
 async sendMagicLink(email: string): Promise<void> {
-  const actionCodeSettings = {
-    url: `${window.location.origin}/auth/verify?email=${email}`,
-    handleCodeInApp: true
-  };
-  await sendSignInLinkToEmail(this.auth, email, actionCodeSettings);
-  sessionStorage.setItem('emailForSignIn', email);
-}
-
-async verifyMagicLink(): Promise<boolean> {
-  const email = sessionStorage.getItem('emailForSignIn');
-  if (isSignInWithEmailLink(this.auth, window.location.href)) {
-    const result = await signInWithEmailLink(this.auth, email);
-    return !!result.user;
-  }
-  return false;
+  const { data, error } = await this.supabase.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: `${window.location.origin}/auth/callback`
+    }
+  });
+  return data;
 }
 ```
 
@@ -156,10 +146,10 @@ supabase.auth.onAuthStateChange((event, session) => {
 
 | Role | App Access | Description |
 |------|------------|-------------|
-| SINDICO | admin | Building administrator (1-3 per building) |
-| CONSELHO | admin | Council member (0-10 per building) |
 | MORADOR | morador | Resident (N units, required) |
 | PORTEIRO | porteiro | Doorman/concierge (1-5 per building) |
+| SINDICO | admin | Building administrator (1-3 per building) |
+| CONSELHO | admin | Council member (0-10 per building) |
 | MASTER_ADMIN | master-admin | Platform admin |
 
 ### 3.1 Role Hierarchy
@@ -176,7 +166,21 @@ const ROLE_HIERARCHY = {
 
 ---
 
-## 4. Permissions
+## 4. Role Hierarchy
+
+```typescript
+const ROLE_HIERARCHY = {
+  'master_admin': 5,
+  'sindico': 4,
+  'conselho': 3,
+  'porteiro': 2,
+  'morador': 1
+};
+```
+
+---
+
+## 5. Permissions
 
 ### 4.1 Permission Matrix
 

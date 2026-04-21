@@ -84,7 +84,7 @@ Define the core vision, mission, and strategic goals for the CondoMais platformâ
 
 | Layer | Technology |
 |-------|------------|
-| Frontend | Angular 17+ (monorepo) |
+| Frontend | Angular 19 (standalone components) |
 | Backend | Supabase (PostgreSQL + RLS + Storage) |
 | Auth | Supabase Auth + Google OAuth 2.0 |
 | Push | Firebase Cloud Messaging |

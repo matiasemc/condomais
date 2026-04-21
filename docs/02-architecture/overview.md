@@ -53,9 +53,11 @@ const { data } = await supabase
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                         CLIENT LAYER                                     │
 ├─────────────────────────────────┬───────────────────────────────────────┤
-│   Resident App (Angular iOS)    │    Resident App (Angular Android)   │
+│        Morador App              │           Admin Panel              │
+│       (Angular 19)             │          (Angular 19)             │
 ├─────────────────────────────────┼───────────────────────────────────────┤
-│    Doorman App (Angular Web)    │        Admin Panel (Angular Web)     │
+│        Porteiro App            │        Master Admin               │
+│       (Angular 19)             │         (Angular 19)            │
 └─────────────────────────────────┴───────────────────────────────────────┘
                                       │
                                       ▼
@@ -94,13 +96,13 @@ const { data } = await supabase
 
 | Component | Technology | Version | Purpose |
 |-----------|------------|---------|---------|
-| Framework | Angular | 17+ | Core SPA framework |
-| State Management | NgRx | 17+ | Global state, effects |
+| Framework | Angular | 19+ | Core SPA framework |
+| State Management | Angular Signals | 17+ | Reactive state |
 | HTTP Client | Angular HttpClient | Built-in | API communication |
 | Forms | Angular Reactive Forms | Built-in | Form handling |
-| UI Components | Angular Material | 17+ | Pre-built components |
+| UI Components | Custom libs/ui | - | Shared components |
 | Routing | Angular Router | Built-in | SPA navigation |
-| i18n | @ngx-translate | 14+ | Translations |
+| Architecture | NX Monorepo | - | Multi-app workspace |
 
 ### 5.2 Backend
 
