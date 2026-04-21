@@ -119,3 +119,50 @@ export interface CreateOccurrenceInput {
   descricao: string;
   local?: string;
 }
+
+export interface Equipamento {
+  id: string;
+  condominioId: string;
+  nome: string;
+  descricao: string | null;
+  capacidade: number | null;
+  regras: Record<string, unknown>;
+  horarioInicio: string;
+  horarioFim: string;
+  ativo: boolean;
+  imageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type ReservationStatus = 'confirmada' | 'cancelada' | 'realizada' | 'nao_compareceu';
+
+export interface Reservation {
+  id: string;
+  condominioId: string;
+  equipamentoId: string;
+  moradorId: string;
+  data: string;
+  horaInicio: string;
+  horaFim: string;
+  motivo: string | null;
+  numConvidados: number;
+  status: ReservationStatus;
+  googleEventId: string | null;
+  googleCalendarId: string | null;
+  createdAt: string;
+  updatedAt: string;
+  equipamento?: Pick<Equipamento, 'id' | 'nome' | 'imageUrl'>;
+  morador?: { id: string; nome: string; email?: string };
+}
+
+export interface CreateReservationInput {
+  condominioId: string;
+  equipamentoId: string;
+  moradorId: string;
+  data: string;
+  horaInicio: string;
+  horaFim: string;
+  motivo?: string;
+  numConvidados?: number;
+}

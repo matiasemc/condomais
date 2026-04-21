@@ -1,9 +1,25 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { BadgeComponent } from '@condomais/ui';
-import { ButtonComponent } from '@condomais/ui';
-import { Reservation } from '../../core/models';
+import { BadgeComponent, ButtonComponent } from '@condomais/ui';
+import { ReservationService, AuthState } from '@condomais/core';
+
+const EQUIPAMENTO_EMOJIS: Record<string, string> = {
+  salao:         '🎉',
+  piscina:       '🏊',
+  churrasqueira: '🔥',
+  quadra:        '🎾',
+  academia:      '🏋️',
+  playground:    '🛝',
+};
+
+function emojiForName(nome: string): string {
+  const lower = nome.toLowerCase();
+  for (const [key, emoji] of Object.entries(EQUIPAMENTO_EMOJIS)) {
+    if (lower.includes(key)) return emoji;
+  }
+  return '🏢';
+}
 
 @Component({
   selector: 'cm-reservations',
@@ -17,47 +33,74 @@ import { Reservation } from '../../core/models';
         <cm-button variant="accent" size="sm" routerLink="/reservas/nova">+ Nova</cm-button>
       </div>
 
+      @if (svc.isLoading()) {
+        <div class="loading">Carregando...</div>
+      }
+
       <div class="spaces">
         <p class="spaces__label">Áreas comuns</p>
         <div class="spaces__grid">
-          @for (s of espacos; track s.id) {
-            <a class="space-card" [routerLink]="['/reservas/nova']" [queryParams]="{ espaco: s.id }">
-              <span class="space-card__emoji">{{ s.emoji }}</span>
-              <span class="space-card__name">{{ s.nome }}</span>
+          @for (eq of svc.equipamentos(); track eq.id) {
+            <a class="space-card" [routerLink]="['/reservas/nova']" [queryParams]="{ equipamento: eq.id }">
+              <span class="space-card__emoji">{{ emoji(eq.nome) }}</span>
+              <span class="space-card__name">{{ eq.nome }}</span>
             </a>
+          } @empty {
+            @if (!svc.isLoading()) {
+              <p class="empty-hint">Nenhuma área disponível</p>
+            }
           }
         </div>
       </div>
 
       <div class="list">
         <p class="list__label">Minhas reservas</p>
-        @for (r of reservas(); track r.id) {
+        @for (r of svc.reservations(); track r.id) {
           <div class="res-row">
-            <div class="res-row__icon">{{ r.espaco.includes('Salão') ? '🎉' : '🏊' }}</div>
+            <div class="res-row__icon">{{ emoji(r.equipamento?.nome ?? '') }}</div>
             <div class="res-row__body">
-              <p class="res-row__title">{{ r.espaco }}</p>
-              <p class="res-row__sub">{{ r.data | date:'dd/MM' }} · {{ r.horaInicio }}–{{ r.horaFim }}</p>
+              <p class="res-row__title">{{ r.equipamento?.nome ?? 'Área' }}</p>
+              <p class="res-row__sub">{{ r.data | date:'dd/MM/yyyy':'UTC' }} · {{ r.horaInicio }}–{{ r.horaFim }}</p>
             </div>
-            <cm-badge [variant]="r.status === 'confirmada' ? 'success' : 'warn'">{{ r.status }}</cm-badge>
+            <div class="res-row__right">
+              <cm-badge [variant]="r.status === 'confirmada' ? 'success' : 'warn'">{{ r.status }}</cm-badge>
+              @if (r.status === 'confirmada') {
+                <button class="btn-cancel" (click)="cancelar(r.id)">Cancelar</button>
+              }
+            </div>
           </div>
+        } @empty {
+          @if (!svc.isLoading()) {
+            <p class="empty-hint">Nenhuma reserva encontrada</p>
+          }
         }
       </div>
     </div>
   `,
   styleUrl: './reservations.component.scss',
 })
-export class ReservationsComponent {
-  espacos = [
-    { id: 'salao-a', emoji: '🎉', nome: 'Salão A' },
-    { id: 'salao-b', emoji: '🥂', nome: 'Salão B' },
-    { id: 'piscina', emoji: '🏊', nome: 'Piscina' },
-    { id: 'churras', emoji: '🔥', nome: 'Churrasqueira' },
-    { id: 'quadra',  emoji: '🎾', nome: 'Quadra' },
-    { id: 'gym',     emoji: '🏋️', nome: 'Academia' },
-  ];
+export class ReservationsComponent implements OnInit, OnDestroy {
+  protected readonly svc  = inject(ReservationService);
+  private  readonly state = inject(AuthState);
 
-  reservas = signal<Reservation[]>([
-    { id: '1', espaco: 'Salão de Festas A', data: new Date(Date.now() + 7 * 86400000), horaInicio: '19:00', horaFim: '23:00', status: 'confirmada' },
-    { id: '2', espaco: 'Piscina', data: new Date(Date.now() + 14 * 86400000), horaInicio: '10:00', horaFim: '12:00', status: 'pendente' },
-  ]);
+  emoji = emojiForName;
+
+  async ngOnInit(): Promise<void> {
+    const tenant = this.state.currentTenant();
+    const user   = this.state.user();
+    if (!tenant || !user) return;
+    await Promise.all([
+      this.svc.loadEquipamentos(tenant.id),
+      this.svc.loadMyReservations(tenant.id, user.id),
+    ]);
+  }
+
+  ngOnDestroy(): void {
+    this.svc.stopRealtime();
+  }
+
+  async cancelar(id: string): Promise<void> {
+    if (!confirm('Cancelar esta reserva?')) return;
+    await this.svc.cancel(id);
+  }
 }

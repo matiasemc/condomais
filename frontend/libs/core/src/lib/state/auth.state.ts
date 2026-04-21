@@ -16,7 +16,10 @@ export class AuthState {
     return this.memberships().find(m => m.tenant.id === tenant.id && m.ativo)?.role ?? null;
   });
 
-  readonly isAuthenticated  = computed(() => this.user() !== null);
+  readonly isAuthenticated   = computed(() => this.user() !== null);
   readonly activeMemberships = computed(() => this.memberships().filter(m => m.ativo));
   readonly hasMultipleTenants = computed(() => this.activeMemberships().length > 1);
+  readonly isMasterAdmin = computed(() =>
+    this.memberships().some(m => m.ativo && (m.role === 'MASTER_ADMIN' || (m.role as string) === 'master_admin'))
+  );
 }

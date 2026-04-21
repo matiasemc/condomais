@@ -26,4 +26,4 @@ CREATE POLICY "ocorrencias_storage_select"
 -- Owner can delete their own files
 CREATE POLICY "ocorrencias_storage_delete"
   ON storage.objects FOR DELETE TO authenticated
-  USING (bucket_id = 'ocorrencias' AND owner = auth.uid()::text);
+  USING (bucket_id = 'ocorrencias' AND owner = auth.uid());

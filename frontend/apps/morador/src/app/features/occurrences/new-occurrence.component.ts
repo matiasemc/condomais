@@ -150,8 +150,9 @@ export class NewOccurrenceComponent {
     const file = this.selectedFile();
     if (file) {
       try {
-        const path = this.uploadSvc.buildPath(tenant.id, occurrence.id, file);
-        const url  = await this.uploadSvc.upload('ocorrencias', path, file);
+        const compressed = await this.uploadSvc.compress(file);
+        const path = this.uploadSvc.buildPath(tenant.id, occurrence.id, compressed);
+        const url  = await this.uploadSvc.upload('ocorrencias', path, compressed);
         await this.occurrenceSvc.addImage(occurrence.id, url);
       } catch {
         // Image upload failure is non-blocking — occurrence was already saved

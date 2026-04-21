@@ -11,8 +11,11 @@ export const routes: Routes = [
     children: [
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
       { path: 'dashboard',       loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
+      { path: 'entregas',        loadComponent: () => import('./features/deliveries/deliveries.component').then(m => m.AdminDeliveriesComponent) },
       { path: 'ocorrencias',     loadComponent: () => import('./features/occurrences/occurrences.component').then(m => m.AdminOccurrencesComponent) },
       { path: 'ocorrencias/:id', loadComponent: () => import('./features/occurrences/occurrence-detail.component').then(m => m.AdminOccurrenceDetailComponent) },
+      { path: 'reservas',        loadComponent: () => import('./features/reservations/reservations.component').then(m => m.AdminReservationsComponent) },
+      { path: 'usuarios',        loadComponent: () => import('./features/users/users.component').then(m => m.AdminUsersComponent) },
     ],
   },
   { path: '**', redirectTo: 'dashboard' },
