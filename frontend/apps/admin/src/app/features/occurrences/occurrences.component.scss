@@ -1,0 +1,20 @@
+.admin-page {
+  &__header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  &__title { font-size: 22px; font-weight: 600; margin: 0; }
+  &__count { font-size: 13px; color: #666; }
+  &__filters { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+}
+
+.occurrence-table { display: flex; flex-direction: column; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+
+.occurrence-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 18px; text-decoration: none; color: inherit;
+  border-bottom: 1px solid #e2e8f0; background: #fff; transition: background 0.15s;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: #f7fafc; }
+  &__body { flex: 1; min-width: 0; }
+  &__titulo { font-size: 14px; font-weight: 600; margin: 0 0 3px; }
+  &__meta { font-size: 12px; color: #718096; margin: 0; }
+}

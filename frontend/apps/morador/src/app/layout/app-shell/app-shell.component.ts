@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ToastComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
-import { NotificationService } from '@condomais/core';
+import { NotificationService, OccurrenceService, AuthState } from '@condomais/core';
 
 @Component({
   selector: 'cm-app-shell',
@@ -23,7 +23,9 @@ import { NotificationService } from '@condomais/core';
 })
 export class AppShellComponent {
   toastSvc = inject(ToastService);
-  private readonly notifSvc  = inject(NotificationService);
+  private readonly notifSvc      = inject(NotificationService);
+  private readonly occurrenceSvc = inject(OccurrenceService);
+  private readonly authState     = inject(AuthState);
   private lastShownId: string | null = null;
 
   constructor() {
@@ -32,7 +34,14 @@ export class AppShellComponent {
       const latest = list[0];
       if (latest && !latest.read && latest.id !== this.lastShownId) {
         this.lastShownId = latest.id;
-        this.toastSvc.show({ message: latest.body, icon: '📦', duration: 3500 });
+        this.toastSvc.show({ message: latest.body, icon: '📋', duration: 3500 });
+      }
+    });
+
+    effect(() => {
+      const user = this.authState.user();
+      if (user) {
+        this.occurrenceSvc.subscribeForUser(user.id);
       }
     });
   }

@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, signal, computed, inject, effect, D
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TabBarComponent, BadgeComponent, EmptyStateComponent } from '@condomais/ui';
-import { DeliveryService, AuthState } from '@condomais/core';
+import { DeliveryService, AuthState, NotificationService } from '@condomais/core';
 import type { TabItem } from '@condomais/ui';
 
 @Component({
@@ -47,6 +47,7 @@ import type { TabItem } from '@condomais/ui';
 export class DeliveriesComponent {
   private readonly deliveryService = inject(DeliveryService);
   private readonly authState       = inject(AuthState);
+  private readonly notifSvc        = inject(NotificationService);
 
   tabs: TabItem[] = [
     { id: 'pendente', label: 'Aguardando' },
@@ -65,6 +66,7 @@ export class DeliveriesComponent {
   });
 
   constructor() {
+    this.notifSvc.markAllAsRead();
     inject(DestroyRef).onDestroy(() => this.deliveryService.stopRealtime());
     effect(() => {
       const user   = this.authState.user();

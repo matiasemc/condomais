@@ -14,6 +14,9 @@ export { TenantService } from './lib/services/tenant.service';
 export { DeliveryService } from './lib/services/delivery.service';
 export type { ResidentOption, DeliveryRealtimeEvent } from './lib/services/delivery.service';
 export { NotificationService } from './lib/services/notification.service';
+export { UploadService } from './lib/services/upload.service';
+export { OccurrenceService } from './lib/services/occurrence.service';
+export type { OccurrenceRealtimeEvent } from './lib/services/occurrence.service';
 
 // Guards
 export { authGuard } from './lib/guards/auth.guard';

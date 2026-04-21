@@ -29,14 +29,19 @@ export interface AuthState {
   error: string | null;
 }
 
-export type NotificationType = 'nova_entrega' | 'entrega_retirada';
+export type NotificationType =
+  | 'nova_entrega'
+  | 'entrega_retirada'
+  | 'nova_ocorrencia'
+  | 'ocorrencia_atualizada';
 
 export interface AppNotification {
   id: string;
   type: NotificationType;
   title: string;
   body: string;
-  deliveryId: string;
+  deliveryId?: string;
+  ocorrenciaId?: string;
   read: boolean;
   createdAt: Date;
 }
@@ -70,4 +75,47 @@ export interface CreateDeliveryInput {
   moradorId?: string;
   transportadora?: string;
   descricao?: string;
+}
+
+export type OccurrenceStatus = 'aberta' | 'em_analise' | 'resolvida';
+export type OccurrenceTipo =
+  | 'entrada_suspeita'
+  | 'ruido'
+  | 'vandalismo'
+  | 'acidente'
+  | 'entrada_nao_autorizada'
+  | 'outro';
+
+export interface Occurrence {
+  id: string;
+  condominioId: string;
+  userId: string | null;
+  porteiroId: string | null;
+  titulo: string | null;
+  tipo: OccurrenceTipo;
+  descricao: string;
+  local: string | null;
+  dataOcorrido: string;
+  status: OccurrenceStatus;
+  resolvidaPor: string | null;
+  resolucao: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface OccurrenceImage {
+  id: string;
+  ocorrenciaId: string;
+  imageUrl: string;
+  ordem: number;
+  createdAt: string;
+}
+
+export interface CreateOccurrenceInput {
+  condominioId: string;
+  userId: string;
+  titulo: string;
+  tipo: OccurrenceTipo;
+  descricao: string;
+  local?: string;
 }

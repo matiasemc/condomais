@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NotificationService } from '@condomais/core';
 
 interface NavItem { path: string; label: string; icon: string; }
 
@@ -14,7 +15,12 @@ interface NavItem { path: string; label: string; icon: string; }
         <a class="bottom-nav__item" [routerLink]="item.path"
            routerLinkActive="bottom-nav__item--active"
            [routerLinkActiveOptions]="{ exact: item.path === '/home' }">
-          <span class="bottom-nav__icon" [innerHTML]="item.icon"></span>
+          <span class="bottom-nav__icon-wrap">
+            <span class="bottom-nav__icon" [innerHTML]="item.icon"></span>
+            @if (item.path === '/entregas' && unreadCount() > 0) {
+              <span class="bottom-nav__badge"></span>
+            }
+          </span>
           <span class="bottom-nav__label">{{ item.label }}</span>
         </a>
       }
@@ -23,11 +29,14 @@ interface NavItem { path: string; label: string; icon: string; }
   styleUrl: './bottom-nav.component.scss',
 })
 export class BottomNavComponent {
+  private readonly notifSvc = inject(NotificationService);
+  readonly unreadCount = this.notifSvc.unreadCount;
+
   items: NavItem[] = [
     { path: '/home',        label: 'Início',      icon: homeIcon },
     { path: '/entregas',    label: 'Entregas',    icon: packageIcon },
     { path: '/reservas',    label: 'Reservas',    icon: calendarIcon },
-    { path: '/marketplace', label: 'Mercado',     icon: shopIcon },
+    { path: '/ocorrencias', label: 'Ocorrências', icon: clipboardIcon },
     { path: '/perfil',      label: 'Perfil',      icon: userIcon },
   ];
 }
@@ -36,4 +45,5 @@ const homeIcon     = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none
 const packageIcon  = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5L12 3l9 4.5v9L12 21l-9-4.5v-9z"/><path d="M3 7.5L12 12l9-4.5"/><line x1="12" y1="12" x2="12" y2="21"/></svg>`;
 const calendarIcon = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
 const shopIcon     = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`;
-const userIcon     = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+const userIcon      = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+const clipboardIcon = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg>`;

@@ -10,7 +10,9 @@ export const routes: Routes = [
     loadComponent: () => import("./layout/shell.component").then(m => m.ShellComponent),
     children: [
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
-      { path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
+      { path: 'dashboard',       loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
+      { path: 'ocorrencias',     loadComponent: () => import('./features/occurrences/occurrences.component').then(m => m.AdminOccurrencesComponent) },
+      { path: 'ocorrencias/:id', loadComponent: () => import('./features/occurrences/occurrence-detail.component').then(m => m.AdminOccurrenceDetailComponent) },
     ],
   },
   { path: '**', redirectTo: 'dashboard' },
