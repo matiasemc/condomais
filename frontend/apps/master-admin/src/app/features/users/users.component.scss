@@ -1,0 +1,107 @@
+:host {
+  display: block;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.page-header h2 {
+  margin: 0.25rem 0;
+  font-size: 1.9rem;
+  color: #111827;
+}
+
+.page-header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.page-header__eyebrow {
+  color: #d64545;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.page-header__summary {
+  min-width: 9rem;
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #1f2937, #334155);
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.page-header__summary strong {
+  font-size: 1.6rem;
+}
+
+.toolbar {
+  margin-bottom: 1rem;
+}
+
+.toolbar__search,
+.toolbar__search-input {
+  width: 100%;
+}
+
+.table-shell {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.user-cell__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #1f2937;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.user-cell small,
+.condominio-count,
+.empty-state span {
+  display: block;
+  color: #6b7280;
+  margin-top: 0.15rem;
+}
+
+.actions-column {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.empty-state {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+  }
+
+  .page-header__summary {
+    width: 100%;
+  }
+}

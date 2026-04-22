@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NotificationService } from '@condomais/core';
 
-interface NavItem { path: string; label: string; icon: string; }
+interface NavItem { path: string; label: string; icon: string; gated?: boolean; }
 
 @Component({
   selector: 'cm-bottom-nav',
@@ -11,18 +11,28 @@ interface NavItem { path: string; label: string; icon: string; }
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav class="bottom-nav">
-      @for (item of items; track item.path) {
-        <a class="bottom-nav__item" [routerLink]="item.path"
-           routerLinkActive="bottom-nav__item--active"
-           [routerLinkActiveOptions]="{ exact: item.path === '/home' }">
-          <span class="bottom-nav__icon-wrap">
-            <span class="bottom-nav__icon" [innerHTML]="item.icon"></span>
-            @if (item.path === '/entregas' && unreadCount() > 0) {
-              <span class="bottom-nav__badge"></span>
-            }
+      @for (item of navItems(); track item.path) {
+        @if (item.gated) {
+          <span class="bottom-nav__item bottom-nav__item--locked" title="Disponível em planos superiores">
+            <span class="bottom-nav__icon-wrap">
+              <span class="bottom-nav__icon" [innerHTML]="item.icon"></span>
+              <span class="bottom-nav__lock">🔒</span>
+            </span>
+            <span class="bottom-nav__label">{{ item.label }}</span>
           </span>
-          <span class="bottom-nav__label">{{ item.label }}</span>
-        </a>
+        } @else {
+          <a class="bottom-nav__item" [routerLink]="item.path"
+             routerLinkActive="bottom-nav__item--active"
+             [routerLinkActiveOptions]="{ exact: item.path === '/home' }">
+            <span class="bottom-nav__icon-wrap">
+              <span class="bottom-nav__icon" [innerHTML]="item.icon"></span>
+              @if (item.path === '/entregas' && unreadCount() > 0) {
+                <span class="bottom-nav__badge"></span>
+              }
+            </span>
+            <span class="bottom-nav__label">{{ item.label }}</span>
+          </a>
+        }
       }
     </nav>
   `,
@@ -32,13 +42,18 @@ export class BottomNavComponent {
   private readonly notifSvc = inject(NotificationService);
   readonly unreadCount = this.notifSvc.unreadCount;
 
-  items: NavItem[] = [
-    { path: '/home',        label: 'Início',      icon: homeIcon },
-    { path: '/entregas',    label: 'Entregas',    icon: packageIcon },
-    { path: '/reservas',    label: 'Reservas',    icon: calendarIcon },
-    { path: '/ocorrencias', label: 'Ocorrências', icon: clipboardIcon },
-    { path: '/perfil',      label: 'Perfil',      icon: userIcon },
-  ];
+  canReservas    = input(true);
+  canOcorrencias = input(true);
+
+  navItems(): NavItem[] {
+    return [
+      { path: '/home',        label: 'Início',      icon: homeIcon },
+      { path: '/entregas',    label: 'Entregas',    icon: packageIcon },
+      { path: '/reservas',    label: 'Reservas',    icon: calendarIcon,  gated: !this.canReservas() },
+      { path: '/ocorrencias', label: 'Ocorrências', icon: clipboardIcon, gated: !this.canOcorrencias() },
+      { path: '/perfil',      label: 'Perfil',      icon: userIcon },
+    ];
+  }
 }
 
 const homeIcon     = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;

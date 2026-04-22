@@ -20,6 +20,9 @@ export type { OccurrenceRealtimeEvent } from './lib/services/occurrence.service'
 export { ReservationService } from './lib/services/reservation.service';
 export type { ReservationRealtimeEvent } from './lib/services/reservation.service';
 export { GoogleCalendarService } from './lib/services/google-calendar.service';
+export { BillingService } from './lib/services/billing.service';
+export type { Plano, Subscription } from './lib/services/billing.service';
+export { UserManagementService } from './lib/services/user-management.service';
 
 // Guards
 export { authGuard } from './lib/guards/auth.guard';

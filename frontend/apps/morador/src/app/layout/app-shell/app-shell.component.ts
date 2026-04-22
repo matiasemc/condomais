@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ToastComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
 import { BottomNavComponent } from '../bottom-nav/bottom-nav.component';
-import { NotificationService, OccurrenceService, AuthState } from '@condomais/core';
+import { NotificationService, OccurrenceService, AuthState, BillingService } from '@condomais/core';
 
 @Component({
   selector: 'cm-app-shell',
@@ -15,7 +15,10 @@ import { NotificationService, OccurrenceService, AuthState } from '@condomais/co
       <main class="shell__content">
         <router-outlet></router-outlet>
       </main>
-      <cm-bottom-nav></cm-bottom-nav>
+      <cm-bottom-nav
+        [canReservas]="billingSvc.canAccessReservations()"
+        [canOcorrencias]="billingSvc.canAccessOccurrences()">
+      </cm-bottom-nav>
       <cm-toast [toast]="toastSvc.toast()"></cm-toast>
     </div>
   `,
@@ -26,6 +29,7 @@ export class AppShellComponent {
   private readonly notifSvc      = inject(NotificationService);
   private readonly occurrenceSvc = inject(OccurrenceService);
   private readonly authState     = inject(AuthState);
+  readonly billingSvc            = inject(BillingService);
   private lastShownId: string | null = null;
 
   constructor() {
@@ -43,6 +47,11 @@ export class AppShellComponent {
       if (user) {
         this.occurrenceSvc.subscribeForUser(user.id);
       }
+    });
+
+    effect(() => {
+      const tenantId = this.authState.currentTenant()?.id;
+      if (tenantId) this.billingSvc.loadForTenant(tenantId);
     });
   }
 }

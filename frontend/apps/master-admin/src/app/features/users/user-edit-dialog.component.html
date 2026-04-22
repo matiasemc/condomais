@@ -1,0 +1,149 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '52rem', maxWidth: '96vw' }"
+  [breakpoints]="{ '960px': '94vw' }"
+  header="Editar usuário"
+  (onHide)="close()"
+>
+  @if (isLoading()) {
+    <div class="dialog-state">Carregando dados do usuário...</div>
+  } @else {
+    @if (userDetail(); as detail) {
+      <div class="dialog-layout">
+        <section class="section-card">
+          <div class="section-card__header">
+            <div>
+              <h3 class="section-card__title">Global</h3>
+              <p class="section-card__subtitle">Controle de acesso global e dados principais.</p>
+            </div>
+            @if (detail.isMasterAdmin) {
+              <p-tag value="Master Admin" severity="danger"></p-tag>
+            }
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              <span class="field__label">Nome</span>
+              <input pInputText [(ngModel)]="name" class="field__control" />
+            </label>
+
+            <label class="field">
+              <span class="field__label">E-mail</span>
+              <input pInputText [ngModel]="detail.email" class="field__control" [disabled]="true" />
+            </label>
+          </div>
+
+          <div class="master-toggle">
+            <p-checkbox inputId="master-admin" [(ngModel)]="isMasterAdmin" [binary]="true"></p-checkbox>
+            <label for="master-admin">
+              <strong>Master-admin global</strong>
+              <span>Permite acesso total à plataforma mesmo sem vínculo em condomínio.</span>
+            </label>
+          </div>
+
+          <div class="section-card__actions">
+            <p-button
+              label="Salvar alterações"
+              icon="pi pi-save"
+              [loading]="isSavingUser()"
+              (onClick)="saveUser()"
+            ></p-button>
+          </div>
+        </section>
+
+        <section class="section-card">
+          <div class="section-card__header">
+            <div>
+              <h3 class="section-card__title">Vínculos por condomínio</h3>
+              <p class="section-card__subtitle">Papéis por tenant, com edição individual e remoção.</p>
+            </div>
+            <span class="section-card__meta">{{ detail.memberships.length }} vínculo(s)</span>
+          </div>
+
+          <div class="membership-list">
+            @for (membership of detail.memberships; track membership.id) {
+              <div class="membership-row">
+                <div class="membership-row__info">
+                  <strong>{{ membership.condominioName }}</strong>
+                  <span>{{ membership.status }}</span>
+                </div>
+
+                <div class="membership-row__actions">
+                  <p-tag [value]="membership.role" [severity]="membershipSeverity(membership.role)"></p-tag>
+                  <p-select
+                    [options]="roleOptions"
+                    [ngModel]="membership.role"
+                    optionLabel="label"
+                    optionValue="value"
+                    appendTo="body"
+                    placeholder="Selecione"
+                    [disabled]="membershipsLoading()"
+                    (ngModelChange)="changeMembershipRole(membership, $event)"
+                  ></p-select>
+                  <p-button
+                    label="Remover"
+                    icon="pi pi-trash"
+                    severity="danger"
+                    variant="outlined"
+                    [disabled]="membershipsLoading()"
+                    (onClick)="removeMembership(membership)"
+                  ></p-button>
+                </div>
+              </div>
+            } @empty {
+              <div class="empty-state">
+                <strong>Sem vínculos cadastrados</strong>
+                <span>Este usuário pode continuar como master-admin global mesmo sem condomínio.</span>
+              </div>
+            }
+          </div>
+        </section>
+
+        <section class="section-card">
+          <div class="section-card__header">
+            <div>
+              <h3 class="section-card__title">Adicionar vínculo</h3>
+              <p class="section-card__subtitle">Selecione um condomínio disponível e o papel correspondente.</p>
+            </div>
+          </div>
+
+          <div class="add-grid">
+            <p-select
+              [options]="availableCondominios()"
+              [(ngModel)]="selectedCondominioId"
+              optionLabel="name"
+              optionValue="id"
+              appendTo="body"
+              placeholder="Selecione o condomínio"
+              [showClear]="true"
+            ></p-select>
+
+            <p-select
+              [options]="roleOptions"
+              [(ngModel)]="selectedRole"
+              optionLabel="label"
+              optionValue="value"
+              appendTo="body"
+              placeholder="Selecione o papel"
+            ></p-select>
+
+            <p-button
+              label="Adicionar"
+              icon="pi pi-plus"
+              [loading]="isAddingMembership()"
+              [disabled]="!selectedCondominioId"
+              (onClick)="addMembership()"
+            ></p-button>
+          </div>
+
+          @if (!availableCondominios().length) {
+            <p class="inline-hint">Todos os condomínios disponíveis já estão associados a este usuário.</p>
+          }
+        </section>
+      </div>
+    }
+  }
+</p-dialog>

@@ -1,0 +1,99 @@
+<p-toast></p-toast>
+
+<section class="page-header">
+  <div>
+    <p class="page-header__eyebrow">Master Admin</p>
+    <h2>Gestão de usuários</h2>
+    <p>Lista global com edição centralizada de acessos e vínculos por condomínio.</p>
+  </div>
+
+  <div class="page-header__summary">
+    <strong>{{ filteredUsers().length }}</strong>
+    <span>usuário(s) encontrado(s)</span>
+  </div>
+</section>
+
+<section class="toolbar">
+  <span class="p-input-icon-left toolbar__search">
+    <i class="pi pi-search"></i>
+    <input
+      pInputText
+      [(ngModel)]="searchTerm"
+      placeholder="Buscar por nome ou e-mail"
+      class="toolbar__search-input"
+    />
+  </span>
+</section>
+
+<section class="table-shell">
+  <p-table
+    [value]="filteredUsers()"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 20, 50]"
+    [loading]="isLoading()"
+    responsiveLayout="scroll"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} usuários"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Master-admin</th>
+        <th>Condomínios</th>
+        <th class="actions-column">Ações</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>
+          <div class="user-cell">
+            <span class="user-cell__avatar">{{ user.name.charAt(0).toUpperCase() }}</span>
+            <div>
+              <strong>{{ user.name }}</strong>
+              <small>Criado em {{ user.createdAt | date: 'dd/MM/yyyy' }}</small>
+            </div>
+          </div>
+        </td>
+        <td>{{ user.email }}</td>
+        <td>
+          <p-tag
+            [value]="user.isMasterAdmin ? 'Ativo' : 'Não'"
+            [severity]="masterAdminSeverity(user.isMasterAdmin)"
+          ></p-tag>
+        </td>
+        <td>
+          <span class="condominio-count">{{ user.condominioCount }}</span>
+        </td>
+        <td class="actions-column">
+          <p-button
+            label="Editar"
+            icon="pi pi-pencil"
+            size="small"
+            (onClick)="openEditDialog(user.id)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5">
+          <div class="empty-state">
+            <strong>Nenhum usuário encontrado</strong>
+            <span>Ajuste a busca ou verifique se existem registros no tenant global.</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>
+
+<cm-user-edit-dialog
+  [visible]="isDialogVisible()"
+  [userId]="selectedUserId()"
+  (visibleChange)="closeDialog()"
+  (updated)="reloadUsers()"
+></cm-user-edit-dialog>

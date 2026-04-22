@@ -2,6 +2,16 @@ import type { User } from '@supabase/supabase-js';
 export type { User as SupabaseUser } from '@supabase/supabase-js';
 
 export type UserRole = 'MORADOR' | 'PORTEIRO' | 'SINDICO' | 'CONSELHO' | 'MASTER_ADMIN';
+export type {
+  AddUserMembershipInput,
+  UpdateUserManagementInput,
+  UserManagementCondominioOption,
+  UserManagementDbRole,
+  UserManagementListItem,
+  UserManagementMembership,
+  UserManagementRole,
+  UserManagementUserDetail,
+} from './user-management.models';
 
 export interface Tenant {
   id: string;

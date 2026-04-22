@@ -26,6 +26,7 @@ export const routes: Routes = [
       { path: 'notificacoes',   loadComponent: () => import('./features/notifications/notifications.component').then(m=>m.NotificationsComponent) },
       { path: 'perfil',         loadComponent: () => import('./features/profile/profile.component').then(m=>m.ProfileComponent) },
       { path: 'integracoes',    loadComponent: () => import('./features/profile/google-integrations.component').then(m=>m.GoogleIntegrationsComponent) },
+      { path: 'billing',        loadComponent: () => import('./features/billing/billing.component').then(m=>m.BillingComponent) },
     ],
   },
   { path: '**', redirectTo: 'home' },

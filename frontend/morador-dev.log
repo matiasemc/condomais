@@ -1,0 +1,43 @@
+
+> condomais-frontend@0.0.1 morador
+> ng serve morador --port 4200
+
+[33m>[39m Building...
+[32m√[39m Building...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                        [2m | [22m [1mRaw size[22m
+[32mpolyfills.js[39m       [2m | [22m[2mpolyfills[22m                    [2m | [22m [36m89.77 kB[39m[2m | [22m
+[32mchunk-AV2B3ULR.js[39m  [2m | [22m[2m-[22m                            [2m | [22m [36m75.55 kB[39m[2m | [22m
+[32mchunk-ZQFAE5NY.js[39m  [2m | [22m[2m-[22m                            [2m | [22m [36m54.95 kB[39m[2m | [22m
+[32mchunk-2UE33CWM.js[39m  [2m | [22m[2m-[22m                            [2m | [22m [36m16.04 kB[39m[2m | [22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                         [2m | [22m  [36m4.16 kB[39m[2m | [22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m                       [2m | [22m  [36m3.10 kB[39m[2m | [22m
+[32mchunk-Y5RQAIA6.js[39m  [2m | [22m[2m-[22m                            [2m | [22m  [36m1.50 kB[39m[2m | [22m
+[32mchunk-QCL7QGMS.js[39m  [2m | [22m[2m-[22m                            [2m | [22m  [36m1.01 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m                [2m | [22m[1m246.07 kB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                        [2m | [22m [1mRaw size[22m
+[32mchunk-E42PEZCI.js[39m  [2m | [22m[2madmin-reservas-component[22m     [2m | [22m [36m27.08 kB[39m[2m | [22m
+[32mchunk-4OSJOJ54.js[39m  [2m | [22m[2mbilling-component[22m            [2m | [22m [36m24.58 kB[39m[2m | [22m
+[32mchunk-X73M7GXX.js[39m  [2m | [22m[2mnew-occurrence-component[22m     [2m | [22m [36m24.25 kB[39m[2m | [22m
+[32mchunk-Q5CNN4BD.js[39m  [2m | [22m[2mnew-reservation-component[22m    [2m | [22m [36m23.53 kB[39m[2m | [22m
+[32mchunk-S32DOAW3.js[39m  [2m | [22m[2mdelivery-detail-component[22m    [2m | [22m [36m17.08 kB[39m[2m | [22m
+[32mchunk-7U2JD7R6.js[39m  [2m | [22m[2mhome-component[22m               [2m | [22m [36m16.78 kB[39m[2m | [22m
+[32mchunk-576VAL76.js[39m  [2m | [22m[2mreservations-component[22m       [2m | [22m [36m16.47 kB[39m[2m | [22m
+[32mchunk-AQ3FY3RJ.js[39m  [2m | [22m[2moccurrence-detail-component[22m  [2m | [22m [36m15.69 kB[39m[2m | [22m
+[32mchunk-B3JBAAWK.js[39m  [2m | [22m[2mgoogle-integrations-component[22m[2m | [22m [36m14.61 kB[39m[2m | [22m
+[32mchunk-ZXEADSIW.js[39m  [2m | [22m[2moccurrences-component[22m        [2m | [22m [36m13.21 kB[39m[2m | [22m
+[32mchunk-S5V5M7WL.js[39m  [2m | [22m[2mdeliveries-component[22m         [2m | [22m [36m12.04 kB[39m[2m | [22m
+[32mchunk-N3344BEI.js[39m  [2m | [22m[2mnotifications-component[22m      [2m | [22m [36m10.70 kB[39m[2m | [22m
+[32mchunk-FTZP5Q6Z.js[39m  [2m | [22m[2mannouncements-component[22m      [2m | [22m [36m10.00 kB[39m[2m | [22m
+[32mchunk-OKCOTXX5.js[39m  [2m | [22m[2mprofile-component[22m            [2m | [22m  [36m9.60 kB[39m[2m | [22m
+[32mchunk-LC3VHL77.js[39m  [2m | [22m[2mmarketplace-detail-component[22m [2m | [22m  [36m9.32 kB[39m[2m | [22m
+[2m...and 6 more lazy chunks files. Use "--verbose" to show all the files.[22m
+
+Application bundle generation complete. [24.386 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+[2m16:18:41[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m Re-optimizing dependencies because lockfile has changed
+[2m16:18:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because lockfile has changed
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m4200[22m/[39m
