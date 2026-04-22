@@ -77,7 +77,7 @@ export interface CreateDeliveryInput {
   descricao?: string;
 }
 
-export type OccurrenceStatus = 'aberta' | 'em_analise' | 'resolvida';
+export type OccurrenceStatus = 'aberta' | 'em_analise' | 'resolvida' | 'encerrada';
 export type OccurrenceTipo =
   | 'entrada_suspeita'
   | 'ruido'

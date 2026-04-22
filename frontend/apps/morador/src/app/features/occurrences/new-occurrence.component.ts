@@ -69,7 +69,7 @@ import type { OccurrenceTipo } from '@condomais/core';
 
         <div class="form__actions">
           <cm-button type="submit" [disabled]="submitting() || !titulo || !tipo || !descricao">
-            @if (submitting()) { <cm-spinner size="sm"></cm-spinner> }
+            @if (submitting()) { <cm-spinner [size]="16"></cm-spinner> }
             @else { Registrar Ocorrência }
           </cm-button>
         </div>

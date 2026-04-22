@@ -87,9 +87,9 @@ export class OccurrenceDetailComponent implements OnInit {
     return map[status] ?? status;
   }
 
-  statusVariant(status: string): 'accent' | 'warning' | 'success' {
+  statusVariant(status: string): 'accent' | 'warn' | 'success' {
     if (status === 'aberta') return 'accent';
-    if (status === 'em_analise') return 'warning';
+    if (status === 'em_analise') return 'warn';
     return 'success';
   }
 
