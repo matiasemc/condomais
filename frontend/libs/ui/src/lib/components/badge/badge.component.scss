@@ -13,5 +13,6 @@
   &--accent  { background: var(--c-accent-soft); color: var(--c-accent-dark); }
   &--success { background: var(--c-success-soft); color: var(--c-success); }
   &--warn    { background: var(--c-warn-soft); color: var(--c-warn); }
+  &--warning { background: var(--c-warn-soft); color: var(--c-warn); }
   &--danger  { background: rgba(192, 57, 43, 0.1); color: var(--c-danger); }
 }

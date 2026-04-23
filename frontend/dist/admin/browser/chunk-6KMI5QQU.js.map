@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/admin/src/app/features/unauthorized/unauthorized.component.ts"],
-  "sourcesContent": ["import { Component } from '@angular/core';\nimport { RouterLink } from '@angular/router';\n@Component({ selector: 'cm-unauthorized', standalone: true, imports: [RouterLink],\n  template: '<div style=\"text-align:center;padding:60px\"><h2>Acesso negado</h2><a routerLink=\"/login\">Voltar</a></div>' })\nexport class UnauthorizedComponent {}"],
-  "mappings": ";;;;;;;;;;;;AAIM,IAAO,wBAAP,MAAO,uBAAqB;;;uCAArB,wBAAqB;IAAA;EAAA;;yEAArB,wBAAqB,WAAA,CAAA,CAAA,iBAAA,CAAA,GAAA,OAAA,GAAA,MAAA,GAAA,QAAA,CAAA,CAAA,GAAA,cAAA,UAAA,WAAA,MAAA,GAAA,CAAA,cAAA,QAAA,CAAA,GAAA,UAAA,SAAA,+BAAA,IAAA,KAAA;AAAA,UAAA,KAAA,GAAA;AADrB,QAAA,yBAAA,GAAA,OAAA,CAAA,EAA4C,GAAA,IAAA;AAAI,QAAA,iBAAA,GAAA,eAAA;AAAa,QAAA,uBAAA;AAAK,QAAA,yBAAA,GAAA,KAAA,CAAA;AAAuB,QAAA,iBAAA,GAAA,QAAA;AAAM,QAAA,uBAAA,EAAI;;sBAD1C,UAAU,GAAA,eAAA,EAAA,CAAA;EAAA;;;sEAEnE,uBAAqB,CAAA;UAFjC;WAAU;MAAE,UAAU;MAAmB,YAAY;MAAM,SAAS,CAAC,UAAU;MAC9E,UAAU;IAA2G,CAAE;;;;6EAC5G,uBAAqB,EAAA,WAAA,yBAAA,UAAA,sEAAA,YAAA,EAAA,CAAA;AAAA,GAAA;",
-  "names": []
-}

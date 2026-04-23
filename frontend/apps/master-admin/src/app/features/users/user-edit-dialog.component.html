@@ -9,11 +9,14 @@
   (onHide)="close()"
 >
   @if (isLoading()) {
-    <div class="dialog-state">Carregando dados do usuário...</div>
+    <div class="dialog-state">
+      <cm-spinner [size]="22"></cm-spinner>
+      <span>Carregando dados do usuário...</span>
+    </div>
   } @else {
     @if (userDetail(); as detail) {
       <div class="dialog-layout">
-        <section class="section-card">
+        <cm-card [flat]="true" class="section-card">
           <div class="section-card__header">
             <div>
               <h3 class="section-card__title">Global</h3>
@@ -52,9 +55,9 @@
               (onClick)="saveUser()"
             ></p-button>
           </div>
-        </section>
+        </cm-card>
 
-        <section class="section-card">
+        <cm-card [flat]="true" class="section-card">
           <div class="section-card__header">
             <div>
               <h3 class="section-card__title">Vínculos por condomínio</h3>
@@ -94,15 +97,16 @@
                 </div>
               </div>
             } @empty {
-              <div class="empty-state">
-                <strong>Sem vínculos cadastrados</strong>
-                <span>Este usuário pode continuar como master-admin global mesmo sem condomínio.</span>
-              </div>
+              <cm-empty-state
+                icon="🏢"
+                title="Sem vínculos cadastrados"
+                subtitle="Este usuário pode continuar como master-admin global mesmo sem condomínio."
+              ></cm-empty-state>
             }
           </div>
-        </section>
+        </cm-card>
 
-        <section class="section-card">
+        <cm-card [flat]="true" class="section-card">
           <div class="section-card__header">
             <div>
               <h3 class="section-card__title">Adicionar vínculo</h3>
@@ -142,7 +146,7 @@
           @if (!availableCondominios().length) {
             <p class="inline-hint">Todos os condomínios disponíveis já estão associados a este usuário.</p>
           }
-        </section>
+        </cm-card>
       </div>
     }
   }

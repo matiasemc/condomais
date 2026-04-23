@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["libs/ui/src/lib/components/tab-bar/tab-bar.component.scss"],
-  "sourcesContent": [".tab-bar {\n  display: flex;\n  gap: var(--s-2);\n  padding: var(--s-2);\n  background: var(--c-card-muted);\n  border-radius: var(--r-sm);\n\n  &__item {\n    flex: 1;\n    height: 34px;\n    border: none;\n    border-radius: var(--r-xs);\n    font-family: var(--font-sans);\n    font-size: 13px;\n    font-weight: 500;\n    color: var(--c-text-muted);\n    background: transparent;\n    cursor: pointer;\n    transition: all var(--t-fast);\n\n    &--active {\n      background: var(--c-card);\n      color: var(--c-text);\n      font-weight: 600;\n      box-shadow: var(--sh-xs);\n    }\n  }\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,OAAA,IAAA;AACA,WAAA,IAAA;AACA,cAAA,IAAA;AACA,iBAAA,IAAA;;AAEA,CAAA;AACE,QAAA;AACA,UAAA;AACA,UAAA;AACA,iBAAA,IAAA;AACA,eAAA,IAAA;AACA,aAAA;AACA,eAAA;AACA,SAAA,IAAA;AACA,cAAA;AACA,UAAA;AACA,cAAA,IAAA,IAAA;;AAEA,CAAA;AACE,cAAA,IAAA;AACA,SAAA,IAAA;AACA,eAAA;AACA,cAAA,IAAA;;",
-  "names": []
-}

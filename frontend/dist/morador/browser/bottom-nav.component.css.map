@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/morador/src/app/layout/bottom-nav/bottom-nav.component.scss"],
-  "sourcesContent": [".bottom-nav {\n  display: flex;\n  background: var(--c-bg-raised);\n  border-top: 1px solid var(--c-border);\n  padding: var(--s-2) 0;\n  padding-bottom: calc(var(--s-2) + env(safe-area-inset-bottom));\n\n  &__item {\n    flex: 1;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    gap: 3px;\n    padding: var(--s-2) 0;\n    text-decoration: none;\n    color: var(--c-text-faint);\n    transition: color var(--t-fast);\n\n    &--active {\n      color: var(--c-accent);\n    }\n  }\n\n  &__icon { display: flex; }\n\n  &__label {\n    font-size: 10px;\n    font-weight: 500;\n    letter-spacing: 0.2px;\n  }\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,cAAA,IAAA;AACA,cAAA,IAAA,MAAA,IAAA;AACA,WAAA,IAAA,OAAA;AACA,kBAAA,KAAA,IAAA,OAAA,EAAA,IAAA;;AAEA,CAAA;AACE,QAAA;AACA,WAAA;AACA,kBAAA;AACA,eAAA;AACA,OAAA;AACA,WAAA,IAAA,OAAA;AACA,mBAAA;AACA,SAAA,IAAA;AACA,cAAA,MAAA,IAAA;;AAEA,CAAA;AACE,SAAA,IAAA;;AAIJ,CAAA;AAAU,WAAA;;AAEV,CAAA;AACE,aAAA;AACA,eAAA;AACA,kBAAA;;",
-  "names": []
-}

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["libs/ui/src/lib/components/kpi-card/kpi-card.component.scss"],
-  "sourcesContent": [".kpi {\n  background: var(--c-card);\n  border: 1px solid var(--c-border);\n  border-radius: var(--r-md);\n  padding: var(--s-4) var(--s-5);\n\n  &__label {\n    font-size: 11px;\n    font-weight: 600;\n    text-transform: uppercase;\n    letter-spacing: 0.5px;\n    opacity: 0.7;\n    color: var(--c-text-muted);\n  }\n\n  &__value {\n    font-family: var(--font-serif);\n    font-size: 38px;\n    line-height: 1.05;\n    margin-top: var(--s-2);\n    letter-spacing: -0.7px;\n    color: var(--c-text);\n  }\n\n  &--inverted {\n    background: var(--c-text);\n    border-color: transparent;\n\n    .kpi__label { color: rgba(255,255,255,0.7); }\n    .kpi__value { color: var(--c-bg); }\n  }\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,cAAA,IAAA;AACA,UAAA,IAAA,MAAA,IAAA;AACA,iBAAA,IAAA;AACA,WAAA,IAAA,OAAA,IAAA;;AAEA,CAAA;AACE,aAAA;AACA,eAAA;AACA,kBAAA;AACA,kBAAA;AACA,WAAA;AACA,SAAA,IAAA;;AAGF,CAAA;AACE,eAAA,IAAA;AACA,aAAA;AACA,eAAA;AACA,cAAA,IAAA;AACA,kBAAA;AACA,SAAA,IAAA;;AAGF,CAAA;AACE,cAAA,IAAA;AACA,gBAAA;;AAEA,CAJF,cAIE,CAtBF;AAsBgB,SAAA,KAAA,GAAA,EAAA,GAAA,EAAA,GAAA,EAAA;;AACd,CALF,cAKE,CAdF;AAcgB,SAAA,IAAA;;",
-  "names": []
-}

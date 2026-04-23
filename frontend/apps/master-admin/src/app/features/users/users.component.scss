@@ -10,23 +10,13 @@
   margin-bottom: 1.5rem;
 }
 
-.page-header h2 {
-  margin: 0.25rem 0;
-  font-size: 1.9rem;
-  color: #111827;
+.page-header__content {
+  min-width: 0;
 }
 
-.page-header p {
-  margin: 0;
+.page-header__description {
+  margin: -0.5rem 0 0;
   color: #6b7280;
-}
-
-.page-header__eyebrow {
-  color: #d64545;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.78rem;
-  font-weight: 700;
 }
 
 .page-header__summary {
@@ -48,16 +38,13 @@
   margin-bottom: 1rem;
 }
 
-.toolbar__search,
-.toolbar__search-input {
+.toolbar__search {
   width: 100%;
 }
 
 .table-shell {
-  border-radius: 1.25rem;
+  display: block;
   overflow: hidden;
-  background: #ffffff;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
 }
 
 .user-cell {
@@ -79,8 +66,7 @@
 }
 
 .user-cell small,
-.condominio-count,
-.empty-state span {
+.condominio-count {
   display: block;
   color: #6b7280;
   margin-top: 0.15rem;
@@ -89,11 +75,6 @@
 .actions-column {
   width: 1%;
   white-space: nowrap;
-}
-
-.empty-state {
-  padding: 1.5rem;
-  text-align: center;
 }
 
 @media (max-width: 768px) {

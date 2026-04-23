@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '@condomais/core';
 import { AvatarComponent } from '@condomais/ui';
 import { ButtonComponent } from '@condomais/ui';
 import { BadgeComponent } from '@condomais/ui';
@@ -13,8 +14,9 @@ import { BadgeComponent } from '@condomais/ui';
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent {
-  sair(): void {
-    localStorage.removeItem('cm_logged');
-    window.location.href = '/login';
+  private readonly auth = inject(AuthService);
+
+  sair(): Promise<void> {
+    return this.auth.logout();
   }
 }

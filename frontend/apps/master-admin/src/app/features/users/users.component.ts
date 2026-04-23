@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { UserManagementService, type UserManagementListItem } from '@condomais/core';
+import { CardComponent, EmptyStateComponent, SearchInputComponent, SectionHeaderComponent } from '@condomais/ui';
 import { UserEditDialogComponent } from './user-edit-dialog.component';
 
 @Component({
@@ -16,12 +15,14 @@ import { UserEditDialogComponent } from './user-edit-dialog.component';
   imports: [
     CommonModule,
     DatePipe,
-    FormsModule,
     ButtonModule,
-    InputTextModule,
     TableModule,
     TagModule,
     ToastModule,
+    CardComponent,
+    EmptyStateComponent,
+    SearchInputComponent,
+    SectionHeaderComponent,
     UserEditDialogComponent,
   ],
   providers: [MessageService],

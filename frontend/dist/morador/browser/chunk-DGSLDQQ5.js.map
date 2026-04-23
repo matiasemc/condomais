@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/morador/src/app/core/toast.service.ts"],
-  "sourcesContent": ["import { Injectable, signal } from '@angular/core';\nimport { ToastData } from '@condomais/ui';\n\n@Injectable({ providedIn: 'root' })\nexport class ToastService {\n  readonly toast = signal<ToastData | null>(null);\n  private timer: ReturnType<typeof setTimeout> | null = null;\n\n  show(data: ToastData): void {\n    if (this.timer) clearTimeout(this.timer);\n    this.toast.set(data);\n    this.timer = setTimeout(() => this.toast.set(null), data.duration ?? 2400);\n  }\n}\n"],
-  "mappings": ";;;;;;;;AAIM,IAAO,eAAP,MAAO,cAAY;EADzB,cAAA;AAEW,SAAA,QAAQ,OAAyB,IAAI;AACtC,SAAA,QAA8C;;EAEtD,KAAK,MAAe;AAClB,QAAI,KAAK;AAAO,mBAAa,KAAK,KAAK;AACvC,SAAK,MAAM,IAAI,IAAI;AACnB,SAAK,QAAQ,WAAW,MAAM,KAAK,MAAM,IAAI,IAAI,GAAG,KAAK,YAAY,IAAI;EAC3E;;;uCARW,eAAY;IAAA;EAAA;;4EAAZ,eAAY,SAAZ,cAAY,WAAA,YADC,OAAM,CAAA;EAAA;;;sEACnB,cAAY,CAAA;UADxB;WAAW,EAAE,YAAY,OAAM,CAAE;;;",
-  "names": []
-}

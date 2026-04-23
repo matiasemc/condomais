@@ -1,7 +1,8 @@
 import type { User } from '@supabase/supabase-js';
 export type { User as SupabaseUser } from '@supabase/supabase-js';
 
-export type UserRole = 'MORADOR' | 'PORTEIRO' | 'SINDICO' | 'CONSELHO' | 'MASTER_ADMIN';
+export type UserRole = 'MORADOR' | 'PORTEIRO' | 'ADMIN' | 'SINDICO' | 'CONSELHO' | 'MASTER_ADMIN';
+export type AppKey = 'morador' | 'porteiro' | 'admin' | 'master-admin';
 export type {
   AddUserMembershipInput,
   UpdateUserManagementInput,
@@ -28,6 +29,13 @@ export interface Membership {
   role: UserRole;
   ativo: boolean;
   unidade?: string;
+}
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  name: string;
+  isMasterAdmin: boolean;
 }
 
 export interface AuthState {

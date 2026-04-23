@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/porteiro/src/app/layout/app-shell/app-shell.component.scss"],
-  "sourcesContent": [".shell {\n  display: flex;\n  height: 100dvh;\n  background: var(--c-bg);\n\n  &__sidebar {\n    display: none;\n    @media (min-width: 900px) { display: flex; }\n  }\n\n  &__main {\n    flex: 1;\n    overflow-y: auto;\n    overflow-x: hidden;\n    -webkit-overflow-scrolling: touch;\n  }\n\n  &__bottom-nav {\n    display: flex;\n    @media (min-width: 900px) { display: none; }\n  }\n}\n\n@media (max-width: 899px) {\n  .shell {\n    flex-direction: column;\n    &__main { padding-bottom: 72px; }\n  }\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,UAAA;AACA,cAAA,IAAA;;AAEA,CAAA;AACE,WAAA;;AACA,OAAA,CAAA,SAAA,EAAA;AAFF,GAAA;AAE8B,aAAA;;;AAG9B,CAAA;AACE,QAAA;AACA,cAAA;AACA,cAAA;AACA,8BAAA;;AAGF,CAAA;AACE,WAAA;;AACA,OAAA,CAAA,SAAA,EAAA;AAFF,GAAA;AAE8B,aAAA;;;AAIhC,OAAA,CAAA,SAAA,EAAA;AACE,GAxBF;AAyBI,oBAAA;;AACA,GAhBF;AAgBY,oBAAA;;;",
-  "names": []
-}

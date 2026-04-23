@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["libs/ui/src/lib/components/badge/badge.component.scss"],
-  "sourcesContent": [".badge {\n  display: inline-flex;\n  align-items: center;\n  gap: var(--s-1);\n  font-size: 11px;\n  font-weight: 600;\n  letter-spacing: 0.2px;\n  text-transform: uppercase;\n  padding: 4px var(--s-2);\n  border-radius: var(--r-pill);\n\n  &--neutral { background: var(--c-card-muted); color: var(--c-text-muted); }\n  &--accent  { background: var(--c-accent-soft); color: var(--c-accent-dark); }\n  &--success { background: var(--c-success-soft); color: var(--c-success); }\n  &--warn    { background: var(--c-warn-soft); color: var(--c-warn); }\n  &--danger  { background: rgba(192, 57, 43, 0.1); color: var(--c-danger); }\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,eAAA;AACA,OAAA,IAAA;AACA,aAAA;AACA,eAAA;AACA,kBAAA;AACA,kBAAA;AACA,WAAA,IAAA,IAAA;AACA,iBAAA,IAAA;;AAEA,CAAA;AAAa,cAAA,IAAA;AAAiC,SAAA,IAAA;;AAC9C,CAAA;AAAa,cAAA,IAAA;AAAkC,SAAA,IAAA;;AAC/C,CAAA;AAAa,cAAA,IAAA;AAAmC,SAAA,IAAA;;AAChD,CAAA;AAAa,cAAA,IAAA;AAAgC,SAAA,IAAA;;AAC7C,CAAA;AAAa,cAAA,KAAA,GAAA,EAAA,EAAA,EAAA,EAAA,EAAA;AAAoC,SAAA,IAAA;;",
-  "names": []
-}

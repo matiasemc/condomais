@@ -17,6 +17,10 @@ export const appConfig: ApplicationConfig = {
         preset: Aura,
       },
     }),
-    provideCore({ supabaseUrl: environment.supabaseUrl, supabaseAnonKey: environment.supabaseAnonKey }),
+    provideCore({
+      appKey: 'master-admin',
+      supabaseUrl: environment.supabase.url,
+      supabaseAnonKey: environment.supabase.anonKey,
+    }),
   ],
 };

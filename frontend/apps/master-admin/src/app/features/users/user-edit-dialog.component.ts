@@ -8,6 +8,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TagModule } from 'primeng/tag';
+import { CardComponent, EmptyStateComponent, SpinnerComponent } from '@condomais/ui';
 import {
   UserManagementService,
   type UserManagementCondominioOption,
@@ -33,6 +34,9 @@ interface RoleOption {
     InputTextModule,
     SelectModule,
     TagModule,
+    CardComponent,
+    EmptyStateComponent,
+    SpinnerComponent,
   ],
   templateUrl: './user-edit-dialog.component.html',
   styleUrl: './user-edit-dialog.component.scss',

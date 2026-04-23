@@ -1,10 +1,9 @@
 <p-toast></p-toast>
 
 <section class="page-header">
-  <div>
-    <p class="page-header__eyebrow">Master Admin</p>
-    <h2>Gestão de usuários</h2>
-    <p>Lista global com edição centralizada de acessos e vínculos por condomínio.</p>
+  <div class="page-header__content">
+    <cm-section-header title="Gestão de usuários" eyebrow="Master Admin"></cm-section-header>
+    <p class="page-header__description">Lista global com edição centralizada de acessos e vínculos por condomínio.</p>
   </div>
 
   <div class="page-header__summary">
@@ -14,18 +13,14 @@
 </section>
 
 <section class="toolbar">
-  <span class="p-input-icon-left toolbar__search">
-    <i class="pi pi-search"></i>
-    <input
-      pInputText
-      [(ngModel)]="searchTerm"
-      placeholder="Buscar por nome ou e-mail"
-      class="toolbar__search-input"
-    />
-  </span>
+  <cm-search-input
+    [(value)]="searchTerm"
+    placeholder="Buscar por nome ou e-mail"
+    class="toolbar__search"
+  ></cm-search-input>
 </section>
 
-<section class="table-shell">
+<cm-card [flat]="true" class="table-shell">
   <p-table
     [value]="filteredUsers()"
     [paginator]="true"
@@ -81,15 +76,16 @@
     <ng-template pTemplate="emptymessage">
       <tr>
         <td colspan="5">
-          <div class="empty-state">
-            <strong>Nenhum usuário encontrado</strong>
-            <span>Ajuste a busca ou verifique se existem registros no tenant global.</span>
-          </div>
+          <cm-empty-state
+            icon="👥"
+            title="Nenhum usuário encontrado"
+            subtitle="Ajuste a busca ou verifique se existem registros no tenant global."
+          ></cm-empty-state>
         </td>
       </tr>
     </ng-template>
   </p-table>
-</section>
+</cm-card>
 
 <cm-user-edit-dialog
   [visible]="isDialogVisible()"

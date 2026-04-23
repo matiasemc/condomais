@@ -14,7 +14,7 @@ export function supabaseClientFactory(config: SupabaseConfig): SupabaseClient {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
-      detectSessionInUrl: false,
+      detectSessionInUrl: true,
     },
   });
 }

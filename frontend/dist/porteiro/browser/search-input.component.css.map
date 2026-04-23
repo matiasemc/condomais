@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["libs/ui/src/lib/components/search-input/search-input.component.scss"],
-  "sourcesContent": [".search {\n  display: flex;\n  align-items: center;\n  gap: var(--s-3);\n  background: var(--c-card);\n  border: 1px solid var(--c-border);\n  border-radius: var(--r-md);\n  padding: var(--s-3) var(--s-4);\n\n  &__icon { color: var(--c-text-muted); flex-shrink: 0; }\n\n  &__input {\n    flex: 1;\n    border: none;\n    background: transparent;\n    font-family: var(--font-sans);\n    font-size: 14px;\n    color: var(--c-text);\n    outline: none;\n\n    &::placeholder { color: var(--c-text-muted); }\n    &::-webkit-search-cancel-button { display: none; }\n  }\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,eAAA;AACA,OAAA,IAAA;AACA,cAAA,IAAA;AACA,UAAA,IAAA,MAAA,IAAA;AACA,iBAAA,IAAA;AACA,WAAA,IAAA,OAAA,IAAA;;AAEA,CAAA;AAAU,SAAA,IAAA;AAA4B,eAAA;;AAEtC,CAAA;AACE,QAAA;AACA,UAAA;AACA,cAAA;AACA,eAAA,IAAA;AACA,aAAA;AACA,SAAA,IAAA;AACA,WAAA;;AAEA,CATF,aASE;AAAiB,SAAA,IAAA;;AACjB,CAVF,aAUE;AAAkC,WAAA;;",
-  "names": []
-}

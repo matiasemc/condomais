@@ -6,7 +6,7 @@ export const routes: Routes = [
   { path: 'unauthorized', loadComponent: () => import('./features/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent) },
   {
     path: "",
-    canActivate: [authGuard, tenantGuard, roleGuard(['SINDICO', 'CONSELHO'])],
+    canActivate: [authGuard, tenantGuard, roleGuard(['ADMIN', 'SINDICO', 'CONSELHO'])],
     loadComponent: () => import("./layout/shell.component").then(m => m.ShellComponent),
     children: [
       { path: "", redirectTo: "dashboard", pathMatch: "full" },

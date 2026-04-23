@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["libs/ui/src/lib/components/card/card.component.scss"],
-  "sourcesContent": [".card {\n  background: var(--c-card);\n  border-radius: var(--r-md);\n  padding: var(--s-5);\n  box-shadow: var(--sh-sm);\n\n  &--accent {\n    background: var(--c-accent);\n    color: #fff;\n    box-shadow: var(--sh-accent);\n  }\n\n  &--flat {\n    box-shadow: none;\n    border: 1px solid var(--c-border);\n  }\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,cAAA,IAAA;AACA,iBAAA,IAAA;AACA,WAAA,IAAA;AACA,cAAA,IAAA;;AAEA,CAAA;AACE,cAAA,IAAA;AACA,SAAA;AACA,cAAA,IAAA;;AAGF,CAAA;AACE,cAAA;AACA,UAAA,IAAA,MAAA,IAAA;;",
-  "names": []
-}

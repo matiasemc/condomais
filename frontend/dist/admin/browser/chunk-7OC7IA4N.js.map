@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/admin/src/app/features/dashboard/dashboard.component.ts"],
-  "sourcesContent": ["import { Component, inject, ChangeDetectionStrategy } from '@angular/core';\nimport { AuthState } from '@condomais/core';\n@Component({ selector: 'cm-dashboard', standalone: true, changeDetection: ChangeDetectionStrategy.OnPush,\n  template: '<h2>Painel Admin</h2><p>Condomínio: {{state.currentTenant()?.nome}}</p><p>Perfil: {{state.currentRole()}}</p>' })\nexport class DashboardComponent { state=inject(AuthState); }"],
-  "mappings": ";;;;;;;;;;;;;;;;;;AAIM,IAAO,qBAAP,MAAO,oBAAkB;EAF/B,cAAA;AAEkC,SAAA,QAAM,OAAO,SAAS;;;;uCAA3C,qBAAkB;IAAA;EAAA;;yEAAlB,qBAAkB,WAAA,CAAA,CAAA,cAAA,CAAA,GAAA,OAAA,GAAA,MAAA,GAAA,UAAA,SAAA,4BAAA,IAAA,KAAA;AAAA,UAAA,KAAA,GAAA;AADlB,QAAA,yBAAA,GAAA,IAAA;AAAI,QAAA,iBAAA,GAAA,cAAA;AAAY,QAAA,uBAAA;AAAK,QAAA,yBAAA,GAAA,GAAA;AAAG,QAAA,iBAAA,CAAA;AAA2C,QAAA,uBAAA;AAAI,QAAA,yBAAA,GAAA,GAAA;AAAG,QAAA,iBAAA,CAAA;AAA+B,QAAA,uBAAA;;;;AAAjF,QAAA,oBAAA,CAAA;AAAA,QAAA,6BAAA,oBAAA,UAAA,IAAA,MAAA,cAAA,MAAA,OAAA,OAAA,QAAA,MAAA,EAAA;AAAkD,QAAA,oBAAA,CAAA;AAAA,QAAA,6BAAA,YAAA,IAAA,MAAA,YAAA,GAAA,EAAA;;;;;;sEAC1E,oBAAkB,CAAA;UAF9B;WAAU;MAAE,UAAU;MAAgB,YAAY;MAAM,iBAAiB,wBAAwB;MAChG,UAAU;IAA+G,CAAE;;;;6EAChH,oBAAkB,EAAA,WAAA,sBAAA,UAAA,gEAAA,YAAA,EAAA,CAAA;AAAA,GAAA;",
-  "names": []
-}

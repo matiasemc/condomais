@@ -1,7 +1,7 @@
 import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-export type BadgeVariant = 'neutral' | 'accent' | 'success' | 'warn' | 'danger';
+export type BadgeVariant = 'neutral' | 'accent' | 'success' | 'warn' | 'warning' | 'danger';
 
 @Component({
   selector: 'cm-badge',

@@ -7,6 +7,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
-    provideCore({ supabaseUrl: environment.supabaseUrl, supabaseAnonKey: environment.supabaseAnonKey }),
+    provideCore({
+      appKey: 'morador',
+      supabaseUrl: environment.supabase.url,
+      supabaseAnonKey: environment.supabase.anonKey,
+    }),
   ],
 };
