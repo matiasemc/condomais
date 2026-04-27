@@ -1,6 +1,6 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { SUPABASE_CLIENT } from '../supabase/client';
-import type { Reservation, Equipamento } from '../models/index';
+﻿import { Injectable, inject, signal } from '@angular/core';
+import { SUPABASE_CLIENT } from './supabase-client.service';
+import type { Reservation, Equipamento } from '../interfaces/index.model';
 
 const STORAGE_KEY = 'cm_google_tokens';
 const CALENDAR_API = 'https://www.googleapis.com/calendar/v3';
@@ -22,7 +22,7 @@ export class GoogleCalendarService {
     this.isConnected.set(this.loadTokens() !== null);
   }
 
-  // ── Token management ──────────────────────────────────────
+  // â”€â”€ Token management â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   private loadTokens(): GoogleTokens | null {
     try {
@@ -84,7 +84,7 @@ export class GoogleCalendarService {
     }
   }
 
-  // ── Calendar events ───────────────────────────────────────
+  // â”€â”€ Calendar events â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   async createEvent(
     reservation: Reservation,

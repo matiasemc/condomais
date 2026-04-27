@@ -27,7 +27,7 @@ SELECT
   (SELECT count(*)::int FROM public.entregas    WHERE deleted_at IS NULL)                AS total_deliveries,
   (SELECT count(*)::int FROM public.entregas    WHERE status = 'pendente'
                                                    AND deleted_at IS NULL)               AS pending_deliveries,
-  (SELECT count(*)::int FROM public.ocorrencias WHERE deleted_at IS NULL)                AS total_occurrences,
+  (SELECT count(*)::int FROM public.ocorrencias)                                        AS total_occurrences,
   (SELECT count(*)::int FROM public.reservas    WHERE deleted_at IS NULL)                AS total_reservations;
 
 GRANT SELECT ON public.v_platform_stats TO authenticated;

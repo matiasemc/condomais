@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -14,14 +14,14 @@ import type { Occurrence, OccurrenceImage, OccurrenceStatus } from '@condomais/c
   template: `
     <div class="detail-page">
       <div class="detail-page__header">
-        <a class="detail-page__back" routerLink="/ocorrencias">← Voltar</a>
-        <h2 class="detail-page__title">Ocorrência</h2>
+        <a class="detail-page__back" routerLink="/ocorrencias">â† Voltar</a>
+        <h2 class="detail-page__title">OcorrÃªncia</h2>
       </div>
 
       @if (loading()) {
-        <cm-empty-state icon="⏳" title="Carregando…" subtitle=""></cm-empty-state>
+        <cm-empty-state icon="â³" title="Carregandoâ€¦" subtitle=""></cm-empty-state>
       } @else if (!occurrence()) {
-        <cm-empty-state icon="😕" title="Não encontrada" subtitle="Esta ocorrência não existe."></cm-empty-state>
+        <cm-empty-state icon="ðŸ˜•" title="NÃ£o encontrada" subtitle="Esta ocorrÃªncia nÃ£o existe."></cm-empty-state>
       } @else {
         <div class="detail">
           <div class="detail__row">
@@ -34,7 +34,7 @@ import type { Occurrence, OccurrenceImage, OccurrenceStatus } from '@condomais/c
           <div class="detail__chips">
             <span class="detail__chip">{{ occurrence()!.tipo }}</span>
             @if (occurrence()!.local) {
-              <span class="detail__chip">📍 {{ occurrence()!.local }}</span>
+              <span class="detail__chip">ðŸ“ {{ occurrence()!.local }}</span>
             }
           </div>
 
@@ -44,7 +44,7 @@ import type { Occurrence, OccurrenceImage, OccurrenceStatus } from '@condomais/c
             <div class="detail__images">
               @for (img of images(); track img.id) {
                 <a [href]="img.imageUrl" target="_blank">
-                  <img class="detail__image" [src]="img.imageUrl" alt="Foto da ocorrência">
+                  <img class="detail__image" [src]="img.imageUrl" alt="Foto da ocorrÃªncia">
                 </a>
               }
             </div>
@@ -57,24 +57,24 @@ import type { Occurrence, OccurrenceImage, OccurrenceStatus } from '@condomais/c
               <label class="detail__label">Novo status</label>
               <select class="detail__select" [(ngModel)]="newStatus">
                 <option value="aberta">Aberta</option>
-                <option value="em_analise">Em análise</option>
+                <option value="em_analise">Em anÃ¡lise</option>
                 <option value="resolvida">Resolvida</option>
               </select>
             </div>
 
             <div class="detail__field">
-              <label class="detail__label">Resposta / Resolução (opcional)</label>
+              <label class="detail__label">Resposta / ResoluÃ§Ã£o (opcional)</label>
               <textarea class="detail__textarea" [(ngModel)]="resolucao"
-                placeholder="Descreva as ações tomadas..." rows="3"></textarea>
+                placeholder="Descreva as aÃ§Ãµes tomadas..." rows="3"></textarea>
             </div>
 
             <cm-button (click)="saveStatus()" [disabled]="saving()">
-              @if (saving()) { Salvando… }
-              @else { Salvar Alterações }
+              @if (saving()) { Salvandoâ€¦ }
+              @else { Salvar AlteraÃ§Ãµes }
             </cm-button>
 
             @if (saveSuccess()) {
-              <p class="detail__success">✓ Status atualizado com sucesso.</p>
+              <p class="detail__success">âœ“ Status atualizado com sucesso.</p>
             }
             @if (saveError()) {
               <p class="detail__error">{{ saveError() }}</p>
@@ -84,7 +84,7 @@ import type { Occurrence, OccurrenceImage, OccurrenceStatus } from '@condomais/c
       }
     </div>
   `,
-  styleUrl: './occurrence-detail.component.scss',
+  styleUrl: './occurrence-detail.component.css',
 })
 export class AdminOccurrenceDetailComponent implements OnInit {
   private readonly route         = inject(ActivatedRoute);
@@ -136,7 +136,7 @@ export class AdminOccurrenceDetailComponent implements OnInit {
 
   statusLabel(status: string): string {
     const map: Record<string, string> = {
-      aberta: 'Aberta', em_analise: 'Em análise',
+      aberta: 'Aberta', em_analise: 'Em anÃ¡lise',
       resolvida: 'Resolvida', encerrada: 'Encerrada',
     };
     return map[status] ?? status;

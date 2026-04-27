@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cm-section-header',
@@ -13,7 +13,7 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
       <ng-content></ng-content>
     </div>
   `,
-  styleUrl: './section-header.component.scss',
+  styleUrl: './section-header.component.css',
 })
 export class SectionHeaderComponent {
   title   = input.required<string>();

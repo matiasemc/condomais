@@ -1,6 +1,6 @@
-import { Injectable, signal, computed } from '@angular/core';
+﻿import { Injectable, signal, computed } from '@angular/core';
 import type { User } from '@supabase/supabase-js';
-import type { Membership, Tenant, UserProfile, UserRole } from '../models/index';
+import type { Membership, Tenant, UserProfile, UserRole } from '../interfaces/index.model';
 
 @Injectable({ providedIn: "root" })
 export class AuthState {

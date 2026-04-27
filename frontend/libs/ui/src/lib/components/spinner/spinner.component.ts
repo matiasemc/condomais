@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cm-spinner',
@@ -12,7 +12,7 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
       </svg>
     </div>
   `,
-  styleUrl: './spinner.component.scss',
+  styleUrl: './spinner.component.css',
 })
 export class SpinnerComponent {
   size = input(24);

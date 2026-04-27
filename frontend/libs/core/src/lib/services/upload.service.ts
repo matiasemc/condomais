@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { SUPABASE_CLIENT } from '../supabase/client';
+﻿import { Injectable, inject } from '@angular/core';
+import { SUPABASE_CLIENT } from './supabase-client.service';
 
 @Injectable({ providedIn: 'root' })
 export class UploadService {

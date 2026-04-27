@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, inject, input, OnInit } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, signal, inject, input, OnInit } from '@angular/core';
 import { DatePipe, Location } from '@angular/common';
 import { ButtonComponent, BadgeComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
@@ -19,7 +19,7 @@ import type { Delivery } from '@condomais/core';
 
       @if (delivery(); as d) {
         <div class="detail__hero">
-          <div class="detail__package-icon">📦</div>
+          <div class="detail__package-icon">ðŸ“¦</div>
           <cm-badge [variant]="d.status === 'pendente' || d.status === 'notificada' ? 'accent' : 'success'">
             {{ d.status === 'retirada' ? 'Retirada' : 'Aguardando retirada' }}
           </cm-badge>
@@ -68,11 +68,11 @@ import type { Delivery } from '@condomais/core';
           </div>
         }
       } @else if (isLoading()) {
-        <p class="detail__loading">Carregando…</p>
+        <p class="detail__loading">Carregandoâ€¦</p>
       }
     </div>
   `,
-  styleUrl: './delivery-detail.component.scss',
+  styleUrl: './delivery-detail.component.css',
 })
 export class DeliveryDetailComponent implements OnInit {
   id       = input<string>('');
@@ -104,7 +104,7 @@ export class DeliveryDetailComponent implements OnInit {
       this.delivery.update(prev =>
         prev ? { ...prev, status: 'retirada', dataRetirada: new Date().toISOString(), quemRetirou: quem } : prev
       );
-      this.toast.show({ message: 'Marcada como retirada', icon: '✔', duration: 2400 });
+      this.toast.show({ message: 'Marcada como retirada', icon: 'âœ”', duration: 2400 });
     } else {
       this.toast.show({ message: 'Erro ao atualizar entrega', type: 'error' });
     }

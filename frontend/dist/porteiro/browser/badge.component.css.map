@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/badge/badge.component.css"],
+  "sourcesContent": [".badge {\n  display: inline-flex;\n  align-items: center;\n  gap: var(--s-1);\n  font-size: 11px;\n  font-weight: 600;\n  letter-spacing: 0.2px;\n  text-transform: uppercase;\n  padding: 4px var(--s-2);\n  border-radius: var(--r-pill);\n}\n.badge--neutral {\n  background: var(--c-card-muted);\n  color: var(--c-text-muted);\n}\n.badge--accent {\n  background: var(--c-accent-soft);\n  color: var(--c-accent-dark);\n}\n.badge--success {\n  background: var(--c-success-soft);\n  color: var(--c-success);\n}\n.badge--warn {\n  background: var(--c-warn-soft);\n  color: var(--c-warn);\n}\n.badge--warning {\n  background: var(--c-warn-soft);\n  color: var(--c-warn);\n}\n.badge--danger {\n  background: rgba(192, 57, 43, 0.1);\n  color: var(--c-danger);\n}"],
+  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,eAAa;AACb,OAAK,IAAI;AACT,aAAW;AACX,eAAa;AACb,kBAAgB;AAChB,kBAAgB;AAChB,WAAS,IAAI,IAAI;AACjB,iBAAe,IAAI;AACrB;AACA,CAAC;AACC,cAAY,IAAI;AAChB,SAAO,IAAI;AACb;AACA,CAAC;AACC,cAAY,IAAI;AAChB,SAAO,IAAI;AACb;AACA,CAAC;AACC,cAAY,IAAI;AAChB,SAAO,IAAI;AACb;AACA,CAAC;AACC,cAAY,IAAI;AAChB,SAAO,IAAI;AACb;AACA,CAAC;AACC,cAAY,IAAI;AAChB,SAAO,IAAI;AACb;AACA,CAAC;AACC,cAAY,KAAK,GAAG,EAAE,EAAE,EAAE,EAAE,EAAE;AAC9B,SAAO,IAAI;AACb;",
+  "names": []
+}

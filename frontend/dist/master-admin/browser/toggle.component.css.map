@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/toggle/toggle.component.css"],
+  "sourcesContent": [".toggle {\n  width: 50px;\n  height: 30px;\n  border-radius: 15px;\n  border: none;\n  cursor: pointer;\n  background: var(--c-card-muted);\n  position: relative;\n  transition: background var(--t-fast);\n  flex-shrink: 0;\n}\n.toggle--on {\n  background: var(--c-accent);\n}\n.toggle__thumb {\n  position: absolute;\n  top: 3px;\n  left: 3px;\n  width: 24px;\n  height: 24px;\n  border-radius: 12px;\n  background: #fff;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);\n  transition: transform var(--t-fast);\n}\n.toggle--on .toggle__thumb {\n  transform: translateX(20px);\n}"],
+  "mappings": ";AAAA,CAAC;AACC,SAAO;AACP,UAAQ;AACR,iBAAe;AACf,UAAQ;AACR,UAAQ;AACR,cAAY,IAAI;AAChB,YAAU;AACV,cAAY,WAAW,IAAI;AAC3B,eAAa;AACf;AACA,CAAC;AACC,cAAY,IAAI;AAClB;AACA,CAAC;AACC,YAAU;AACV,OAAK;AACL,QAAM;AACN,SAAO;AACP,UAAQ;AACR,iBAAe;AACf,cAAY;AACZ,cAAY,EAAE,IAAI,IAAI,KAAK,CAAC,EAAE,CAAC,EAAE,CAAC,EAAE;AACpC,cAAY,UAAU,IAAI;AAC5B;AACA,CAdC,WAcW,CAXX;AAYC,aAAW,WAAW;AACxB;",
+  "names": []
+}

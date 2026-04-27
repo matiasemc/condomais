@@ -7,13 +7,13 @@
   </div>
   <div class="list">
     @for (n of notifs(); track n.id) {
-      <div class="notif-row" [class.notif-row--unread]="!n.lido" (click)="markRead(n.id)">
-        <div class="notif-row__dot" [class.notif-row__dot--visible]="!n.lido"></div>
-        <div class="notif-row__icon">{{ icons[n.tipo] }}</div>
+      <div class="notif-row" [class.notif-row--unread]="!n.read" (click)="markRead(n.id)">
+        <div class="notif-row__dot" [class.notif-row__dot--visible]="!n.read"></div>
+        <div class="notif-row__icon">{{ icons[n.type] }}</div>
         <div class="notif-row__body">
-          <p class="notif-row__title">{{ n.titulo }}</p>
-          <p class="notif-row__msg">{{ n.mensagem }}</p>
-          <p class="notif-row__time">{{ n.criadaEm | date:'dd/MM HH:mm' }}</p>
+          <p class="notif-row__title">{{ n.title }}</p>
+          <p class="notif-row__msg">{{ n.body }}</p>
+          <p class="notif-row__time">{{ n.createdAt | date:'dd/MM HH:mm' }}</p>
         </div>
       </div>
     }

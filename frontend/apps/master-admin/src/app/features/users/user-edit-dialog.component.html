@@ -1,11 +1,12 @@
 <p-dialog
-  [(visible)]="visible"
+  [visible]="visible()"
   [modal]="true"
   [draggable]="false"
   [resizable]="false"
   [style]="{ width: '52rem', maxWidth: '96vw' }"
   [breakpoints]="{ '960px': '94vw' }"
   header="Editar usuário"
+  (visibleChange)="onDialogVisibleChange($event)"
   (onHide)="close()"
 >
   @if (isLoading()) {

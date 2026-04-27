@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/search-input/search-input.component.css"],
+  "sourcesContent": [".search {\n  display: flex;\n  align-items: center;\n  gap: var(--s-3);\n  background: var(--c-card);\n  border: 1px solid var(--c-border);\n  border-radius: var(--r-md);\n  padding: var(--s-3) var(--s-4);\n}\n.search__icon {\n  color: var(--c-text-muted);\n  flex-shrink: 0;\n}\n.search__input {\n  flex: 1;\n  border: none;\n  background: transparent;\n  font-family: var(--font-sans);\n  font-size: 14px;\n  color: var(--c-text);\n  outline: none;\n}\n.search__input::placeholder {\n  color: var(--c-text-muted);\n}\n.search__input::-webkit-search-cancel-button {\n  display: none;\n}"],
+  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,eAAa;AACb,OAAK,IAAI;AACT,cAAY,IAAI;AAChB,UAAQ,IAAI,MAAM,IAAI;AACtB,iBAAe,IAAI;AACnB,WAAS,IAAI,OAAO,IAAI;AAC1B;AACA,CAAC;AACC,SAAO,IAAI;AACX,eAAa;AACf;AACA,CAAC;AACC,QAAM;AACN,UAAQ;AACR,cAAY;AACZ,eAAa,IAAI;AACjB,aAAW;AACX,SAAO,IAAI;AACX,WAAS;AACX;AACA,CATC,aASa;AACZ,SAAO,IAAI;AACb;AACA,CAZC,aAYa;AACZ,WAAS;AACX;",
+  "names": []
+}

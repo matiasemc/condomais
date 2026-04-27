@@ -1,30 +1,28 @@
 import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SUPABASE_CLIENT } from '@condomais/core';
+import { SelectModule } from 'primeng/select';
+import {
+  PlanManagementService,
+  type ManagedFeature,
+  type ManagedPlan,
+  type ManagedSubscriptionStatus,
+  type ManagedTenantPlan,
+} from '@condomais/core';
 
-type Plan = 'basic' | 'plus' | 'premium';
-type SubscriptionStatus = 'trial' | 'active' | 'suspended' | 'cancelled';
-
-interface TenantPlan {
-  id: string;
-  nome: string;
-  plan: Plan;
-  subscription_status: SubscriptionStatus;
-  trial_ends_at: string | null;
-  subscription_expires_at: string | null;
-}
-
-const PLAN_FEATURES: Record<Plan, { label: string; color: string; features: string[] }> = {
-  basic:   { label: 'Basic',   color: '#6b7280', features: ['Até 50 unidades', '2 porteiros', '10 equipamentos', '100 MB storage'] },
-  plus:    { label: 'Plus',    color: '#3b82f6', features: ['Até 200 unidades', '5 porteiros', '25 equipamentos', '500 MB storage'] },
-  premium: { label: 'Premium', color: '#8b5cf6', features: ['Ilimitado', 'Porteiros ilimitados', 'Equipamentos ilimitados', '5 GB storage'] },
+const PLAN_COLORS: Record<ManagedPlan, string> = {
+  free:    '#9ca3af',
+  basic:   '#6b7280',
+  plus:    '#3b82f6',
+  premium: '#8b5cf6',
 };
+
+const ALL_PLANS: ManagedPlan[] = ['free', 'basic', 'plus', 'premium'];
 
 @Component({
   selector: 'cm-plans',
   standalone: true,
-  imports: [DatePipe, FormsModule],
+  imports: [DatePipe, SelectModule, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
@@ -32,18 +30,55 @@ const PLAN_FEATURES: Record<Plan, { label: string; color: string; features: stri
         <h2 class="page__title">Planos</h2>
       </div>
 
-      <div class="plan-cards">
-        @for (entry of planEntries; track entry.key) {
-          <div class="plan-card" [style.border-top-color]="entry.value.color">
-            <p class="plan-card__name" [style.color]="entry.value.color">{{ entry.value.label }}</p>
-            <ul class="plan-card__features">
-              @for (f of entry.value.features; track f) { <li>{{ f }}</li> }
-            </ul>
-            <p class="plan-card__count">{{ countByPlan(entry.key) }} tenant(s)</p>
+      <!-- Feature matrix -->
+      <div class="section" style="margin-bottom:24px">
+        <h3 class="section__title">Features por Plano</h3>
+        @if (featuresLoading()) {
+          <p class="hint">Carregando features...</p>
+        } @else {
+          <div class="matrix-wrap">
+            <table class="matrix">
+              <thead>
+                <tr>
+                  <th class="matrix__feature-col">Feature</th>
+                  @for (plan of allPlans; track plan) {
+                    <th class="matrix__plan-col" [style.color]="planColor(plan)">{{ plan }}</th>
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                @for (f of features(); track f.code) {
+                  <tr>
+                    <td class="matrix__label">
+                      <span class="matrix__code">{{ f.code }}</span>
+                      @if (f.descricao) { <span class="matrix__desc">{{ f.descricao }}</span> }
+                    </td>
+                    @for (plan of allPlans; track plan) {
+                      <td class="matrix__cell">
+                        <label class="matrix__toggle">
+                          <input
+                            type="checkbox"
+                            [checked]="isEnabled(plan, f.code)"
+                            [disabled]="savingKey() === plan + ':' + f.code"
+                            (change)="toggleFeature(plan, f.code, $any($event.target).checked)"
+                          >
+                        </label>
+                      </td>
+                    }
+                  </tr>
+                } @empty {
+                  <tr><td [attr.colspan]="allPlans.length + 1" class="hint">Sem features cadastradas</td></tr>
+                }
+              </tbody>
+            </table>
           </div>
+          <p class="hint" style="margin-top:8px;text-align:left">
+            Alterações aplicam imediatamente. Tenants já logados recebem na próxima troca de condomínio.
+          </p>
         }
       </div>
 
+      <!-- Tenant plan assignment -->
       <div class="section">
         <h3 class="section__title">Atribuição por Tenant</h3>
         @if (isLoading()) {
@@ -61,17 +96,24 @@ const PLAN_FEATURES: Record<Plan, { label: string; color: string; features: stri
                   </p>
                 </div>
                 <div class="tenant-row__right">
-                  <select class="plan-select" [ngModel]="t.plan" (ngModelChange)="updatePlan(t.id, $event)">
-                    <option value="basic">Basic</option>
-                    <option value="plus">Plus</option>
-                    <option value="premium">Premium</option>
-                  </select>
-                  <select class="status-select" [ngModel]="t.subscription_status" (ngModelChange)="updateStatus(t.id, $event)">
-                    <option value="trial">Trial</option>
-                    <option value="active">Active</option>
-                    <option value="suspended">Suspended</option>
-                    <option value="cancelled">Cancelled</option>
-                  </select>
+                  <p-select
+                    styleClass="plan-select"
+                    [options]="planOptions"
+                    [ngModel]="t.plan"
+                    optionLabel="label"
+                    optionValue="value"
+                    appendTo="body"
+                    (ngModelChange)="updatePlan(t.id, $event)"
+                  ></p-select>
+                  <p-select
+                    styleClass="status-select"
+                    [options]="statusOptions"
+                    [ngModel]="t.subscription_status"
+                    optionLabel="label"
+                    optionValue="value"
+                    appendTo="body"
+                    (ngModelChange)="updateStatus(t.id, $event)"
+                  ></p-select>
                 </div>
               </div>
             } @empty {
@@ -85,14 +127,21 @@ const PLAN_FEATURES: Record<Plan, { label: string; color: string; features: stri
   styles: [`
     .page__header { margin-bottom: 24px; }
     .page__title  { font-size: 22px; font-weight: 700; margin: 0; }
-    .plan-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .plan-card { background: #fff; border: 1px solid #e5e7eb; border-top: 4px solid; border-radius: 12px; padding: 20px; }
-    .plan-card__name { font-size: 16px; font-weight: 700; margin: 0 0 12px; }
-    .plan-card__features { margin: 0 0 12px; padding-left: 18px; }
-    .plan-card__features li { font-size: 13px; color: #6b7280; margin-bottom: 4px; }
-    .plan-card__count { font-size: 13px; font-weight: 600; background: #f3f4f6; border-radius: 6px; padding: 4px 10px; display: inline-block; }
     .section { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; }
     .section__title { font-size: 15px; font-weight: 600; margin: 0 0 16px; }
+
+    .matrix-wrap { overflow-x: auto; }
+    .matrix { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .matrix th, .matrix td { padding: 8px 12px; border-bottom: 1px solid #f3f4f6; text-align: center; }
+    .matrix__feature-col { text-align: left; min-width: 200px; }
+    .matrix__plan-col { font-weight: 700; text-transform: capitalize; min-width: 80px; }
+    .matrix__label { text-align: left; }
+    .matrix__code { font-weight: 600; display: block; }
+    .matrix__desc { font-size: 11px; color: #9ca3af; display: block; }
+    .matrix__cell { }
+    .matrix__toggle input { width: 16px; height: 16px; cursor: pointer; accent-color: #4f46e5; }
+    .matrix__toggle input:disabled { cursor: wait; }
+
     .tenant-table { display: flex; flex-direction: column; }
     .tenant-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f3f4f6; flex-wrap: wrap; gap: 8px; }
     .tenant-row:last-child { border-bottom: none; }
@@ -100,39 +149,74 @@ const PLAN_FEATURES: Record<Plan, { label: string; color: string; features: stri
     .tenant-row__meta { font-size: 12px; color: #9ca3af; margin-top: 2px; }
     .tenant-row__right { display: flex; gap: 8px; }
     .plan-select, .status-select { font-size: 13px; border: 1.5px solid #e5e7eb; border-radius: 6px; padding: 5px 8px; cursor: pointer; }
-    .hint { color: #9ca3af; font-size: 14px; padding: 16px 0; text-align: center; }
+    .hint { color: #9ca3af; font-size: 13px; padding: 8px 0; text-align: center; }
   `],
 })
 export class PlansComponent implements OnInit {
-  private readonly supabase = inject(SUPABASE_CLIENT);
+  private readonly planManagement = inject(PlanManagementService);
 
-  tenants   = signal<TenantPlan[]>([]);
-  isLoading = signal(true);
+  readonly tenants        = signal<ManagedTenantPlan[]>([]);
+  readonly features       = signal<ManagedFeature[]>([]);
+  readonly planoFeatures  = signal<Map<string, boolean>>(new Map());
+  readonly isLoading      = signal(true);
+  readonly featuresLoading = signal(true);
+  readonly savingKey      = signal<string | null>(null);
 
-  planEntries = (Object.entries(PLAN_FEATURES) as [Plan, (typeof PLAN_FEATURES)[Plan]][])
-    .map(([key, value]) => ({ key, value }));
+  readonly allPlans = ALL_PLANS;
+  readonly planOptions = ALL_PLANS.map((plan) => ({ label: plan[0].toUpperCase() + plan.slice(1), value: plan }));
+  readonly statusOptions: { label: string; value: ManagedSubscriptionStatus }[] = [
+    { label: 'Trial', value: 'trial' },
+    { label: 'Active', value: 'active' },
+    { label: 'Suspended', value: 'suspended' },
+    { label: 'Cancelled', value: 'cancelled' },
+  ];
 
-  countByPlan(plan: Plan): number {
-    return this.tenants().filter(t => t.plan === plan).length;
+  planColor(plan: ManagedPlan): string { return PLAN_COLORS[plan]; }
+
+  isEnabled(plan: ManagedPlan, featureCode: string): boolean {
+    return this.planoFeatures().get(`${plan}:${featureCode}`) ?? false;
   }
 
   async ngOnInit(): Promise<void> {
-    const { data } = await this.supabase
-      .from('condominios')
-      .select('id,nome,plan,subscription_status,trial_ends_at,subscription_expires_at')
-      .is('deleted_at', null)
-      .order('nome');
-    this.tenants.set((data ?? []) as TenantPlan[]);
-    this.isLoading.set(false);
+    try {
+      const snapshot = await this.planManagement.loadSnapshot();
+      this.tenants.set(snapshot.tenants);
+      this.features.set(snapshot.features);
+
+      const map = new Map<string, boolean>();
+      for (const row of snapshot.planFeatures) {
+        map.set(`${row.plano_nome}:${row.feature_code}`, row.enabled);
+      }
+      this.planoFeatures.set(map);
+    } finally {
+      this.isLoading.set(false);
+      this.featuresLoading.set(false);
+    }
   }
 
-  async updatePlan(id: string, plan: Plan): Promise<void> {
-    const { error } = await this.supabase.from('condominios').update({ plan }).eq('id', id);
-    if (!error) this.tenants.update(list => list.map(t => t.id === id ? { ...t, plan } : t));
+  async toggleFeature(plan: ManagedPlan, featureCode: string, enabled: boolean): Promise<void> {
+    const key = `${plan}:${featureCode}`;
+    this.savingKey.set(key);
+
+    try {
+      await this.planManagement.setFeatureEnabled(plan, featureCode, enabled);
+      this.planoFeatures.update(m => {
+        const next = new Map(m);
+        next.set(key, enabled);
+        return next;
+      });
+    } finally {
+      this.savingKey.set(null);
+    }
   }
 
-  async updateStatus(id: string, subscription_status: SubscriptionStatus): Promise<void> {
-    const { error } = await this.supabase.from('condominios').update({ subscription_status }).eq('id', id);
-    if (!error) this.tenants.update(list => list.map(t => t.id === id ? { ...t, subscription_status } : t));
+  async updatePlan(id: string, plan: ManagedPlan): Promise<void> {
+    await this.planManagement.updatePlan(id, plan);
+    this.tenants.update(list => list.map(t => t.id === id ? { ...t, plan } : t));
+  }
+
+  async updateStatus(id: string, subscription_status: ManagedSubscriptionStatus): Promise<void> {
+    await this.planManagement.updateStatus(id, subscription_status);
+    this.tenants.update(list => list.map(t => t.id === id ? { ...t, subscription_status } : t));
   }
 }

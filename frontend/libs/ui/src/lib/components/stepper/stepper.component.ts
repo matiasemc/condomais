@@ -1,4 +1,4 @@
-import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -30,7 +30,7 @@ import { CommonModule } from '@angular/common';
       }
     </div>
   `,
-  styleUrl: './stepper.component.scss',
+  styleUrl: './stepper.component.css',
 })
 export class StepperComponent {
   steps      = input.required<string[]>();

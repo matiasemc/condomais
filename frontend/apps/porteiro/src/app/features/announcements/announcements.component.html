@@ -6,15 +6,15 @@
   } @else {
     <div class="aviso-list">
       @for (a of announcements(); track a.id) {
-        <div class="aviso-card" [style.--priority-color]="priorityColor(a.priority)">
+        <div class="aviso-card" [style.--priority-color]="priorityColor(a.prioridade)">
           <div class="aviso-bar"></div>
           <div class="aviso-body">
             <div class="aviso-header">
-              <span class="aviso-title">{{ a.title }}</span>
-              @if (a.pinned) { <cm-badge variant="neutral">Fixado</cm-badge> }
+              <span class="aviso-title">{{ a.titulo }}</span>
+              @if (a.fixado) { <cm-badge variant="neutral">Fixado</cm-badge> }
             </div>
-            <p class="aviso-text">{{ a.body }}</p>
-            <span class="aviso-date">{{ a.publishedAt | date:"dd/MM/yyyy" }}</span>
+            <p class="aviso-text">{{ a.mensagem }}</p>
+            <span class="aviso-date">{{ a.publicadoEm | date:"dd/MM/yyyy" }}</span>
           </div>
         </div>
       }

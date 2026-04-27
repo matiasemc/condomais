@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, computed, inject, effect } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, signal, computed, inject, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BadgeComponent, EmptyStateComponent, SearchInputComponent, TabBarComponent } from '@condomais/ui';
@@ -13,36 +13,36 @@ import type { TabItem } from '@condomais/ui';
   template: `
     <div class="admin-page">
       <div class="admin-page__header">
-        <h2 class="admin-page__title">Ocorrências</h2>
+        <h2 class="admin-page__title">OcorrÃªncias</h2>
         <span class="admin-page__count">{{ filtered().length }} resultado(s)</span>
       </div>
 
       <div class="admin-page__filters">
-        <cm-search-input placeholder="Buscar por título ou descrição..."
+        <cm-search-input placeholder="Buscar por tÃ­tulo ou descriÃ§Ã£o..."
           (valueChange)="search.set($event)"></cm-search-input>
         <cm-tab-bar [tabs]="tabs" [activeId]="activeTab()" (tabChange)="activeTab.set($event)"></cm-tab-bar>
       </div>
 
       @if (isLoading()) {
-        <cm-empty-state icon="⏳" title="Carregando…" subtitle=""></cm-empty-state>
+        <cm-empty-state icon="â³" title="Carregandoâ€¦" subtitle=""></cm-empty-state>
       } @else {
         <div class="occurrence-table">
           @for (o of filtered(); track o.id) {
             <a class="occurrence-row" [routerLink]="['/ocorrencias', o.id]">
               <div class="occurrence-row__body">
                 <p class="occurrence-row__titulo">{{ o.titulo ?? o.tipo }}</p>
-                <p class="occurrence-row__meta">{{ o.tipo }} · {{ o.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+                <p class="occurrence-row__meta">{{ o.tipo }} Â· {{ o.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
               </div>
               <cm-badge [variant]="statusVariant(o.status)">{{ statusLabel(o.status) }}</cm-badge>
             </a>
           } @empty {
-            <cm-empty-state icon="📋" title="Nenhuma ocorrência encontrada" subtitle="Tente ajustar os filtros."></cm-empty-state>
+            <cm-empty-state icon="ðŸ“‹" title="Nenhuma ocorrÃªncia encontrada" subtitle="Tente ajustar os filtros."></cm-empty-state>
           }
         </div>
       }
     </div>
   `,
-  styleUrl: './occurrences.component.scss',
+  styleUrl: './occurrences.component.css',
 })
 export class AdminOccurrencesComponent {
   private readonly occurrenceSvc = inject(OccurrenceService);
@@ -51,7 +51,7 @@ export class AdminOccurrencesComponent {
   tabs: TabItem[] = [
     { id: 'all',        label: 'Todas' },
     { id: 'aberta',     label: 'Abertas' },
-    { id: 'em_analise', label: 'Em Análise' },
+    { id: 'em_analise', label: 'Em AnÃ¡lise' },
     { id: 'resolvida',  label: 'Resolvidas' },
   ];
 
@@ -79,7 +79,7 @@ export class AdminOccurrencesComponent {
 
   statusLabel(status: string): string {
     const map: Record<string, string> = {
-      aberta: 'Aberta', em_analise: 'Em análise',
+      aberta: 'Aberta', em_analise: 'Em anÃ¡lise',
       resolvida: 'Resolvida', encerrada: 'Encerrada',
     };
     return map[status] ?? status;

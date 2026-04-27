@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/porteiro/src/app/features/deliveries/deliveries.component.css"],
+  "sourcesContent": [".deliveries-page {\n  padding: var(--s-4);\n  display: flex;\n  flex-direction: column;\n  gap: var(--s-4);\n}\n\n.new-btn {\n  font-size: 13px;\n  font-weight: 600;\n  color: var(--c-accent);\n  text-decoration: none;\n  padding: var(--s-1) var(--s-3);\n  border: 1.5px solid var(--c-accent);\n  border-radius: var(--r-pill);\n}\n\n.delivery-list {\n  display: flex;\n  flex-direction: column;\n  gap: var(--s-2);\n}\n\n.delivery-item {\n  width: 100%;\n}\n\n.delivery-actions {\n  display: flex;\n  align-items: center;\n  gap: var(--s-2);\n}\n\n.confirm-btn {\n  width: 28px;\n  height: 28px;\n  border-radius: 50%;\n  border: none;\n  background: var(--c-success);\n  color: #fff;\n  font-size: 14px;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: opacity 0.15s;\n}\n.confirm-btn:active {\n  opacity: 0.7;\n}"],
+  "mappings": ";AAAA,CAAC;AACC,WAAS,IAAI;AACb,WAAS;AACT,kBAAgB;AAChB,OAAK,IAAI;AACX;AAEA,CAAC;AACC,aAAW;AACX,eAAa;AACb,SAAO,IAAI;AACX,mBAAiB;AACjB,WAAS,IAAI,OAAO,IAAI;AACxB,UAAQ,MAAM,MAAM,IAAI;AACxB,iBAAe,IAAI;AACrB;AAEA,CAAC;AACC,WAAS;AACT,kBAAgB;AAChB,OAAK,IAAI;AACX;AAEA,CAAC;AACC,SAAO;AACT;AAEA,CAAC;AACC,WAAS;AACT,eAAa;AACb,OAAK,IAAI;AACX;AAEA,CAAC;AACC,SAAO;AACP,UAAQ;AACR,iBAAe;AACf,UAAQ;AACR,cAAY,IAAI;AAChB,SAAO;AACP,aAAW;AACX,UAAQ;AACR,WAAS;AACT,eAAa;AACb,mBAAiB;AACjB,cAAY,QAAQ;AACtB;AACA,CAdC,WAcW;AACV,WAAS;AACX;",
+  "names": []
+}

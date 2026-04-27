@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { SUPABASE_CLIENT } from '../supabase/client';
+﻿import { Injectable, inject } from '@angular/core';
+import { SUPABASE_CLIENT } from './supabase-client.service';
 import type {
   AddUserMembershipInput,
   UpdateUserManagementInput,
@@ -7,9 +7,11 @@ import type {
   UserManagementDbRole,
   UserManagementListItem,
   UserManagementMembership,
+  UserManagementPage,
+  UserManagementPageRequest,
   UserManagementRole,
   UserManagementUserDetail,
-} from '../models';
+} from '../interfaces/index.model';
 
 interface UserRow {
   id: string;
@@ -31,27 +33,67 @@ interface MembershipRow {
 export class UserManagementService {
   private readonly supabase = inject(SUPABASE_CLIENT);
 
-  async getUsers(): Promise<UserManagementListItem[]> {
-    const [usersRes, membershipsRes] = await Promise.all([
-      this.supabase
-        .from('users')
-        .select('id,email,nome,is_master_admin,created_at')
-        .order('nome'),
-      this.supabase
-        .from('user_condominios')
-        .select('user_id,condominio_id,status')
-        .eq('status', 'active'),
-    ]);
+  async getUsersPage(request: UserManagementPageRequest): Promise<UserManagementPage> {
+    const first = Math.max(request.first, 0);
+    const rows = Math.max(request.rows, 1);
+    const last = first + rows - 1;
+    const sortColumn = this.toUserSortColumn(request.sortField);
+
+    let usersQuery = this.supabase
+      .from('users')
+      .select('id,email,nome,is_master_admin,created_at', { count: 'exact' });
+
+    const filter = this.toSearchFilter(request.globalFilter);
+    if (filter) {
+      usersQuery = usersQuery.or(`nome.ilike.%${filter}%,email.ilike.%${filter}%`);
+    }
+
+    const usersRes = await usersQuery
+      .order(sortColumn, { ascending: request.sortOrder !== -1 })
+      .range(first, last);
 
     if (usersRes.error) {
       throw new Error(usersRes.error.message);
     }
 
+    const users = (usersRes.data ?? []) as UserRow[];
+    const userIds = users.map((user) => user.id);
+    const counts = await this.getMembershipCounts(userIds);
+
+    return {
+      data: users.map((user) => this.mapListItem(user, counts)),
+      totalRecords: usersRes.count ?? users.length,
+    };
+  }
+
+  async getUsers(): Promise<UserManagementListItem[]> {
+    const page = await this.getUsersPage({
+      first: 0,
+      rows: 100,
+      sortField: 'name',
+      sortOrder: 1,
+    });
+
+    return page.data;
+  }
+
+  private async getMembershipCounts(userIds: string[]): Promise<Map<string, Set<string>>> {
+    const counts = new Map<string, Set<string>>();
+
+    if (!userIds.length) {
+      return counts;
+    }
+
+    const membershipsRes = await this.supabase
+      .from('user_condominios')
+      .select('user_id,condominio_id,status')
+      .in('user_id', userIds)
+      .eq('status', 'active');
+
+
     if (membershipsRes.error) {
       throw new Error(membershipsRes.error.message);
     }
-
-    const counts = new Map<string, Set<string>>();
 
     for (const membership of membershipsRes.data ?? []) {
       const userMemberships = counts.get(membership.user_id) ?? new Set<string>();
@@ -59,14 +101,33 @@ export class UserManagementService {
       counts.set(membership.user_id, userMemberships);
     }
 
-    return ((usersRes.data ?? []) as UserRow[]).map((user) => ({
+    return counts;
+  }
+
+  private mapListItem(user: UserRow, counts: Map<string, Set<string>>): UserManagementListItem {
+    return {
       id: user.id,
       email: user.email,
       name: user.nome,
       isMasterAdmin: user.is_master_admin,
       condominioCount: counts.get(user.id)?.size ?? 0,
       createdAt: user.created_at,
-    }));
+    };
+  }
+
+  private toUserSortColumn(sortField: string | null | undefined): string {
+    const fields: Record<string, string> = {
+      name: 'nome',
+      email: 'email',
+      createdAt: 'created_at',
+      isMasterAdmin: 'is_master_admin',
+    };
+
+    return fields[sortField ?? ''] ?? 'nome';
+  }
+
+  private toSearchFilter(value: string | null | undefined): string {
+    return (value ?? '').trim().replace(/[%,()]/g, '').slice(0, 80);
   }
 
   async getUserWithMemberships(userId: string): Promise<UserManagementUserDetail> {
@@ -147,7 +208,7 @@ export class UserManagementService {
     }
 
     if ((duplicate.count ?? 0) > 0) {
-      throw new Error('Este usuário já possui vínculo com o condomínio selecionado.');
+      throw new Error('Este usuÃ¡rio jÃ¡ possui vÃ­nculo com o condomÃ­nio selecionado.');
     }
 
     const { error } = await this.supabase
@@ -257,7 +318,7 @@ export class UserManagementService {
     const [userId, condominioId] = id.split(':');
 
     if (!userId || !condominioId) {
-      throw new Error('Identificador de vínculo inválido.');
+      throw new Error('Identificador de vÃ­nculo invÃ¡lido.');
     }
 
     return { userId, condominioId };

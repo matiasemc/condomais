@@ -1,0 +1,36 @@
+.shell {
+  display: flex;
+  height: 100dvh;
+  background: var(--c-bg);
+}
+.shell__sidebar {
+  display: none;
+}
+@media (min-width: 900px) {
+  .shell__sidebar {
+    display: flex;
+  }
+}
+.shell__main {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.shell__bottom-nav {
+  display: flex;
+}
+@media (min-width: 900px) {
+  .shell__bottom-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .shell {
+    flex-direction: column;
+  }
+  .shell__main {
+    padding-bottom: 72px;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -28,7 +28,7 @@ import { CommonModule } from '@angular/common';
       }
     </div>
   `,
-  styleUrl: './list-row.component.scss',
+  styleUrl: './list-row.component.css',
 })
 export class ListRowComponent {
   title    = input.required<string>();

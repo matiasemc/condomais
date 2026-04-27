@@ -1,6 +1,7 @@
-import { Component, signal, computed, inject, effect, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, signal, computed, inject, effect, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
 import { SearchInputComponent, ButtonComponent, StepperComponent, AvatarComponent, SectionHeaderComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
 import { DeliveryService, AuthState } from '@condomais/core';
@@ -10,9 +11,9 @@ import type { ResidentOption, DeliveryTipo } from '@condomais/core';
   selector: 'cm-new-delivery',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, SearchInputComponent, ButtonComponent, StepperComponent, AvatarComponent, SectionHeaderComponent],
+  imports: [FormsModule, SelectModule, SearchInputComponent, ButtonComponent, StepperComponent, AvatarComponent, SectionHeaderComponent],
   templateUrl: './new-delivery.component.html',
-  styleUrl: './new-delivery.component.scss',
+  styleUrl: './new-delivery.component.css',
 })
 export class NewDeliveryComponent {
   private readonly deliveryService = inject(DeliveryService);
@@ -20,7 +21,14 @@ export class NewDeliveryComponent {
   private readonly router          = inject(Router);
   private readonly toast           = inject(ToastService);
 
-  readonly steps = ['Morador', 'Detalhes', 'Concluído'];
+  readonly steps = ['Morador', 'Detalhes', 'ConcluÃ­do'];
+  readonly deliveryTypeOptions: { label: string; value: DeliveryTipo }[] = [
+    { label: 'Caixa / encomenda', value: 'encomenda' },
+    { label: 'Carta / documento', value: 'documento' },
+    { label: 'Alimento / bag', value: 'jantar' },
+    { label: 'Outro', value: 'outro' },
+  ];
+
   activeStep = signal(0);
 
   search        = signal('');

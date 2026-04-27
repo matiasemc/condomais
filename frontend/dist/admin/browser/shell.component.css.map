@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;0e862a03b2d8eb606650f3fd61104fcd0875ce88d66a7ddf0aea36457adb19e6;C:/Users/Matiasemc/OneDrive/Documentos/git/Condomais/frontend/apps/admin/src/app/layout/shell.component.ts"],
+  "sourcesContent": ["\n    .shell { display: flex; flex-direction: column; min-height: 100vh; }\n    .shell__main { padding: 28px 24px; flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; box-sizing: border-box; }\n    @media (max-width: 768px) { .shell__main { padding: 16px; } }\n  "],
+  "mappings": ";AACI,CAAC;AAAQ,WAAS;AAAM,kBAAgB;AAAQ,cAAY;AAAO;AACnE,CAAC;AAAc,WAAS,KAAK;AAAM,QAAM;AAAG,aAAW;AAAQ,SAAO;AAAM,UAAQ,EAAE;AAAM,cAAY;AAAY;AACpH,QAAO,WAAY;AAAS,GAD3B;AAC0C,aAAS;AAAM;AAAE;",
+  "names": []
+}

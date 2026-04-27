@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/porteiro/src/app/core/toast.service.ts"],
+  "sourcesContent": ["import { Injectable, inject } from '@angular/core';\nimport { MessageService } from 'primeng/api';\nimport type { ToastData } from '@condomais/ui';\n\n@Injectable({ providedIn: 'root' })\nexport class ToastService {\n  private readonly messageService = inject(MessageService);\n\n  show(data: ToastData): void {\n    this.messageService.add({\n      severity: mapSeverity(data.type),\n      detail: data.message,\n      life: data.duration ?? 2400,\n    });\n  }\n}\n\nfunction mapSeverity(type: ToastData['type']): string {\n  if (type === 'error') return 'error';\n  if (type === 'warn') return 'warn';\n  if (type === 'success') return 'success';\n  return 'info';\n}\n"],
+  "mappings": ";;;;;;;;;;;AAKM,IAAO,eAAP,MAAO,cAAY;EADzB,cAAA;AAEmB,SAAA,iBAAiB,OAAO,cAAc;;EAEvD,KAAK,MAAe;AAClB,SAAK,eAAe,IAAI;MACtB,UAAU,YAAY,KAAK,IAAI;MAC/B,QAAQ,KAAK;MACb,MAAM,KAAK,YAAY;KACxB;EACH;;;uCATW,eAAY;IAAA;EAAA;;4EAAZ,eAAY,SAAZ,cAAY,WAAA,YADC,OAAM,CAAA;EAAA;;;sEACnB,cAAY,CAAA;UADxB;WAAW,EAAE,YAAY,OAAM,CAAE;;;AAalC,SAAS,YAAY,MAAuB;AAC1C,MAAI,SAAS;AAAS,WAAO;AAC7B,MAAI,SAAS;AAAQ,WAAO;AAC5B,MAAI,SAAS;AAAW,WAAO;AAC/B,SAAO;AACT;",
+  "names": []
+}

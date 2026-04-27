@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, computed, inject, effect } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, signal, computed, inject, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { TabBarComponent, BadgeComponent, EmptyStateComponent, ButtonComponent } from '@condomais/ui';
@@ -13,7 +13,7 @@ import type { TabItem } from '@condomais/ui';
   template: `
     <div class="page">
       <div class="page__header">
-        <h1 class="page__title">Ocorrências</h1>
+        <h1 class="page__title">OcorrÃªncias</h1>
         <a routerLink="/ocorrencias/nova">
           <cm-button size="sm">+ Nova</cm-button>
         </a>
@@ -23,27 +23,27 @@ import type { TabItem } from '@condomais/ui';
       </div>
       <div class="occurrence-list">
         @if (isLoading()) {
-          <cm-empty-state icon="⏳" title="Carregando…" subtitle="Buscando suas ocorrências"></cm-empty-state>
+          <cm-empty-state icon="â³" title="Carregandoâ€¦" subtitle="Buscando suas ocorrÃªncias"></cm-empty-state>
         } @else {
           @for (o of filtered(); track o.id) {
             <a class="occurrence-row" [routerLink]="['/ocorrencias', o.id]">
               <div class="occurrence-row__icon">{{ tipoIcon(o.tipo) }}</div>
               <div class="occurrence-row__body">
                 <p class="occurrence-row__title">{{ o.titulo ?? o.tipo }}</p>
-                <p class="occurrence-row__sub">{{ o.tipo }} · {{ o.createdAt | date:'dd/MM HH:mm' }}</p>
+                <p class="occurrence-row__sub">{{ o.tipo }} Â· {{ o.createdAt | date:'dd/MM HH:mm' }}</p>
               </div>
               <cm-badge [variant]="statusVariant(o.status)">{{ statusLabel(o.status) }}</cm-badge>
             </a>
           } @empty {
-            <cm-empty-state icon="📋" title="Nenhuma ocorrência"
-              [subtitle]="'Você não tem ocorrências ' + (activeTab() === 'aberta' ? 'abertas' : 'resolvidas') + '.'">
+            <cm-empty-state icon="ðŸ“‹" title="Nenhuma ocorrÃªncia"
+              [subtitle]="'VocÃª nÃ£o tem ocorrÃªncias ' + (activeTab() === 'aberta' ? 'abertas' : 'resolvidas') + '.'">
             </cm-empty-state>
           }
         }
       </div>
     </div>
   `,
-  styleUrl: './occurrences.component.scss',
+  styleUrl: './occurrences.component.css',
 })
 export class OccurrencesComponent {
   private readonly occurrenceSvc = inject(OccurrenceService);
@@ -77,15 +77,15 @@ export class OccurrencesComponent {
 
   tipoIcon(tipo: string): string {
     const map: Record<string, string> = {
-      ruido: '🔊', vandalismo: '🔨', acidente: '⚠️',
-      entrada_suspeita: '👀', entrada_nao_autorizada: '🚫', outro: '📋',
+      ruido: 'ðŸ”Š', vandalismo: 'ðŸ”¨', acidente: 'âš ï¸',
+      entrada_suspeita: 'ðŸ‘€', entrada_nao_autorizada: 'ðŸš«', outro: 'ðŸ“‹',
     };
-    return map[tipo] ?? '📋';
+    return map[tipo] ?? 'ðŸ“‹';
   }
 
   statusLabel(status: string): string {
     const map: Record<string, string> = {
-      aberta: 'Aberta', em_analise: 'Em análise',
+      aberta: 'Aberta', em_analise: 'Em anÃ¡lise',
       resolvida: 'Resolvida', encerrada: 'Encerrada',
     };
     return map[status] ?? status;

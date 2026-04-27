@@ -11,26 +11,26 @@
   </div>
 
   <div class="kpi-grid">
-    @for (k of kpis; track k.label) {
+    @for (k of kpis(); track k.label) {
       <cm-kpi-card [label]="k.label" [value]="k.value" [inverted]="k.inverted"></cm-kpi-card>
     }
   </div>
 
   <div class="actions">
     <a class="action-btn" routerLink="/entregas/nova">
-      <span class="action-btn__icon">📦</span>
+      <span class="action-btn__icon">+</span>
       <span>Nova entrega</span>
     </a>
     <a class="action-btn" routerLink="/moradores">
-      <span class="action-btn__icon">🔍</span>
+      <span class="action-btn__icon">?</span>
       <span>Buscar morador</span>
     </a>
     <a class="action-btn" routerLink="/ocorrencias/nova">
-      <span class="action-btn__icon">⚠️</span>
+      <span class="action-btn__icon">!</span>
       <span>Ocorrencia</span>
     </a>
     <a class="action-btn" routerLink="/avisos">
-      <span class="action-btn__icon">📢</span>
+      <span class="action-btn__icon">i</span>
       <span>Avisos</span>
     </a>
   </div>
@@ -38,14 +38,14 @@
   <div class="section">
     <p class="section__label">Entregas recentes</p>
     <div class="delivery-list">
-      @for (d of recentDeliveries; track d.id) {
+      @for (d of recentDeliveries(); track d.id) {
         <a class="delivery-row" [routerLink]="['/entregas']" [queryParams]="{id: d.id}">
-          <div class="delivery-row__icon">📦</div>
+          <div class="delivery-row__icon">#</div>
           <div class="delivery-row__body">
-            <p class="delivery-row__title">{{ d.apto }} - {{ d.morador }}</p>
-            <p class="delivery-row__sub">{{ d.remetente }}</p>
+            <p class="delivery-row__title">Apto {{ d.unidade }}</p>
+            <p class="delivery-row__sub">{{ d.transportadora || d.descricao || d.tipo }}</p>
           </div>
-          <cm-badge [variant]="d.status === 'pendente' ? 'accent' : 'success'">{{ d.status }}</cm-badge>
+          <cm-badge [variant]="d.status === 'pendente' || d.status === 'notificada' ? 'accent' : 'success'">{{ d.status }}</cm-badge>
         </a>
       }
     </div>

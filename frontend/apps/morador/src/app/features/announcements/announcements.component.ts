@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, effect } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BadgeComponent } from '@condomais/ui';
-import { Announcement } from '../../core/models';
+import { AnnouncementService, AuthState } from '@condomais/core';
 
 @Component({
   selector: 'cm-announcements',
@@ -17,7 +17,7 @@ import { Announcement } from '../../core/models';
       <div class="list">
         @for (a of avisos(); track a.id) {
           <a class="announce-row" [routerLink]="['/avisos', a.id]">
-            <div class="announce-row__bar" [class]="'announce-row__bar--' + a.prioridade"></div>
+            <div [class]="'announce-row__bar announce-row__bar--' + a.prioridade"></div>
             <div class="announce-row__body">
               <div class="announce-row__top">
                 <span class="announce-row__title">{{ a.titulo }}</span>
@@ -31,12 +31,18 @@ import { Announcement } from '../../core/models';
       </div>
     </div>
   `,
-  styleUrl: './announcements.component.scss',
+  styleUrl: './announcements.component.css',
 })
 export class AnnouncementsComponent {
-  avisos = signal<Announcement[]>([
-    { id: '1', titulo: 'Manutenção da piscina', mensagem: 'A piscina estará fechada de 22 a 25 de abril.', prioridade: 'alta', publicadoEm: new Date(), fixado: true },
-    { id: '2', titulo: 'Reunião de condôminos', mensagem: 'Reunião ordinária no salão principal no dia 30 às 19h.', prioridade: 'media', publicadoEm: new Date(Date.now() - 86400000), fixado: false },
-    { id: '3', titulo: 'Limpeza das calçadas', mensagem: 'Calçadas serão lavadas na quinta-feira.', prioridade: 'baixa', publicadoEm: new Date(Date.now() - 2 * 86400000), fixado: false },
-  ]);
+  private readonly announcementService = inject(AnnouncementService);
+  private readonly authState = inject(AuthState);
+
+  readonly avisos = this.announcementService.announcements;
+
+  constructor() {
+    effect(() => {
+      const tenant = this.authState.currentTenant();
+      if (tenant) void this.announcementService.loadForTenant(tenant.id);
+    });
+  }
 }

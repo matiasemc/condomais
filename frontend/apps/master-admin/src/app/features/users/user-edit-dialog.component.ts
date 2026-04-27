@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, computed, inject, signal } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component, OnInit, computed, effect, inject, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
+import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 import { CardComponent, EmptyStateComponent, SpinnerComponent } from '@condomais/ui';
 import {
@@ -31,26 +31,26 @@ interface RoleOption {
     ButtonModule,
     CheckboxModule,
     DialogModule,
-    InputTextModule,
     SelectModule,
+    InputTextModule,
     TagModule,
     CardComponent,
     EmptyStateComponent,
     SpinnerComponent,
   ],
   templateUrl: './user-edit-dialog.component.html',
-  styleUrl: './user-edit-dialog.component.scss',
+  styleUrl: './user-edit-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserEditDialogComponent implements OnInit, OnChanges {
+export class UserEditDialogComponent implements OnInit {
   private readonly userManagement = inject(UserManagementService);
   private readonly messageService = inject(MessageService);
 
-  @Input() visible = false;
-  @Input() userId: string | null = null;
+  readonly visible = input(false);
+  readonly userId = input<string | null>(null);
 
-  @Output() visibleChange = new EventEmitter<boolean>();
-  @Output() updated = new EventEmitter<void>();
+  readonly visibleChange = output<boolean>();
+  readonly updated = output<void>();
 
   readonly isLoading = signal(false);
   readonly isSavingUser = signal(false);
@@ -62,7 +62,7 @@ export class UserEditDialogComponent implements OnInit, OnChanges {
   readonly roleOptions: RoleOption[] = [
     { label: 'Morador', value: 'MORADOR' },
     { label: 'Porteiro', value: 'PORTEIRO' },
-    { label: 'Síndico', value: 'SINDICO' },
+    { label: 'SÃ­ndico', value: 'SINDICO' },
     { label: 'Conselho', value: 'CONSELHO' },
   ];
 
@@ -76,23 +76,30 @@ export class UserEditDialogComponent implements OnInit, OnChanges {
   selectedCondominioId: string | null = null;
   selectedRole: UserManagementRole = 'MORADOR';
 
+  constructor() {
+    effect(() => {
+      if (this.visible() && this.userId()) {
+        void this.loadUser();
+      }
+    });
+  }
+
   async ngOnInit(): Promise<void> {
     try {
       this.condominios.set(await this.userManagement.getCondominios());
     } catch (error) {
-      this.showError(error, 'Não foi possível carregar a lista de condomínios.');
-    }
-  }
-
-  async ngOnChanges(changes: SimpleChanges): Promise<void> {
-    if ((changes['visible'] || changes['userId']) && this.visible && this.userId) {
-      await this.loadUser();
+      this.showError(error, 'NÃ£o foi possÃ­vel carregar a lista de condomÃ­nios.');
     }
   }
 
   close(): void {
-    this.visible = false;
     this.visibleChange.emit(false);
+  }
+
+  onDialogVisibleChange(visible: boolean): void {
+    if (!visible) {
+      this.close();
+    }
   }
 
   async saveUser(): Promise<void> {
@@ -119,11 +126,11 @@ export class UserEditDialogComponent implements OnInit, OnChanges {
       this.updated.emit();
       this.messageService.add({
         severity: 'success',
-        summary: 'Usuário atualizado',
-        detail: 'As configurações globais foram salvas.',
+        summary: 'UsuÃ¡rio atualizado',
+        detail: 'As configuraÃ§Ãµes globais foram salvas.',
       });
     } catch (error) {
-      this.showError(error, 'Não foi possível salvar o usuário.');
+      this.showError(error, 'NÃ£o foi possÃ­vel salvar o usuÃ¡rio.');
     } finally {
       this.isSavingUser.set(false);
     }
@@ -150,11 +157,11 @@ export class UserEditDialogComponent implements OnInit, OnChanges {
       this.updated.emit();
       this.messageService.add({
         severity: 'success',
-        summary: 'Vínculo adicionado',
-        detail: 'O condomínio foi associado ao usuário.',
+        summary: 'VÃ­nculo adicionado',
+        detail: 'O condomÃ­nio foi associado ao usuÃ¡rio.',
       });
     } catch (error) {
-      this.showError(error, 'Não foi possível adicionar o vínculo.');
+      this.showError(error, 'NÃ£o foi possÃ­vel adicionar o vÃ­nculo.');
     } finally {
       this.isAddingMembership.set(false);
     }
@@ -177,14 +184,14 @@ export class UserEditDialogComponent implements OnInit, OnChanges {
         detail: `O papel em ${updatedMembership.condominioName} foi atualizado.`,
       });
     } catch (error) {
-      this.showError(error, 'Não foi possível atualizar o papel do vínculo.');
+      this.showError(error, 'NÃ£o foi possÃ­vel atualizar o papel do vÃ­nculo.');
     } finally {
       this.membershipsLoading.set(false);
     }
   }
 
   async removeMembership(membership: UserManagementMembership): Promise<void> {
-    const confirmed = window.confirm(`Remover o vínculo com ${membership.condominioName}?`);
+    const confirmed = window.confirm(`Remover o vÃ­nculo com ${membership.condominioName}?`);
     if (!confirmed) {
       return;
     }
@@ -200,11 +207,11 @@ export class UserEditDialogComponent implements OnInit, OnChanges {
       this.updated.emit();
       this.messageService.add({
         severity: 'success',
-        summary: 'Vínculo removido',
-        detail: 'A associação foi removida com sucesso.',
+        summary: 'VÃ­nculo removido',
+        detail: 'A associaÃ§Ã£o foi removida com sucesso.',
       });
     } catch (error) {
-      this.showError(error, 'Não foi possível remover o vínculo.');
+      this.showError(error, 'NÃ£o foi possÃ­vel remover o vÃ­nculo.');
     } finally {
       this.membershipsLoading.set(false);
     }
@@ -227,21 +234,22 @@ export class UserEditDialogComponent implements OnInit, OnChanges {
   }
 
   private async loadUser(): Promise<void> {
-    if (!this.userId) {
+    const userId = this.userId();
+    if (!userId) {
       return;
     }
 
     this.isLoading.set(true);
 
     try {
-      const detail = await this.userManagement.getUserWithMemberships(this.userId);
+      const detail = await this.userManagement.getUserWithMemberships(userId);
       this.userDetail.set(detail);
       this.name = detail.name;
       this.isMasterAdmin = detail.isMasterAdmin;
       this.selectedCondominioId = null;
       this.selectedRole = 'MORADOR';
     } catch (error) {
-      this.showError(error, 'Não foi possível carregar os detalhes do usuário.');
+      this.showError(error, 'NÃ£o foi possÃ­vel carregar os detalhes do usuÃ¡rio.');
       this.close();
     } finally {
       this.isLoading.set(false);

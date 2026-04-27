@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject, effect, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, signal, computed, inject, effect, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TabBarComponent, BadgeComponent, ListRowComponent, SectionHeaderComponent, EmptyStateComponent } from '@condomais/ui';
 import { ToastService } from '../../core/toast.service';
@@ -12,7 +12,7 @@ import type { Delivery } from '@condomais/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, TabBarComponent, BadgeComponent, ListRowComponent, SectionHeaderComponent, EmptyStateComponent],
   templateUrl: './deliveries.component.html',
-  styleUrl: './deliveries.component.scss',
+  styleUrl: './deliveries.component.css',
 })
 export class DeliveriesComponent {
   private readonly deliveryService = inject(DeliveryService);
@@ -50,7 +50,7 @@ export class DeliveriesComponent {
     const quem = user?.email ?? 'Porteiro';
     const ok = await this.deliveryService.marcarRetirada(d.id, quem);
     if (ok) {
-      this.toast.show({ message: `Apto ${d.unidade} — entrega marcada como retirada`, type: 'success' });
+      this.toast.show({ message: `Apto ${d.unidade} â€” entrega marcada como retirada`, type: 'success' });
     } else {
       this.toast.show({ message: 'Erro ao atualizar entrega', type: 'error' });
     }

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, inject, OnInit, computed } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, signal, inject, OnInit, computed } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,11 +8,11 @@ import type { Reservation } from '@condomais/core';
 import { ToastService } from '../../core/toast.service';
 
 const EQUIPAMENTO_EMOJIS: Record<string, string> = {
-  salao:         '🎉',
-  piscina:       '🏊',
-  churrasqueira: '🔥',
-  quadra:        '🎾',
-  academia:      '🏋️',
+  salao:         'ðŸŽ‰',
+  piscina:       'ðŸŠ',
+  churrasqueira: 'ðŸ”¥',
+  quadra:        'ðŸŽ¾',
+  academia:      'ðŸ‹ï¸',
 };
 
 function emojiForName(nome: string): string {
@@ -20,7 +20,7 @@ function emojiForName(nome: string): string {
   for (const [key, emoji] of Object.entries(EQUIPAMENTO_EMOJIS)) {
     if (lower.includes(key)) return emoji;
   }
-  return '🏢';
+  return 'ðŸ¢';
 }
 
 @Component({
@@ -29,7 +29,7 @@ function emojiForName(nome: string): string {
   imports: [FormsModule, StepperComponent, ButtonComponent, ToggleComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './new-reservation.component.html',
-  styleUrl: './new-reservation.component.scss',
+  styleUrl: './new-reservation.component.css',
 })
 export class NewReservationComponent implements OnInit {
   location  = inject(Location);
@@ -40,7 +40,7 @@ export class NewReservationComponent implements OnInit {
   calSvc    = inject(GoogleCalendarService);
   state     = inject(AuthState);
 
-  steps = ['Espaço', 'Data e hora', 'Confirmação'];
+  steps = ['EspaÃ§o', 'Data e hora', 'ConfirmaÃ§Ã£o'];
   step  = signal(0);
 
   selectedEquipamentoId = signal('');

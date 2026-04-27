@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export type BadgeVariant = 'neutral' | 'accent' | 'success' | 'warn' | 'warning' | 'danger';
@@ -9,7 +9,7 @@ export type BadgeVariant = 'neutral' | 'accent' | 'success' | 'warn' | 'warning'
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<span [class]="'badge badge--' + variant()"><ng-content></ng-content></span>`,
-  styleUrl: './badge.component.scss',
+  styleUrl: './badge.component.css',
 })
 export class BadgeComponent {
   variant = input<BadgeVariant>('neutral');

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { AuthState } from '../state/auth.state';
@@ -8,7 +8,7 @@ import { AuthState } from '../state/auth.state';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './global-login.component.html',
-  styleUrl: './global-login.component.scss',
+  styleUrl: './global-login.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GlobalLoginComponent {

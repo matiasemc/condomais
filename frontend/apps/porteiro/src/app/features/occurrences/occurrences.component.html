@@ -1,20 +1,20 @@
 <div class="occurrences-page">
-  <cm-section-header title="Ocorrências" eyebrow="REGISTRO">
+  <cm-section-header title="Ocorrencias" eyebrow="REGISTRO">
     <a routerLink="/ocorrencias/nova" class="new-btn">+ Nova</a>
   </cm-section-header>
 
   @if (occurrences().length === 0) {
-    <cm-empty-state icon="📋" title="Sem ocorrências" subtitle="Nenhuma ocorrência registrada"></cm-empty-state>
+    <cm-empty-state icon="!" title="Sem ocorrencias" subtitle="Nenhuma ocorrencia registrada"></cm-empty-state>
   } @else {
     <div class="occurrence-list">
       @for (o of occurrences(); track o.id) {
         <div class="occurrence-card">
           <div class="occurrence-header">
-            <span class="occurrence-type">{{ o.type }}</span>
+            <span class="occurrence-type">{{ o.titulo || o.tipo }}</span>
             <cm-badge [variant]="o.status === 'aberta' ? 'warn' : 'success'">{{ o.status }}</cm-badge>
           </div>
-          <p class="occurrence-desc">{{ o.description }}</p>
-          <span class="occurrence-meta">Apto {{ o.unit }} · {{ o.reportedAt | date:"dd/MM HH:mm" }}</span>
+          <p class="occurrence-desc">{{ o.descricao }}</p>
+          <span class="occurrence-meta">{{ o.local || 'Sem local' }} - {{ o.createdAt | date:"dd/MM HH:mm" }}</span>
         </div>
       }
     </div>

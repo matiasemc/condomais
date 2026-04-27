@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/card/card.component.css"],
+  "sourcesContent": [".card {\n  background: var(--c-card);\n  border-radius: var(--r-md);\n  padding: var(--s-5);\n  box-shadow: var(--sh-sm);\n}\n.card--accent {\n  background: var(--c-accent);\n  color: #fff;\n  box-shadow: var(--sh-accent);\n}\n.card--flat {\n  box-shadow: none;\n  border: 1px solid var(--c-border);\n}"],
+  "mappings": ";AAAA,CAAC;AACC,cAAY,IAAI;AAChB,iBAAe,IAAI;AACnB,WAAS,IAAI;AACb,cAAY,IAAI;AAClB;AACA,CAAC;AACC,cAAY,IAAI;AAChB,SAAO;AACP,cAAY,IAAI;AAClB;AACA,CAAC;AACC,cAAY;AACZ,UAAQ,IAAI,MAAM,IAAI;AACxB;",
+  "names": []
+}

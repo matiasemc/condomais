@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cm-kpi-card',
@@ -10,7 +10,7 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
       <div class="kpi__value">{{ value() }}</div>
     </div>
   `,
-  styleUrl: './kpi-card.component.scss',
+  styleUrl: './kpi-card.component.css',
 })
 export class KpiCardComponent {
   label    = input.required<string>();

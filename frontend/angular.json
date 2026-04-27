@@ -33,6 +33,7 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "apps/morador/src/styles.scss"
             ],
             "scripts": []
@@ -105,6 +106,7 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "apps/porteiro/src/styles.scss"
             ],
             "scripts": []
@@ -177,6 +179,7 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "apps/master-admin/src/styles.scss"
             ],
             "scripts": [],
@@ -255,6 +258,7 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "apps/admin/src/styles.scss"
             ],
             "scripts": [],

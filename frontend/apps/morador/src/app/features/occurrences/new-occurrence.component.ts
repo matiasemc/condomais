@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonComponent, SpinnerComponent } from '@condomais/ui';
@@ -13,13 +13,13 @@ import type { OccurrenceTipo } from '@condomais/core';
   template: `
     <div class="page">
       <div class="page__header">
-        <button class="page__back" (click)="router.navigate(['/ocorrencias'])">←</button>
-        <h1 class="page__title">Nova Ocorrência</h1>
+        <button class="page__back" (click)="router.navigate(['/ocorrencias'])">â†</button>
+        <h1 class="page__title">Nova OcorrÃªncia</h1>
       </div>
 
       <form class="form" (ngSubmit)="submit()">
         <div class="form__field">
-          <label class="form__label">Título *</label>
+          <label class="form__label">TÃ­tulo *</label>
           <input class="form__input" type="text" [(ngModel)]="titulo" name="titulo"
             placeholder="Descreva brevemente o problema" required maxlength="200">
         </div>
@@ -28,11 +28,11 @@ import type { OccurrenceTipo } from '@condomais/core';
           <label class="form__label">Tipo *</label>
           <select class="form__select" [(ngModel)]="tipo" name="tipo" required>
             <option value="">Selecione...</option>
-            <option value="ruido">Barulho / Ruído</option>
+            <option value="ruido">Barulho / RuÃ­do</option>
             <option value="vandalismo">Vandalismo</option>
             <option value="acidente">Acidente</option>
             <option value="entrada_suspeita">Entrada Suspeita</option>
-            <option value="entrada_nao_autorizada">Entrada Não Autorizada</option>
+            <option value="entrada_nao_autorizada">Entrada NÃ£o Autorizada</option>
             <option value="outro">Outro</option>
           </select>
         </div>
@@ -40,11 +40,11 @@ import type { OccurrenceTipo } from '@condomais/core';
         <div class="form__field">
           <label class="form__label">Local (opcional)</label>
           <input class="form__input" type="text" [(ngModel)]="local" name="local"
-            placeholder="Ex: Garagem, Corredor 3º andar...">
+            placeholder="Ex: Garagem, Corredor 3Âº andar...">
         </div>
 
         <div class="form__field">
-          <label class="form__label">Descrição *</label>
+          <label class="form__label">DescriÃ§Ã£o *</label>
           <textarea class="form__textarea" [(ngModel)]="descricao" name="descricao"
             placeholder="Descreva o ocorrido com detalhes..." rows="4" required></textarea>
         </div>
@@ -54,9 +54,9 @@ import type { OccurrenceTipo } from '@condomais/core';
           <div class="upload-area" (click)="fileInput.click()">
             @if (previewUrl()) {
               <img class="upload-area__preview" [src]="previewUrl()" alt="Preview">
-              <button type="button" class="upload-area__remove" (click)="removeImage($event)">✕</button>
+              <button type="button" class="upload-area__remove" (click)="removeImage($event)">âœ•</button>
             } @else {
-              <span class="upload-area__icon">📷</span>
+              <span class="upload-area__icon">ðŸ“·</span>
               <span class="upload-area__hint">Toque para adicionar foto</span>
             }
           </div>
@@ -70,7 +70,7 @@ import type { OccurrenceTipo } from '@condomais/core';
         <div class="form__actions">
           <cm-button type="submit" [disabled]="submitting() || !titulo || !tipo || !descricao">
             @if (submitting()) { <cm-spinner [size]="16"></cm-spinner> }
-            @else { Registrar Ocorrência }
+            @else { Registrar OcorrÃªncia }
           </cm-button>
         </div>
 
@@ -80,7 +80,7 @@ import type { OccurrenceTipo } from '@condomais/core';
       </form>
     </div>
   `,
-  styleUrl: './new-occurrence.component.scss',
+  styleUrl: './new-occurrence.component.css',
 })
 export class NewOccurrenceComponent {
   readonly router              = inject(Router);
@@ -103,11 +103,11 @@ export class NewOccurrenceComponent {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) {
-      this.fileError.set('Arquivo muito grande. Máximo 5 MB.');
+      this.fileError.set('Arquivo muito grande. MÃ¡ximo 5 MB.');
       return;
     }
     if (!file.type.startsWith('image/')) {
-      this.fileError.set('Apenas imagens são permitidas.');
+      this.fileError.set('Apenas imagens sÃ£o permitidas.');
       return;
     }
     this.fileError.set(null);
@@ -142,7 +142,7 @@ export class NewOccurrenceComponent {
     });
 
     if (!occurrence) {
-      this.submitError.set('Erro ao registrar ocorrência. Tente novamente.');
+      this.submitError.set('Erro ao registrar ocorrÃªncia. Tente novamente.');
       this.submitting.set(false);
       return;
     }
@@ -155,7 +155,7 @@ export class NewOccurrenceComponent {
         const url  = await this.uploadSvc.upload('ocorrencias', path, compressed);
         await this.occurrenceSvc.addImage(occurrence.id, url);
       } catch {
-        // Image upload failure is non-blocking — occurrence was already saved
+        // Image upload failure is non-blocking â€” occurrence was already saved
       }
     }
 

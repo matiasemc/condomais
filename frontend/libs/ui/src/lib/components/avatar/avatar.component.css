@@ -1,0 +1,10 @@
+.avatar {
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  color: #4A2E18;
+  flex-shrink: 0;
+  user-select: none;
+}

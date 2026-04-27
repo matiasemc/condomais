@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { TableModule, type TableLazyLoadEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { UserManagementService, type UserManagementListItem } from '@condomais/core';
@@ -27,7 +27,7 @@ import { UserEditDialogComponent } from './user-edit-dialog.component';
   ],
   providers: [MessageService],
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss',
+  styleUrl: './users.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersComponent {
@@ -36,20 +36,12 @@ export class UsersComponent {
 
   readonly isLoading = signal(true);
   readonly users = signal<UserManagementListItem[]>([]);
+  readonly totalRecords = signal(0);
   readonly selectedUserId = signal<string | null>(null);
   readonly isDialogVisible = signal(false);
-
-  searchTerm = '';
-
-  readonly filteredUsers = computed(() => {
-    const query = this.searchTerm.trim().toLowerCase();
-
-    return this.users().filter((user) =>
-      !query ||
-      user.name.toLowerCase().includes(query) ||
-      user.email.toLowerCase().includes(query)
-    );
-  });
+  readonly first = signal(0);
+  readonly rows = signal(10);
+  readonly searchTerm = signal('');
 
   constructor() {
     void this.loadUsers();
@@ -66,27 +58,54 @@ export class UsersComponent {
   }
 
   async reloadUsers(): Promise<void> {
-    await this.loadUsers(false);
+    await this.loadUsers(undefined, false);
+  }
+
+  async onSearch(term: string): Promise<void> {
+    this.searchTerm.set(term);
+    this.first.set(0);
+    await this.loadUsers({
+      first: 0,
+      rows: this.rows(),
+      sortField: 'name',
+      sortOrder: 1,
+    }, false);
   }
 
   masterAdminSeverity(value: boolean): 'danger' | 'secondary' {
     return value ? 'danger' : 'secondary';
   }
 
-  private async loadUsers(showToast = true): Promise<void> {
+  async loadUsers(event?: TableLazyLoadEvent, showToast = true): Promise<void> {
+    const first = event?.first ?? this.first();
+    const rows = event?.rows ?? this.rows();
+    const sortField = Array.isArray(event?.sortField) ? event?.sortField[0] : event?.sortField;
+    const sortOrder = event?.sortOrder === -1 ? -1 : 1;
+
+    this.first.set(first);
+    this.rows.set(rows);
     this.isLoading.set(true);
 
     try {
-      this.users.set(await this.userManagement.getUsers());
+      const page = await this.userManagement.getUsersPage({
+        first,
+        rows,
+        sortField: sortField ?? 'name',
+        sortOrder,
+        globalFilter: this.searchTerm(),
+      });
+      this.users.set(page.data);
+      this.totalRecords.set(page.totalRecords);
     } catch (error) {
       this.messageService.add({
         severity: 'error',
-        summary: 'Erro ao carregar usuários',
+        summary: 'Erro ao carregar usuÃ¡rios',
         detail: error instanceof Error ? error.message : 'Tente novamente em instantes.',
       });
 
       if (showToast) {
         this.users.set([]);
+        this.totalRecords.set(0);
       }
     } finally {
       this.isLoading.set(false);

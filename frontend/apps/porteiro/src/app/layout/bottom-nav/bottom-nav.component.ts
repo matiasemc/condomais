@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -26,6 +26,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       </a>
     </nav>
   `,
-  styleUrl: './bottom-nav.component.scss',
+  styleUrl: './bottom-nav.component.css',
 })
 export class BottomNavComponent {}

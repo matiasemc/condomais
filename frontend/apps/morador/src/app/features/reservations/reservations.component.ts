@@ -1,16 +1,16 @@
-import { Component, ChangeDetectionStrategy, inject, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, inject, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BadgeComponent, ButtonComponent } from '@condomais/ui';
 import { ReservationService, AuthState } from '@condomais/core';
 
 const EQUIPAMENTO_EMOJIS: Record<string, string> = {
-  salao:         '🎉',
-  piscina:       '🏊',
-  churrasqueira: '🔥',
-  quadra:        '🎾',
-  academia:      '🏋️',
-  playground:    '🛝',
+  salao:         'ðŸŽ‰',
+  piscina:       'ðŸŠ',
+  churrasqueira: 'ðŸ”¥',
+  quadra:        'ðŸŽ¾',
+  academia:      'ðŸ‹ï¸',
+  playground:    'ðŸ›',
 };
 
 function emojiForName(nome: string): string {
@@ -18,7 +18,7 @@ function emojiForName(nome: string): string {
   for (const [key, emoji] of Object.entries(EQUIPAMENTO_EMOJIS)) {
     if (lower.includes(key)) return emoji;
   }
-  return '🏢';
+  return 'ðŸ¢';
 }
 
 @Component({
@@ -38,7 +38,7 @@ function emojiForName(nome: string): string {
       }
 
       <div class="spaces">
-        <p class="spaces__label">Áreas comuns</p>
+        <p class="spaces__label">Ãreas comuns</p>
         <div class="spaces__grid">
           @for (eq of svc.equipamentos(); track eq.id) {
             <a class="space-card" [routerLink]="['/reservas/nova']" [queryParams]="{ equipamento: eq.id }">
@@ -47,7 +47,7 @@ function emojiForName(nome: string): string {
             </a>
           } @empty {
             @if (!svc.isLoading()) {
-              <p class="empty-hint">Nenhuma área disponível</p>
+              <p class="empty-hint">Nenhuma Ã¡rea disponÃ­vel</p>
             }
           }
         </div>
@@ -59,8 +59,8 @@ function emojiForName(nome: string): string {
           <div class="res-row">
             <div class="res-row__icon">{{ emoji(r.equipamento?.nome ?? '') }}</div>
             <div class="res-row__body">
-              <p class="res-row__title">{{ r.equipamento?.nome ?? 'Área' }}</p>
-              <p class="res-row__sub">{{ r.data | date:'dd/MM/yyyy':'UTC' }} · {{ r.horaInicio }}–{{ r.horaFim }}</p>
+              <p class="res-row__title">{{ r.equipamento?.nome ?? 'Ãrea' }}</p>
+              <p class="res-row__sub">{{ r.data | date:'dd/MM/yyyy':'UTC' }} Â· {{ r.horaInicio }}â€“{{ r.horaFim }}</p>
             </div>
             <div class="res-row__right">
               <cm-badge [variant]="r.status === 'confirmada' ? 'success' : 'warn'">{{ r.status }}</cm-badge>
@@ -77,7 +77,7 @@ function emojiForName(nome: string): string {
       </div>
     </div>
   `,
-  styleUrl: './reservations.component.scss',
+  styleUrl: './reservations.component.css',
 })
 export class ReservationsComponent implements OnInit, OnDestroy {
   protected readonly svc  = inject(ReservationService);

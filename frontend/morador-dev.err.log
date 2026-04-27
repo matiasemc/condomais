@@ -1,3 +1,11 @@
 Node.js version v25.9.0 detected.
 Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/previous-releases/.
 [1m[33mComponent HMR has been enabled, see https://angular.dev/hmr for more info.[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2339: Property 'subscriptionFromCurrentTenant' does not exist on type 'BillingService'.[0m [1m[35m[plugin angular-compiler][0m
+
+    libs/core/src/lib/services/billing.service.ts:114:33:
+[37m      114 │ ...bscription.set(this.[32msubscriptionFromCurrentTenant[37m(condominioId));
+          ╵                        [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m
+^C

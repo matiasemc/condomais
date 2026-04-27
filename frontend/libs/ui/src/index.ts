@@ -7,7 +7,6 @@ export { ListRowComponent }      from './lib/components/list-row/list-row.compon
 export { AvatarComponent }       from './lib/components/avatar/avatar.component';
 export { ToggleComponent }       from './lib/components/toggle/toggle.component';
 export { SearchInputComponent }  from './lib/components/search-input/search-input.component';
-export { ToastComponent }        from './lib/components/toast/toast.component';
 export { StepperComponent }      from './lib/components/stepper/stepper.component';
 export { TabBarComponent }       from './lib/components/tab-bar/tab-bar.component';
 export { SectionHeaderComponent } from './lib/components/section-header/section-header.component';
@@ -18,4 +17,10 @@ export { SpinnerComponent }      from './lib/components/spinner/spinner.componen
 export type { ButtonVariant, ButtonSize } from './lib/components/button/button.component';
 export type { BadgeVariant }             from './lib/components/badge/badge.component';
 export type { TabItem }                  from './lib/components/tab-bar/tab-bar.component';
-export type { ToastData }                from './lib/components/toast/toast.component';
+
+export interface ToastData {
+  message: string;
+  icon?: string;
+  type?: 'success' | 'info' | 'warn' | 'error';
+  duration?: number;
+}

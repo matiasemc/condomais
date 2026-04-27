@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/spinner/spinner.component.css"],
+  "sourcesContent": [".spinner {\n  animation: spin 0.8s linear infinite;\n  color: var(--c-accent);\n  display: inline-flex;\n}"],
+  "mappings": ";AAAA,CAAC;AACC,aAAW,KAAK,KAAK,OAAO;AAC5B,SAAO,IAAI;AACX,WAAS;AACX;",
+  "names": []
+}

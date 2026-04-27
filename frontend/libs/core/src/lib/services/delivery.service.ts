@@ -1,8 +1,7 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { Subject } from 'rxjs';
+﻿import { Injectable, inject, signal } from '@angular/core';
 import type { RealtimeChannel } from '@supabase/supabase-js';
-import { SUPABASE_CLIENT } from '../supabase/client';
-import type { Delivery, CreateDeliveryInput, AppNotification } from '../models/index';
+import { SUPABASE_CLIENT } from './supabase-client.service';
+import type { Delivery, CreateDeliveryInput } from '../interfaces/index.model';
 
 export interface DeliveryRealtimeEvent {
   eventType: 'INSERT' | 'UPDATE';
@@ -14,6 +13,8 @@ export interface ResidentOption {
   name: string;
   unit: string;
 }
+
+const DELIVERY_COLUMNS = 'id,condominio_id,morador_id,porteiro_id,recebido_por,unidade,transportadora,codigo_rastreamento,tipo,descricao,foto_url,status,data_retirada,quem_retirou,created_at,updated_at';
 
 function mapRow(row: any): Delivery {
   return {
@@ -46,7 +47,7 @@ export class DeliveryService {
 
   private channel: RealtimeChannel | null = null;
 
-  readonly realtimeEvents$ = new Subject<DeliveryRealtimeEvent>();
+  readonly realtimeEvent = signal<DeliveryRealtimeEvent | null>(null);
 
   subscribeToTenant(condominioId: string): void {
     this.stopRealtime();
@@ -84,14 +85,14 @@ export class DeliveryService {
     if (eventType === 'INSERT') {
       const delivery = mapRow(newRow);
       this.deliveries.update(list => [delivery, ...list]);
-      this.realtimeEvents$.next({ eventType: 'INSERT', delivery });
+      this.realtimeEvent.set({ eventType: 'INSERT', delivery });
     } else if (eventType === 'UPDATE') {
       const delivery = mapRow(newRow);
       if (newRow.deleted_at) {
         this.deliveries.update(list => list.filter(d => d.id !== delivery.id));
       } else {
         this.deliveries.update(list => list.map(d => d.id === delivery.id ? delivery : d));
-        this.realtimeEvents$.next({ eventType: 'UPDATE', delivery });
+        this.realtimeEvent.set({ eventType: 'UPDATE', delivery });
       }
     } else if (eventType === 'DELETE') {
       this.deliveries.update(list => list.filter(d => d.id !== oldRow.id));
@@ -103,10 +104,11 @@ export class DeliveryService {
     this.error.set(null);
     const { data, error } = await this.supabase
       .from('entregas')
-      .select('*')
+      .select(DELIVERY_COLUMNS)
       .eq('condominio_id', condominioId)
       .is('deleted_at', null)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(100);
     this.isLoading.set(false);
     if (error) { this.error.set(error.message); return; }
     this.deliveries.set((data ?? []).map(mapRow));
@@ -118,11 +120,12 @@ export class DeliveryService {
     this.error.set(null);
     const { data, error } = await this.supabase
       .from('entregas')
-      .select('*')
+      .select(DELIVERY_COLUMNS)
       .eq('condominio_id', condominioId)
       .eq('unidade', unidade)
       .is('deleted_at', null)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(100);
     this.isLoading.set(false);
     if (error) { this.error.set(error.message); return; }
     this.deliveries.set((data ?? []).map(mapRow));
@@ -131,7 +134,7 @@ export class DeliveryService {
   async loadById(id: string): Promise<Delivery | null> {
     const { data, error } = await this.supabase
       .from('entregas')
-      .select('*')
+      .select(DELIVERY_COLUMNS)
       .eq('id', id)
       .is('deleted_at', null)
       .single();
@@ -152,15 +155,18 @@ export class DeliveryService {
     return true;
   }
 
-  async loadForUser(userId: string): Promise<void> {
+  async loadForUser(userId: string, condominioId?: string): Promise<void> {
     this.isLoading.set(true);
     this.error.set(null);
-    const { data, error } = await this.supabase
+    let query = this.supabase
       .from('entregas')
-      .select('*')
+      .select(DELIVERY_COLUMNS)
       .eq('morador_id', userId)
       .is('deleted_at', null)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(100);
+    if (condominioId) query = query.eq('condominio_id', condominioId);
+    const { data, error } = await query;
     this.isLoading.set(false);
     if (error) { this.error.set(error.message); return; }
     this.deliveries.set((data ?? []).map(mapRow));
@@ -179,7 +185,7 @@ export class DeliveryService {
         descricao:     input.descricao ?? null,
         status:        'pendente',
       })
-      .select()
+      .select(DELIVERY_COLUMNS)
       .single();
     if (error || !data) { this.error.set(error?.message ?? 'Erro ao criar entrega'); return null; }
     const delivery = mapRow(data);

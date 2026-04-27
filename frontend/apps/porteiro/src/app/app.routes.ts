@@ -1,12 +1,13 @@
 import { Routes } from '@angular/router';
-import { authGuard, tenantGuard, roleGuard } from '@condomais/core';
+import { authGuard, contextGuard, roleGuard, SelectContextComponent } from '@condomais/core';
 export const routes: Routes = [
-  { path: 'login',         loadComponent: () => import('./features/auth/login.component').then(m=>m.LoginComponent) },
-  { path: 'tenant-select', canActivate: [authGuard], loadComponent: () => import('./features/tenant-select/tenant-select.component').then(m=>m.TenantSelectComponent) },
-  { path: 'unauthorized',  loadComponent: () => import('./features/unauthorized/unauthorized.component').then(m=>m.UnauthorizedComponent) },
+  { path: 'login',          loadComponent: () => import('./features/auth/login.component').then(m=>m.LoginComponent) },
+  { path: 'select-context', canActivate: [authGuard], component: SelectContextComponent },
+  { path: 'tenant-select',  canActivate: [authGuard], component: SelectContextComponent },
+  { path: 'unauthorized',   loadComponent: () => import('./features/unauthorized/unauthorized.component').then(m=>m.UnauthorizedComponent) },
   {
     path: "",
-    canActivate: [authGuard, tenantGuard, roleGuard(['PORTEIRO', 'SINDICO'])],
+    canActivate: [authGuard, contextGuard('porteiro'), roleGuard(['PORTEIRO', 'SINDICO'])],
     loadComponent: () => import("./layout/app-shell/app-shell.component").then(m=>m.AppShellComponent),
     children: [
       { path: "", redirectTo: "home", pathMatch: "full" },

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/kpi-card/kpi-card.component.css"],
+  "sourcesContent": [".kpi {\n  background: var(--c-card);\n  border: 1px solid var(--c-border);\n  border-radius: var(--r-md);\n  padding: var(--s-4) var(--s-5);\n}\n.kpi__label {\n  font-size: 11px;\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n  opacity: 0.7;\n  color: var(--c-text-muted);\n}\n.kpi__value {\n  font-family: var(--font-serif);\n  font-size: 38px;\n  line-height: 1.05;\n  margin-top: var(--s-2);\n  letter-spacing: -0.7px;\n  color: var(--c-text);\n}\n.kpi--inverted {\n  background: var(--c-text);\n  border-color: transparent;\n}\n.kpi--inverted .kpi__label {\n  color: rgba(255, 255, 255, 0.7);\n}\n.kpi--inverted .kpi__value {\n  color: var(--c-bg);\n}"],
+  "mappings": ";AAAA,CAAC;AACC,cAAY,IAAI;AAChB,UAAQ,IAAI,MAAM,IAAI;AACtB,iBAAe,IAAI;AACnB,WAAS,IAAI,OAAO,IAAI;AAC1B;AACA,CAAC;AACC,aAAW;AACX,eAAa;AACb,kBAAgB;AAChB,kBAAgB;AAChB,WAAS;AACT,SAAO,IAAI;AACb;AACA,CAAC;AACC,eAAa,IAAI;AACjB,aAAW;AACX,eAAa;AACb,cAAY,IAAI;AAChB,kBAAgB;AAChB,SAAO,IAAI;AACb;AACA,CAAC;AACC,cAAY,IAAI;AAChB,gBAAc;AAChB;AACA,CAJC,cAIc,CApBd;AAqBC,SAAO,KAAK,GAAG,EAAE,GAAG,EAAE,GAAG,EAAE;AAC7B;AACA,CAPC,cAOc,CAfd;AAgBC,SAAO,IAAI;AACb;",
+  "names": []
+}

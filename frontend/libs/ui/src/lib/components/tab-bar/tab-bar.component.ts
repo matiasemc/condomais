@@ -1,4 +1,4 @@
-import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface TabItem {
@@ -22,7 +22,7 @@ export interface TabItem {
       }
     </div>
   `,
-  styleUrl: './tab-bar.component.scss',
+  styleUrl: './tab-bar.component.css',
 })
 export class TabBarComponent {
   tabs     = input.required<TabItem[]>();

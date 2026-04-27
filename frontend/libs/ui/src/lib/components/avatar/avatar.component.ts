@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy, computed } from '@angular/core';
+﻿import { Component, input, ChangeDetectionStrategy, computed } from '@angular/core';
 
 @Component({
   selector: 'cm-avatar',
@@ -10,7 +10,7 @@ import { Component, input, ChangeDetectionStrategy, computed } from '@angular/co
       {{ initials() }}
     </div>
   `,
-  styleUrl: './avatar.component.scss',
+  styleUrl: './avatar.component.css',
 })
 export class AvatarComponent {
   name   = input<string>('');

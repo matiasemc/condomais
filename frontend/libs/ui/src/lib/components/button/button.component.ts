@@ -1,4 +1,4 @@
-import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export type ButtonVariant = 'primary' | 'accent' | 'ghost' | 'soft' | 'whatsapp';
@@ -18,7 +18,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
       <ng-content></ng-content>
     </button>
   `,
-  styleUrl: './button.component.scss',
+  styleUrl: './button.component.css',
 })
 export class ButtonComponent {
   variant = input<ButtonVariant>('primary');

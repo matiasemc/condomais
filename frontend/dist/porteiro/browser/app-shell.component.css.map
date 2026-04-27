@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/porteiro/src/app/layout/app-shell/app-shell.component.css"],
+  "sourcesContent": [".shell {\n  display: flex;\n  height: 100dvh;\n  background: var(--c-bg);\n}\n.shell__sidebar {\n  display: none;\n}\n@media (min-width: 900px) {\n  .shell__sidebar {\n    display: flex;\n  }\n}\n.shell__main {\n  flex: 1;\n  overflow-y: auto;\n  overflow-x: hidden;\n  -webkit-overflow-scrolling: touch;\n}\n.shell__bottom-nav {\n  display: flex;\n}\n@media (min-width: 900px) {\n  .shell__bottom-nav {\n    display: none;\n  }\n}\n\n@media (max-width: 899px) {\n  .shell {\n    flex-direction: column;\n  }\n  .shell__main {\n    padding-bottom: 72px;\n  }\n}"],
+  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,UAAQ;AACR,cAAY,IAAI;AAClB;AACA,CAAC;AACC,WAAS;AACX;AACA,QAAO,WAAY;AACjB,GAJD;AAKG,aAAS;AACX;AACF;AACA,CAAC;AACC,QAAM;AACN,cAAY;AACZ,cAAY;AACZ,8BAA4B;AAC9B;AACA,CAAC;AACC,WAAS;AACX;AACA,QAAO,WAAY;AACjB,GAJD;AAKG,aAAS;AACX;AACF;AAEA,QAAO,WAAY;AACjB,GA7BD;AA8BG,oBAAgB;AAClB;AACA,GAnBD;AAoBG,oBAAgB;AAClB;AACF;",
+  "names": []
+}

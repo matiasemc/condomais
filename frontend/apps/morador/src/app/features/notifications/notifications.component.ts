@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Location, DatePipe } from '@angular/common';
-import { BadgeComponent } from '@condomais/ui';
-import { Notification } from '../../core/models';
+import { NotificationService } from '@condomais/core';
+import type { NotificationType } from '@condomais/core';
 
 @Component({
   selector: 'cm-notifications',
@@ -9,19 +9,21 @@ import { Notification } from '../../core/models';
   imports: [DatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './notifications.component.html',
-  styleUrl: './notifications.component.scss',
+  styleUrl: './notifications.component.css',
 })
 export class NotificationsComponent {
-  location = inject(Location);
-  icons: Record<string, string> = { entrega: '📦', reserva: '📅', aviso: '📢', sistema: '🔔' };
+  private readonly notificationService = inject(NotificationService);
 
-  notifs = signal<Notification[]>([
-    { id: '1', titulo: 'Entrega chegou!', mensagem: 'Mercado Livre · Portaria principal', lido: false, criadaEm: new Date(), tipo: 'entrega' },
-    { id: '2', titulo: 'Reserva confirmada', mensagem: 'Salao A · 27 abr 19:00', lido: false, criadaEm: new Date(Date.now() - 3600000), tipo: 'reserva' },
-    { id: '3', titulo: 'Novo aviso', mensagem: 'Manutencao da piscina 22-25 abr', lido: true, criadaEm: new Date(Date.now() - 86400000), tipo: 'aviso' },
-  ]);
+  readonly location = inject(Location);
+  readonly notifs = this.notificationService.notifications;
+  readonly icons: Record<NotificationType, string> = {
+    nova_entrega: 'EN',
+    entrega_retirada: 'OK',
+    nova_ocorrencia: 'OC',
+    ocorrencia_atualizada: 'UP',
+  };
 
   markRead(id: string): void {
-    this.notifs.update(ns => ns.map(n => n.id === id ? { ...n, lido: true } : n));
+    this.notificationService.markAsRead(id);
   }
 }

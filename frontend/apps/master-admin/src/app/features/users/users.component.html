@@ -7,29 +7,35 @@
   </div>
 
   <div class="page-header__summary">
-    <strong>{{ filteredUsers().length }}</strong>
+    <strong>{{ totalRecords() }}</strong>
     <span>usuário(s) encontrado(s)</span>
   </div>
 </section>
 
 <section class="toolbar">
   <cm-search-input
-    [(value)]="searchTerm"
+    [value]="searchTerm()"
     placeholder="Buscar por nome ou e-mail"
     class="toolbar__search"
+    (valueChange)="onSearch($event)"
   ></cm-search-input>
 </section>
 
 <cm-card [flat]="true" class="table-shell">
   <p-table
-    [value]="filteredUsers()"
+    [value]="users()"
+    [lazy]="true"
+    [lazyLoadOnInit]="false"
+    [totalRecords]="totalRecords()"
+    [first]="first()"
     [paginator]="true"
-    [rows]="10"
+    [rows]="rows()"
     [rowsPerPageOptions]="[10, 20, 50]"
     [loading]="isLoading()"
     responsiveLayout="scroll"
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} usuários"
     [showCurrentPageReport]="true"
+    (onLazyLoad)="loadUsers($event)"
   >
     <ng-template pTemplate="header">
       <tr>

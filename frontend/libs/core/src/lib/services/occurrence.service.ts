@@ -1,13 +1,15 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { Subject } from 'rxjs';
+﻿import { Injectable, inject, signal } from '@angular/core';
 import type { RealtimeChannel } from '@supabase/supabase-js';
-import { SUPABASE_CLIENT } from '../supabase/client';
-import type { Occurrence, OccurrenceImage, OccurrenceStatus, CreateOccurrenceInput } from '../models/index';
+import { SUPABASE_CLIENT } from './supabase-client.service';
+import type { Occurrence, OccurrenceImage, OccurrenceStatus, CreateOccurrenceInput } from '../interfaces/index.model';
 
 export interface OccurrenceRealtimeEvent {
   eventType: 'INSERT' | 'UPDATE';
   occurrence: Occurrence;
 }
+
+const OCCURRENCE_COLUMNS = 'id,condominio_id,user_id,porteiro_id,titulo,tipo,descricao,local,data_ocorrido,status,resolvida_por,resolucao,created_at,updated_at';
+const OCCURRENCE_IMAGE_COLUMNS = 'id,ocorrencia_id,image_url,ordem,created_at';
 
 function mapRow(row: any): Occurrence {
   return {
@@ -48,9 +50,9 @@ export class OccurrenceService {
 
   private channel: RealtimeChannel | null = null;
 
-  readonly realtimeEvents$ = new Subject<OccurrenceRealtimeEvent>();
+  readonly realtimeEvent = signal<OccurrenceRealtimeEvent | null>(null);
 
-  // ── Subscriptions ──────────────────────────────────────────
+  // â”€â”€ Subscriptions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   subscribeToTenant(condominioId: string): void {
     this.stopRealtime();
@@ -88,27 +90,28 @@ export class OccurrenceService {
     if (eventType === 'INSERT') {
       const occurrence = mapRow(newRow);
       this.occurrences.update(list => [occurrence, ...list]);
-      this.realtimeEvents$.next({ eventType: 'INSERT', occurrence });
+      this.realtimeEvent.set({ eventType: 'INSERT', occurrence });
     } else if (eventType === 'UPDATE') {
       const occurrence = mapRow(newRow);
       this.occurrences.update(list => list.map(o => o.id === occurrence.id ? occurrence : o));
-      this.realtimeEvents$.next({ eventType: 'UPDATE', occurrence });
+      this.realtimeEvent.set({ eventType: 'UPDATE', occurrence });
     } else if (eventType === 'DELETE') {
       this.occurrences.update(list => list.filter(o => o.id !== oldRow.id));
     }
   }
 
-  // ── Queries ───────────────────────────────────────────────
+  // â”€â”€ Queries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   async loadMyOccurrences(condominioId: string, userId: string): Promise<void> {
     this.isLoading.set(true);
     this.error.set(null);
     const { data, error } = await this.supabase
       .from('ocorrencias')
-      .select('*')
+      .select(OCCURRENCE_COLUMNS)
       .eq('condominio_id', condominioId)
       .eq('user_id', userId)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(100);
     this.isLoading.set(false);
     if (error) { this.error.set(error.message); return; }
     this.occurrences.set((data ?? []).map(mapRow));
@@ -119,9 +122,10 @@ export class OccurrenceService {
     this.error.set(null);
     const { data, error } = await this.supabase
       .from('ocorrencias')
-      .select('*')
+      .select(OCCURRENCE_COLUMNS)
       .eq('condominio_id', condominioId)
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .limit(100);
     this.isLoading.set(false);
     if (error) { this.error.set(error.message); return; }
     this.occurrences.set((data ?? []).map(mapRow));
@@ -130,7 +134,7 @@ export class OccurrenceService {
   async loadById(id: string): Promise<Occurrence | null> {
     const { data, error } = await this.supabase
       .from('ocorrencias')
-      .select('*')
+      .select(OCCURRENCE_COLUMNS)
       .eq('id', id)
       .single();
     if (error || !data) return null;
@@ -140,9 +144,10 @@ export class OccurrenceService {
   async loadImages(ocorrenciaId: string): Promise<OccurrenceImage[]> {
     const { data, error } = await this.supabase
       .from('ocorrencia_imagens')
-      .select('*')
+      .select(OCCURRENCE_IMAGE_COLUMNS)
       .eq('ocorrencia_id', ocorrenciaId)
-      .order('ordem');
+      .order('ordem')
+      .limit(20);
     if (error || !data) return [];
     return data.map(mapImageRow);
   }
@@ -159,9 +164,9 @@ export class OccurrenceService {
         local:         input.local ?? null,
         status:        'aberta',
       })
-      .select()
+      .select(OCCURRENCE_COLUMNS)
       .single();
-    if (error || !data) { this.error.set(error?.message ?? 'Erro ao criar ocorrência'); return null; }
+    if (error || !data) { this.error.set(error?.message ?? 'Erro ao criar ocorrÃªncia'); return null; }
     const occurrence = mapRow(data);
     this.occurrences.update(list => [occurrence, ...list]);
     return occurrence;

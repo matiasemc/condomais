@@ -1,8 +1,8 @@
-import { EnvironmentProviders, makeEnvironmentProviders, inject, APP_INITIALIZER } from '@angular/core';
-import { SUPABASE_CONFIG, SUPABASE_CLIENT, supabaseClientFactory, SupabaseConfig } from '../supabase/client';
+﻿import { EnvironmentProviders, makeEnvironmentProviders, inject, APP_INITIALIZER } from '@angular/core';
+import { SUPABASE_CONFIG, SUPABASE_CLIENT, supabaseClientFactory, SupabaseConfig } from '../services/supabase-client.service';
 import { AuthService } from '../auth/auth.service';
 import { AUTH_APP_KEY } from '../auth/session.service';
-import type { AppKey } from '../models';
+import type { AppKey } from '../interfaces/index.model';
 
 export interface CoreConfig extends SupabaseConfig {
   appKey: AppKey;

@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
-import { masterAdminGuard } from '@condomais/core';
+import { authGuard, masterAdminGuard, SelectContextComponent } from '@condomais/core';
 
 export const routes: Routes = [
-  { path: 'login',        loadComponent: () => import('./features/login/login.component').then(m => m.LoginComponent) },
-  { path: 'unauthorized', loadComponent: () => import('./features/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent) },
+  { path: 'login',          loadComponent: () => import('./features/login/login.component').then(m => m.LoginComponent) },
+  { path: 'select-context', canActivate: [authGuard], component: SelectContextComponent },
+  { path: 'tenant-select',  canActivate: [authGuard], component: SelectContextComponent },
+  { path: 'unauthorized',   loadComponent: () => import('./features/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent) },
   {
     path: '',
     canActivate: [masterAdminGuard],

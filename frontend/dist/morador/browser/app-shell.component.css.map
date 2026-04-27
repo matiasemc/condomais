@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/morador/src/app/layout/app-shell/app-shell.component.css"],
+  "sourcesContent": [".shell {\n  display: flex;\n  flex-direction: column;\n  height: 100dvh;\n  max-width: 430px;\n  margin: 0 auto;\n  background: var(--c-bg);\n  position: relative;\n  overflow: hidden;\n}\n.shell__content {\n  flex: 1;\n  overflow-y: auto;\n  overflow-x: hidden;\n  -webkit-overflow-scrolling: touch;\n}"],
+  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,kBAAgB;AAChB,UAAQ;AACR,aAAW;AACX,UAAQ,EAAE;AACV,cAAY,IAAI;AAChB,YAAU;AACV,YAAU;AACZ;AACA,CAAC;AACC,QAAM;AACN,cAAY;AACZ,cAAY;AACZ,8BAA4B;AAC9B;",
+  "names": []
+}

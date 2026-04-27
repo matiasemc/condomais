@@ -1,4 +1,4 @@
-import { Component, input, output, model, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, output, model, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -18,10 +18,10 @@ import { FormsModule } from '@angular/forms';
              (ngModelChange)="valueChange.emit($event)" />
     </div>
   `,
-  styleUrl: './search-input.component.scss',
+  styleUrl: './search-input.component.css',
 })
 export class SearchInputComponent {
-  placeholder = input('Buscar…');
+  placeholder = input('Buscarâ€¦');
   value       = model('');
   valueChange = output<string>();
 }

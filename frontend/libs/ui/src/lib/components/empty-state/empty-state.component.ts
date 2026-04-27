@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cm-empty-state',
@@ -13,10 +13,10 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
       }
     </div>
   `,
-  styleUrl: './empty-state.component.scss',
+  styleUrl: './empty-state.component.css',
 })
 export class EmptyStateComponent {
-  icon     = input('📭');
+  icon     = input('ðŸ“­');
   title    = input.required<string>();
   subtitle = input<string>('');
 }

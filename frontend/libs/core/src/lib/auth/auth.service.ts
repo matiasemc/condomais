@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+﻿import { Injectable, inject } from '@angular/core';
 import type { Session, User } from '@supabase/supabase-js';
-import { SUPABASE_CLIENT } from '../supabase/client';
+import { SUPABASE_CLIENT } from '../services/supabase-client.service';
 import { AuthState } from '../state/auth.state';
 import { SessionService } from './session.service';
 
@@ -30,7 +30,7 @@ export class AuthService {
         throw error;
       }
     } catch (error) {
-      this.state.error.set(error instanceof Error ? error.message : 'Não foi possível iniciar o login com Google.');
+      this.state.error.set(error instanceof Error ? error.message : 'NÃ£o foi possÃ­vel iniciar o login com Google.');
       this.state.isLoading.set(false);
     }
   }
@@ -48,7 +48,7 @@ export class AuthService {
 
       await this.sessions.syncSession(data.session, { redirect: true, force: true });
     } catch (error) {
-      this.state.error.set(error instanceof Error ? error.message : 'Não foi possível fazer login.');
+      this.state.error.set(error instanceof Error ? error.message : 'NÃ£o foi possÃ­vel fazer login.');
     } finally {
       this.state.isLoading.set(false);
     }

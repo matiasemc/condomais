@@ -1,4 +1,4 @@
-import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cm-toggle',
@@ -11,7 +11,7 @@ import { Component, input, output, ChangeDetectionStrategy } from '@angular/core
       <span class="toggle__thumb"></span>
     </button>
   `,
-  styleUrl: './toggle.component.scss',
+  styleUrl: './toggle.component.css',
 })
 export class ToggleComponent {
   checked = input(false);

@@ -1,27 +1,7 @@
 import { Component, inject, ChangeDetectionStrategy, signal, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { SUPABASE_CLIENT } from '@condomais/core';
-
-interface PlatformStats {
-  total_tenants: number;
-  tenants_trial: number;
-  tenants_active: number;
-  tenants_suspended: number;
-  total_users: number;
-  total_deliveries: number;
-  pending_deliveries: number;
-  total_occurrences: number;
-  total_reservations: number;
-}
-
-interface RecentTenant {
-  id: string;
-  nome: string;
-  subscription_status: string;
-  plan: string;
-  created_at: string;
-}
+import { PlatformDashboardService, type PlatformStats, type RecentTenant } from '@condomais/core';
 
 @Component({
   selector: 'cm-dashboard',
@@ -120,20 +100,19 @@ interface RecentTenant {
   `],
 })
 export class DashboardComponent implements OnInit {
-  private readonly supabase = inject(SUPABASE_CLIENT);
+  private readonly dashboardService = inject(PlatformDashboardService);
 
   stats         = signal<PlatformStats | null>(null);
   recentTenants = signal<RecentTenant[]>([]);
   isLoading     = signal(true);
 
   async ngOnInit(): Promise<void> {
-    const [statsRes, tenantsRes] = await Promise.all([
-      this.supabase.from('v_platform_stats').select('*').single(),
-      this.supabase.from('condominios').select('id,nome,subscription_status,plan,created_at')
-        .is('deleted_at', null).order('created_at', { ascending: false }).limit(8),
-    ]);
-    this.stats.set(statsRes.data as PlatformStats ?? null);
-    this.recentTenants.set((tenantsRes.data ?? []) as RecentTenant[]);
-    this.isLoading.set(false);
+    try {
+      const dashboard = await this.dashboardService.getDashboard();
+      this.stats.set(dashboard.stats);
+      this.recentTenants.set(dashboard.recentTenants);
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 }

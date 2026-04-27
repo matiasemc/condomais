@@ -1,26 +1,20 @@
 import { Component, ChangeDetectionStrategy, inject, signal, computed, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SUPABASE_CLIENT } from '@condomais/core';
+import { SelectModule } from 'primeng/select';
+import {
+  TenantAdminService,
+  type TenantAdminRow,
+  type TenantPlan,
+  type TenantSubscriptionStatus,
+} from '@condomais/core';
 
-type SubscriptionStatus = 'trial' | 'active' | 'suspended' | 'cancelled';
-type Plan = 'basic' | 'plus' | 'premium';
-
-interface TenantRow {
-  id: string;
-  nome: string;
-  subdomain: string | null;
-  email: string | null;
-  plan: Plan;
-  subscription_status: SubscriptionStatus;
-  max_unidades: number;
-  created_at: string;
-}
+type TenantTab = 'all' | TenantSubscriptionStatus;
 
 @Component({
   selector: 'cm-tenants',
   standalone: true,
-  imports: [DatePipe, FormsModule],
+  imports: [DatePipe, SelectModule, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
@@ -53,11 +47,14 @@ interface TenantRow {
             </div>
             <div class="form-field">
               <label>Plano</label>
-              <select class="form-input" [(ngModel)]="form.plan">
-                <option value="basic">Basic</option>
-                <option value="plus">Plus</option>
-                <option value="premium">Premium</option>
-              </select>
+              <p-select
+                styleClass="form-input"
+                [options]="planOptions"
+                [(ngModel)]="form.plan"
+                optionLabel="label"
+                optionValue="value"
+                appendTo="body"
+              ></p-select>
             </div>
             <div class="form-field">
               <label>Máx. unidades</label>
@@ -72,7 +69,13 @@ interface TenantRow {
       }
 
       <div class="filters">
-        <input class="search-input" type="text" [(ngModel)]="searchText" placeholder="Buscar por nome ou subdomínio..."/>
+        <input
+          class="search-input"
+          type="text"
+          [ngModel]="searchText()"
+          placeholder="Buscar por nome ou subdomínio..."
+          (ngModelChange)="searchText.set($event)"
+        />
         <div class="filter-tabs">
           @for (tab of statusTabs; track tab.id) {
             <button class="filter-tab" [class.filter-tab--active]="activeTab() === tab.id"
@@ -97,11 +100,15 @@ interface TenantRow {
               </div>
               <div class="tenant-row__right">
                 <span class="badge" [class]="'badge--' + t.subscription_status">{{ t.subscription_status }}</span>
-                <select class="plan-select" [ngModel]="t.plan" (ngModelChange)="changePlan(t.id, $event)">
-                  <option value="basic">Basic</option>
-                  <option value="plus">Plus</option>
-                  <option value="premium">Premium</option>
-                </select>
+                <p-select
+                  styleClass="plan-select"
+                  [options]="planOptions"
+                  [ngModel]="t.plan"
+                  optionLabel="label"
+                  optionValue="value"
+                  appendTo="body"
+                  (ngModelChange)="changePlan(t.id, $event)"
+                ></p-select>
                 <button class="btn-toggle"
                   [class.btn-toggle--off]="t.subscription_status === 'suspended'"
                   (click)="toggleStatus(t)">
@@ -152,19 +159,25 @@ interface TenantRow {
   `],
 })
 export class TenantsComponent implements OnInit {
-  private readonly supabase = inject(SUPABASE_CLIENT);
+  private readonly tenantsService = inject(TenantAdminService);
 
-  tenants    = signal<TenantRow[]>([]);
+  tenants    = signal<TenantAdminRow[]>([]);
   isLoading  = signal(true);
   isSaving   = signal(false);
   showForm   = signal(false);
   formError  = signal<string | null>(null);
-  activeTab  = signal('all');
-  searchText = '';
+  activeTab  = signal<TenantTab>('all');
+  searchText = signal('');
 
-  form = { nome: '', cnpj: '', subdomain: '', email: '', plan: 'basic' as Plan, maxUnidades: 50 };
+  form = { nome: '', cnpj: '', subdomain: '', email: '', plan: 'basic' as TenantPlan, maxUnidades: 50 };
 
-  statusTabs = [
+  planOptions: { label: string; value: TenantPlan }[] = [
+    { label: 'Basic', value: 'basic' },
+    { label: 'Plus', value: 'plus' },
+    { label: 'Premium', value: 'premium' },
+  ];
+
+  statusTabs: { id: TenantTab; label: string }[] = [
     { id: 'all',       label: 'Todos' },
     { id: 'trial',     label: 'Trial' },
     { id: 'active',    label: 'Ativos' },
@@ -173,7 +186,7 @@ export class TenantsComponent implements OnInit {
 
   filtered = computed(() => {
     const tab   = this.activeTab();
-    const query = this.searchText.toLowerCase();
+    const query = this.searchText().toLowerCase();
     return this.tenants()
       .filter(t => tab === 'all' || t.subscription_status === tab)
       .filter(t => !query || t.nome.toLowerCase().includes(query) || (t.subdomain ?? '').toLowerCase().includes(query));
@@ -183,43 +196,44 @@ export class TenantsComponent implements OnInit {
 
   private async load(): Promise<void> {
     this.isLoading.set(true);
-    const { data } = await this.supabase
-      .from('condominios')
-      .select('id,nome,subdomain,email,plan,subscription_status,max_unidades,created_at')
-      .is('deleted_at', null)
-      .order('created_at', { ascending: false });
-    this.tenants.set((data ?? []) as TenantRow[]);
-    this.isLoading.set(false);
+    try {
+      this.tenants.set(await this.tenantsService.list());
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
   async criar(): Promise<void> {
     if (!this.form.nome || !this.form.cnpj) { this.formError.set('Nome e CNPJ obrigatórios'); return; }
     this.formError.set(null);
     this.isSaving.set(true);
-    const { error } = await this.supabase.from('condominios').insert({
-      nome:                this.form.nome,
-      cnpj:                this.form.cnpj,
-      subdomain:           this.form.subdomain || null,
-      email:               this.form.email     || null,
-      plan:                this.form.plan,
-      max_unidades:        this.form.maxUnidades,
-      subscription_status: 'trial',
-    });
-    this.isSaving.set(false);
-    if (error) { this.formError.set(error.message); return; }
-    this.form = { nome: '', cnpj: '', subdomain: '', email: '', plan: 'basic', maxUnidades: 50 };
-    this.showForm.set(false);
-    await this.load();
+    try {
+      await this.tenantsService.create({
+        nome: this.form.nome,
+        cnpj: this.form.cnpj,
+        subdomain: this.form.subdomain || null,
+        email: this.form.email || null,
+        plan: this.form.plan,
+        maxUnidades: this.form.maxUnidades,
+      });
+      this.form = { nome: '', cnpj: '', subdomain: '', email: '', plan: 'basic', maxUnidades: 50 };
+      this.showForm.set(false);
+      await this.load();
+    } catch (error) {
+      this.formError.set(error instanceof Error ? error.message : 'Erro ao criar tenant');
+    } finally {
+      this.isSaving.set(false);
+    }
   }
 
-  async toggleStatus(t: TenantRow): Promise<void> {
-    const newStatus: SubscriptionStatus = t.subscription_status === 'suspended' ? 'active' : 'suspended';
-    const { error } = await this.supabase.from('condominios').update({ subscription_status: newStatus }).eq('id', t.id);
-    if (!error) this.tenants.update(list => list.map(r => r.id === t.id ? { ...r, subscription_status: newStatus } : r));
+  async toggleStatus(t: TenantAdminRow): Promise<void> {
+    const newStatus: TenantSubscriptionStatus = t.subscription_status === 'suspended' ? 'active' : 'suspended';
+    await this.tenantsService.updateStatus(t.id, newStatus);
+    this.tenants.update(list => list.map(r => r.id === t.id ? { ...r, subscription_status: newStatus } : r));
   }
 
-  async changePlan(id: string, plan: Plan): Promise<void> {
-    const { error } = await this.supabase.from('condominios').update({ plan }).eq('id', id);
-    if (!error) this.tenants.update(list => list.map(r => r.id === id ? { ...r, plan } : r));
+  async changePlan(id: string, plan: TenantPlan): Promise<void> {
+    await this.tenantsService.updatePlan(id, plan);
+    this.tenants.update(list => list.map(r => r.id === id ? { ...r, plan } : r));
   }
 }

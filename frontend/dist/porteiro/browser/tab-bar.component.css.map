@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["libs/ui/src/lib/components/tab-bar/tab-bar.component.css"],
+  "sourcesContent": [".tab-bar {\n  display: flex;\n  gap: var(--s-2);\n  padding: var(--s-2);\n  background: var(--c-card-muted);\n  border-radius: var(--r-sm);\n}\n.tab-bar__item {\n  flex: 1;\n  height: 34px;\n  border: none;\n  border-radius: var(--r-xs);\n  font-family: var(--font-sans);\n  font-size: 13px;\n  font-weight: 500;\n  color: var(--c-text-muted);\n  background: transparent;\n  cursor: pointer;\n  transition: all var(--t-fast);\n}\n.tab-bar__item--active {\n  background: var(--c-card);\n  color: var(--c-text);\n  font-weight: 600;\n  box-shadow: var(--sh-xs);\n}"],
+  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,OAAK,IAAI;AACT,WAAS,IAAI;AACb,cAAY,IAAI;AAChB,iBAAe,IAAI;AACrB;AACA,CAAC;AACC,QAAM;AACN,UAAQ;AACR,UAAQ;AACR,iBAAe,IAAI;AACnB,eAAa,IAAI;AACjB,aAAW;AACX,eAAa;AACb,SAAO,IAAI;AACX,cAAY;AACZ,UAAQ;AACR,cAAY,IAAI,IAAI;AACtB;AACA,CAAC;AACC,cAAY,IAAI;AAChB,SAAO,IAAI;AACX,eAAa;AACb,cAAY,IAAI;AAClB;",
+  "names": []
+}

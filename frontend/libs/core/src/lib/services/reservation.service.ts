@@ -1,18 +1,20 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { Subject } from 'rxjs';
+﻿import { Injectable, inject, signal } from '@angular/core';
 import type { RealtimeChannel } from '@supabase/supabase-js';
-import { SUPABASE_CLIENT } from '../supabase/client';
+import { SUPABASE_CLIENT } from './supabase-client.service';
 import type {
   Reservation,
   Equipamento,
   CreateReservationInput,
   ReservationStatus,
-} from '../models/index';
+} from '../interfaces/index.model';
 
 export interface ReservationRealtimeEvent {
   eventType: 'INSERT' | 'UPDATE' | 'DELETE';
   reservation: Reservation;
 }
+
+const EQUIPAMENTO_COLUMNS = 'id,condominio_id,nome,descricao,capacidade,regras,horario_inicio,horario_fim,ativo,image_url,created_at,updated_at';
+const RESERVATION_COLUMNS = 'id,condominio_id,equipamento_id,morador_id,data,hora_inicio,hora_fim,motivo,num_convidados,status,google_event_id,google_calendar_id,created_at,updated_at';
 
 function mapEquipamentoRow(row: any): Equipamento {
   return {
@@ -67,9 +69,9 @@ export class ReservationService {
 
   private channel: RealtimeChannel | null = null;
 
-  readonly realtimeEvents$ = new Subject<ReservationRealtimeEvent>();
+  readonly realtimeEvent = signal<ReservationRealtimeEvent | null>(null);
 
-  // ── Realtime ──────────────────────────────────────────────
+  // â”€â”€ Realtime â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   subscribeToTenant(condominioId: string): void {
     this.stopRealtime();
@@ -107,29 +109,30 @@ export class ReservationService {
     if (eventType === 'INSERT') {
       const reservation = mapRow(newRow);
       this.reservations.update(list => [reservation, ...list]);
-      this.realtimeEvents$.next({ eventType: 'INSERT', reservation });
+      this.realtimeEvent.set({ eventType: 'INSERT', reservation });
     } else if (eventType === 'UPDATE') {
       const reservation = mapRow(newRow);
       this.reservations.update(list =>
         list.map(r => r.id === reservation.id ? reservation : r),
       );
-      this.realtimeEvents$.next({ eventType: 'UPDATE', reservation });
+      this.realtimeEvent.set({ eventType: 'UPDATE', reservation });
     } else if (eventType === 'DELETE') {
       const reservation = mapRow(oldRow);
       this.reservations.update(list => list.filter(r => r.id !== oldRow.id));
-      this.realtimeEvents$.next({ eventType: 'DELETE', reservation });
+      this.realtimeEvent.set({ eventType: 'DELETE', reservation });
     }
   }
 
-  // ── Equipamentos ─────────────────────────────────────────
+  // â”€â”€ Equipamentos â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   async loadEquipamentos(condominioId: string): Promise<void> {
     const { data, error } = await this.supabase
       .from('equipamentos')
-      .select('*')
+      .select(EQUIPAMENTO_COLUMNS)
       .eq('condominio_id', condominioId)
       .eq('ativo', true)
-      .order('nome');
+      .order('nome')
+      .limit(100);
     if (error) { this.error.set(error.message); return; }
     this.equipamentos.set((data ?? []).map(mapEquipamentoRow));
   }
@@ -137,9 +140,10 @@ export class ReservationService {
   async loadAllEquipamentos(condominioId: string): Promise<void> {
     const { data, error } = await this.supabase
       .from('equipamentos')
-      .select('*')
+      .select(EQUIPAMENTO_COLUMNS)
       .eq('condominio_id', condominioId)
-      .order('nome');
+      .order('nome')
+      .limit(100);
     if (error) { this.error.set(error.message); return; }
     this.equipamentos.set((data ?? []).map(mapEquipamentoRow));
   }
@@ -162,7 +166,7 @@ export class ReservationService {
         horario_inicio: input.horarioInicio ?? '08:00',
         horario_fim:    input.horarioFim    ?? '22:00',
       })
-      .select()
+      .select(EQUIPAMENTO_COLUMNS)
       .single();
     if (error || !data) { this.error.set(error?.message ?? 'Erro ao criar equipamento'); return null; }
     const eq = mapEquipamentoRow(data);
@@ -180,19 +184,20 @@ export class ReservationService {
     return true;
   }
 
-  // ── Reservas ─────────────────────────────────────────────
+  // â”€â”€ Reservas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   async loadMyReservations(condominioId: string, userId: string): Promise<void> {
     this.isLoading.set(true);
     this.error.set(null);
     const { data, error } = await this.supabase
       .from('reservas')
-      .select('*, equipamento:equipamentos(id,nome,image_url)')
+      .select(`${RESERVATION_COLUMNS}, equipamento:equipamentos(id,nome,image_url)`)
       .eq('condominio_id', condominioId)
       .eq('morador_id', userId)
       .is('deleted_at', null)
       .order('data', { ascending: false })
-      .order('hora_inicio', { ascending: false });
+      .order('hora_inicio', { ascending: false })
+      .limit(100);
     this.isLoading.set(false);
     if (error) { this.error.set(error.message); return; }
     this.reservations.set((data ?? []).map(mapRow));
@@ -204,11 +209,12 @@ export class ReservationService {
     this.error.set(null);
     const { data, error } = await this.supabase
       .from('reservas')
-      .select('*, equipamento:equipamentos(id,nome,image_url), morador:users(id,nome,email)')
+      .select(`${RESERVATION_COLUMNS}, equipamento:equipamentos(id,nome,image_url), morador:users(id,nome,email)`)
       .eq('condominio_id', condominioId)
       .is('deleted_at', null)
       .order('data', { ascending: false })
-      .order('hora_inicio', { ascending: false });
+      .order('hora_inicio', { ascending: false })
+      .limit(100);
     this.isLoading.set(false);
     if (error) { this.error.set(error.message); return; }
     this.reservations.set((data ?? []).map(mapRow));
@@ -218,11 +224,12 @@ export class ReservationService {
   async loadForDate(equipamentoId: string, data: string): Promise<Reservation[]> {
     const { data: rows, error } = await this.supabase
       .from('reservas')
-      .select('*')
+      .select(RESERVATION_COLUMNS)
       .eq('equipamento_id', equipamentoId)
       .eq('data', data)
       .eq('status', 'confirmada')
-      .is('deleted_at', null);
+      .is('deleted_at', null)
+      .limit(100);
     if (error || !rows) return [];
     return rows.map(mapRow);
   }
@@ -241,7 +248,7 @@ export class ReservationService {
         num_convidados: input.numConvidados ?? 0,
         status:         'confirmada',
       })
-      .select('*, equipamento:equipamentos(id,nome,image_url)')
+      .select(`${RESERVATION_COLUMNS}, equipamento:equipamentos(id,nome,image_url)`)
       .single();
     if (error || !data) {
       this.error.set(error?.message ?? 'Erro ao criar reserva');

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+﻿import { Component, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BadgeComponent, EmptyStateComponent } from '@condomais/ui';
@@ -13,15 +13,15 @@ import type { Occurrence, OccurrenceImage } from '@condomais/core';
   template: `
     <div class="page">
       <div class="page__header">
-        <a class="page__back" routerLink="/ocorrencias">←</a>
-        <h1 class="page__title">Ocorrência</h1>
+        <a class="page__back" routerLink="/ocorrencias">â†</a>
+        <h1 class="page__title">OcorrÃªncia</h1>
       </div>
 
       @if (loading()) {
-        <cm-empty-state icon="⏳" title="Carregando…" subtitle=""></cm-empty-state>
+        <cm-empty-state icon="â³" title="Carregandoâ€¦" subtitle=""></cm-empty-state>
       } @else if (!occurrence()) {
-        <cm-empty-state icon="😕" title="Não encontrada"
-          subtitle="Esta ocorrência não existe ou você não tem acesso."></cm-empty-state>
+        <cm-empty-state icon="ðŸ˜•" title="NÃ£o encontrada"
+          subtitle="Esta ocorrÃªncia nÃ£o existe ou vocÃª nÃ£o tem acesso."></cm-empty-state>
       } @else {
         <div class="detail">
           <div class="detail__status-bar">
@@ -34,7 +34,7 @@ import type { Occurrence, OccurrenceImage } from '@condomais/core';
           <div class="detail__meta">
             <span class="detail__chip">{{ tipoLabel(occurrence()!.tipo) }}</span>
             @if (occurrence()!.local) {
-              <span class="detail__chip">📍 {{ occurrence()!.local }}</span>
+              <span class="detail__chip">ðŸ“ {{ occurrence()!.local }}</span>
             }
           </div>
 
@@ -50,7 +50,7 @@ import type { Occurrence, OccurrenceImage } from '@condomais/core';
 
           @if (occurrence()!.resolucao) {
             <div class="detail__resolution">
-              <p class="detail__resolution-label">Resposta do condomínio:</p>
+              <p class="detail__resolution-label">Resposta do condomÃ­nio:</p>
               <p class="detail__resolution-text">{{ occurrence()!.resolucao }}</p>
             </div>
           }
@@ -58,7 +58,7 @@ import type { Occurrence, OccurrenceImage } from '@condomais/core';
       }
     </div>
   `,
-  styleUrl: './occurrence-detail.component.scss',
+  styleUrl: './occurrence-detail.component.css',
 })
 export class OccurrenceDetailComponent implements OnInit {
   private readonly route         = inject(ActivatedRoute);
@@ -81,7 +81,7 @@ export class OccurrenceDetailComponent implements OnInit {
 
   statusLabel(status: string): string {
     const map: Record<string, string> = {
-      aberta: 'Aberta', em_analise: 'Em análise',
+      aberta: 'Aberta', em_analise: 'Em anÃ¡lise',
       resolvida: 'Resolvida', encerrada: 'Encerrada',
     };
     return map[status] ?? status;
@@ -95,9 +95,9 @@ export class OccurrenceDetailComponent implements OnInit {
 
   tipoLabel(tipo: string): string {
     const map: Record<string, string> = {
-      ruido: '🔊 Ruído', vandalismo: '🔨 Vandalismo',
-      acidente: '⚠️ Acidente', entrada_suspeita: '👀 Entrada Suspeita',
-      entrada_nao_autorizada: '🚫 Entrada Não Autorizada', outro: '📋 Outro',
+      ruido: 'ðŸ”Š RuÃ­do', vandalismo: 'ðŸ”¨ Vandalismo',
+      acidente: 'âš ï¸ Acidente', entrada_suspeita: 'ðŸ‘€ Entrada Suspeita',
+      entrada_nao_autorizada: 'ðŸš« Entrada NÃ£o Autorizada', outro: 'ðŸ“‹ Outro',
     };
     return map[tipo] ?? tipo;
   }

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, computed, inject, effect, DestroyRef } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, signal, computed, inject, effect, DestroyRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TabBarComponent, BadgeComponent, EmptyStateComponent } from '@condomais/ui';
@@ -20,29 +20,29 @@ import type { TabItem } from '@condomais/ui';
       </div>
       <div class="delivery-list">
         @if (isLoading()) {
-          <cm-empty-state icon="⏳" title="Carregando…" subtitle="Buscando suas entregas"></cm-empty-state>
+          <cm-empty-state icon="â³" title="Carregandoâ€¦" subtitle="Buscando suas entregas"></cm-empty-state>
         } @else {
           @for (d of filtered(); track d.id) {
             <a class="delivery-row" [routerLink]="['/entregas', d.id]">
-              <div class="delivery-row__icon">📦</div>
+              <div class="delivery-row__icon">ðŸ“¦</div>
               <div class="delivery-row__body">
                 <p class="delivery-row__title">{{ d.transportadora ?? d.tipo }}</p>
-                <p class="delivery-row__sub">{{ d.tipo }} · {{ d.createdAt | date:'dd/MM HH:mm' }}</p>
+                <p class="delivery-row__sub">{{ d.tipo }} Â· {{ d.createdAt | date:'dd/MM HH:mm' }}</p>
               </div>
               <cm-badge [variant]="d.status === 'pendente' || d.status === 'notificada' ? 'accent' : 'success'">
                 {{ d.status === 'retirada' ? 'Retirada' : 'Aguardando' }}
               </cm-badge>
             </a>
           } @empty {
-            <cm-empty-state icon="📭" title="Nenhuma entrega"
-              [subtitle]="'Você não tem entregas ' + (activeTab() === 'pendente' ? 'pendentes' : 'retiradas') + ' no momento.'">
+            <cm-empty-state icon="ðŸ“­" title="Nenhuma entrega"
+              [subtitle]="'VocÃª nÃ£o tem entregas ' + (activeTab() === 'pendente' ? 'pendentes' : 'retiradas') + ' no momento.'">
             </cm-empty-state>
           }
         }
       </div>
     </div>
   `,
-  styleUrl: './deliveries.component.scss',
+  styleUrl: './deliveries.component.css',
 })
 export class DeliveriesComponent {
   private readonly deliveryService = inject(DeliveryService);
@@ -72,7 +72,7 @@ export class DeliveriesComponent {
       const user   = this.authState.user();
       const tenant = this.authState.currentTenant();
       if (user && tenant) {
-        this.deliveryService.loadForUser(user.id);
+        this.deliveryService.loadForUser(user.id, tenant.id);
       }
     });
   }

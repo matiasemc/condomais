@@ -1,15 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject, signal, computed, OnInit } from '@angular/core';
-import { SUPABASE_CLIENT, AuthState } from '@condomais/core';
+import { AdminUserService, AuthState, type TenantUserRow } from '@condomais/core';
 import { BadgeComponent, EmptyStateComponent, SearchInputComponent } from '@condomais/ui';
-
-interface UserRow {
-  id: string;
-  nome: string;
-  email: string;
-  role: string;
-  unidade: string | null;
-  ativo: boolean;
-}
 
 @Component({
   selector: 'cm-admin-users',
@@ -68,10 +59,10 @@ interface UserRow {
   `],
 })
 export class AdminUsersComponent implements OnInit {
-  private readonly supabase = inject(SUPABASE_CLIENT);
-  private readonly state    = inject(AuthState);
+  private readonly usersService = inject(AdminUserService);
+  private readonly state        = inject(AuthState);
 
-  users     = signal<UserRow[]>([]);
+  users     = signal<TenantUserRow[]>([]);
   isLoading = signal(false);
   search    = signal('');
   activeTab = signal('all');
@@ -95,26 +86,11 @@ export class AdminUsersComponent implements OnInit {
     const tenant = this.state.currentTenant();
     if (!tenant) return;
     this.isLoading.set(true);
-    const { data, error } = await this.supabase
-      .from('user_condominios')
-      .select('role, ativo, metadata, user:users(id, nome, email)')
-      .eq('condominio_id', tenant.id)
-      .eq('ativo', true)
-      .order('role');
-    this.isLoading.set(false);
-    if (error || !data) return;
-    this.users.set(
-      (data as any[])
-        .filter(row => row.user)
-        .map(row => ({
-          id:      row.user.id,
-          nome:    row.user.nome,
-          email:   row.user.email,
-          role:    row.role,
-          unidade: (row.metadata as any)?.unidade ?? null,
-          ativo:   row.ativo,
-        }))
-    );
+    try {
+      this.users.set(await this.usersService.listForTenant(tenant.id));
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
   roleLabel(role: string): string {

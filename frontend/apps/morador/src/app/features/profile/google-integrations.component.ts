@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { ToggleComponent } from '@condomais/ui';
 import { ButtonComponent } from '@condomais/ui';
@@ -10,7 +10,7 @@ import { ToastService } from '../../core/toast.service';
   imports: [ToggleComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './google-integrations.component.html',
-  styleUrl: './google-integrations.component.scss',
+  styleUrl: './google-integrations.component.css',
 })
 export class GoogleIntegrationsComponent {
   location         = inject(Location);

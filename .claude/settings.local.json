@@ -24,7 +24,17 @@
       "Bash(sed -n '25,30p' apps/porteiro/src/app/features/residents/resident-detail.component.ts)",
       "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(list\\(d['projects'].keys\\(\\)\\)\\)\")",
       "Bash(node -e \"const d=require\\('./frontend/angular.json'\\); console.log\\(Object.keys\\(d.projects\\)\\)\")",
-      "Bash(xargs grep *)"
+      "Bash(xargs grep *)",
+      "Bash(taskkill /PID 10172 /F)",
+      "Bash(taskkill /PID 4564 /F)",
+      "Bash(taskkill /PID 10476 /F)",
+      "Bash(taskkill /PID 24380 /F)",
+      "PowerShell(Stop-Process -Id 10172 -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Id 4564 -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Id 10476 -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Id 24380 -Force -ErrorAction SilentlyContinue)",
+      "PowerShell($ports = 4204,4205,4206,4207; foreach \\($port in $ports\\) { $pid = \\(Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue\\).OwningProcess; if \\($pid\\) { Stop-Process -Id $pid -Force -ErrorAction SilentlyContinue; Write-Output \"Killed PID $pid on port $port\" } })",
+      "PowerShell($ports = 4204,4205,4206,4207; foreach \\($port in $ports\\) { $proc = \\(Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue\\).OwningProcess; if \\($proc\\) { Stop-Process -Id $proc -Force -ErrorAction SilentlyContinue; Write-Output \"Killed $proc on :$port\" } })"
     ]
   }
 }

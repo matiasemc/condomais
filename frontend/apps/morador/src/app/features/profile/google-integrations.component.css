@@ -1,0 +1,115 @@
+.page {
+  min-height: 100%;
+  padding-bottom: 80px;
+}
+
+.page__header {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  background: var(--c-bg-raised);
+  border-bottom: 1px solid var(--c-border);
+}
+
+.page__title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.back-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--c-border);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--c-text);
+}
+
+.connect-card {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  margin: var(--s-5);
+  background: var(--c-card);
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-border);
+}
+
+.connect-card__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #4285F4;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.connect-card__info {
+  flex: 1;
+}
+
+.connect-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 2px;
+}
+
+.connect-card__sub {
+  font-size: 12px;
+  color: var(--c-text-muted);
+  margin: 0;
+}
+
+.prefs {
+  padding: 0 var(--s-5);
+}
+
+.prefs__label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--c-text-muted);
+  margin: 0 0 var(--s-3);
+}
+
+.pref-list {
+  background: var(--c-card);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+}
+
+.pref-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-4);
+  border-bottom: 1px solid var(--c-border);
+}
+.pref-row:last-child {
+  border-bottom: none;
+}
+.pref-row__title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 2px;
+}
+.pref-row__sub {
+  font-size: 12px;
+  color: var(--c-text-muted);
+  margin: 0;
+}

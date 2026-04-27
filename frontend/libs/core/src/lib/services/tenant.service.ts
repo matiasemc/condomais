@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+﻿import { Injectable, inject } from '@angular/core';
 import { AuthState } from '../state/auth.state';
-import type { Tenant } from '../models/index';
+import type { Tenant } from '../interfaces/index.model';
 
 const TENANT_STORAGE_KEY = "cm_current_tenant";
 

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface NavItem { path: string; label: string; icon: string; }
@@ -28,13 +28,13 @@ interface NavItem { path: string; label: string; icon: string; }
       </nav>
       <div class="sidebar__footer">
         <a class="sidebar__item sidebar__item--muted" href="http://localhost:4200" target="_blank">
-          <span>🏠</span>
+          <span>ðŸ </span>
           <span>App morador</span>
         </a>
       </div>
     </aside>
   `,
-  styleUrl: './sidebar.component.scss',
+  styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
   items: NavItem[] = [

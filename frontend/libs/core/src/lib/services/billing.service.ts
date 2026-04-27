@@ -1,5 +1,7 @@
-import { Injectable, inject, signal, computed } from '@angular/core';
-import { SUPABASE_CLIENT } from '../supabase/client';
+﻿import { Injectable, inject, signal, computed } from '@angular/core';
+import { SUPABASE_CLIENT } from './supabase-client.service';
+import { AuthState } from '../state/auth.state';
+import { FeatureService } from './feature.service';
 
 export interface Plano {
   nome: string;
@@ -23,15 +25,68 @@ export interface Subscription {
   stripe_customer_id: string | null;
 }
 
+const DEFAULT_PLANOS: Plano[] = [
+  {
+    nome: 'free',
+    label: 'Gratis',
+    price_monthly_brl: 0,
+    features: {
+      entregas: true,
+      ocorrencias: false,
+      reservas: false,
+      marketplace: false,
+      max_unidades: 20,
+    },
+  },
+  {
+    nome: 'basic',
+    label: 'Basico',
+    price_monthly_brl: 99.9,
+    features: {
+      entregas: true,
+      ocorrencias: true,
+      reservas: false,
+      marketplace: false,
+      max_unidades: 50,
+    },
+  },
+  {
+    nome: 'plus',
+    label: 'Plus',
+    price_monthly_brl: 199.9,
+    features: {
+      entregas: true,
+      ocorrencias: true,
+      reservas: true,
+      marketplace: false,
+      max_unidades: 200,
+    },
+  },
+  {
+    nome: 'premium',
+    label: 'Premium',
+    price_monthly_brl: 399.9,
+    features: {
+      entregas: true,
+      ocorrencias: true,
+      reservas: true,
+      marketplace: true,
+      max_unidades: 999999,
+    },
+  },
+];
+
 @Injectable({ providedIn: 'root' })
 export class BillingService {
-  private readonly supabase = inject(SUPABASE_CLIENT);
+  private readonly supabase     = inject(SUPABASE_CLIENT);
+  private readonly authState    = inject(AuthState);
+  private readonly featureSvc   = inject(FeatureService);
 
   readonly subscription = signal<Subscription | null>(null);
-  readonly planos       = signal<Plano[]>([]);
+  readonly planos       = signal<Plano[]>(DEFAULT_PLANOS);
   readonly isLoading    = signal(false);
 
-  // UX gating (derived from subscription signal — backend is authoritative)
+  // The app shell only needs UX gating, so it uses the tenant plan already loaded from condominios.
   readonly planNome = computed(() => this.subscription()?.plano_nome ?? 'free');
 
   readonly isActive = computed(() => {
@@ -42,33 +97,26 @@ export class BillingService {
   readonly isPastDue = computed(() => this.subscription()?.status === 'PAST_DUE');
 
   readonly canAccessOccurrences = computed(() =>
-    this.isActive() && ['basic', 'plus', 'premium'].includes(this.planNome())
+    this.isActive() && this.featureSvc.hasFeature('ocorrencias')
   );
 
   readonly canAccessReservations = computed(() =>
-    this.isActive() && ['plus', 'premium'].includes(this.planNome())
+    this.isActive() && this.featureSvc.hasFeature('reservas')
   );
 
   readonly canAccessMarketplace = computed(() =>
-    this.isActive() && this.planNome() === 'premium'
+    this.isActive() && this.featureSvc.hasFeature('marketplace')
   );
 
   async loadForTenant(condominioId: string): Promise<void> {
     this.isLoading.set(true);
-    const [subRes, planosRes] = await Promise.all([
-      this.supabase
-        .from('subscriptions')
-        .select('id,condominio_id,plano_nome,status,current_period_end,stripe_customer_id')
-        .eq('condominio_id', condominioId)
-        .maybeSingle(),
-      this.supabase
-        .from('planos')
-        .select('nome,label,price_monthly_brl,features')
-        .order('price_monthly_brl'),
-    ]);
-    this.subscription.set((subRes.data as Subscription) ?? null);
-    this.planos.set((planosRes.data ?? []) as Plano[]);
-    this.isLoading.set(false);
+
+    try {
+      this.planos.set(DEFAULT_PLANOS);
+      this.subscription.set(this.subscriptionFromCurrentTenant(condominioId));
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
   async subscribeToPlan(condominioId: string, planName: string): Promise<{ url: string } | { error: string }> {
@@ -85,17 +133,26 @@ export class BillingService {
   }
 
   async getCurrentSubscription(condominioId: string): Promise<Subscription | null> {
-    const { data } = await this.supabase
-      .from('subscriptions')
-      .select('id,condominio_id,plano_nome,status,current_period_end,stripe_customer_id')
-      .eq('condominio_id', condominioId)
-      .maybeSingle();
-    const sub = (data as Subscription) ?? null;
+    const sub = this.subscriptionFromCurrentTenant(condominioId);
     this.subscription.set(sub);
     return sub;
   }
 
   currentPlano(): Plano | undefined {
     return this.planos().find(p => p.nome === this.planNome());
+  }
+
+  private subscriptionFromCurrentTenant(condominioId: string): Subscription | null {
+    const tenant = this.authState.currentTenant();
+    if (!tenant || tenant.id !== condominioId) return null;
+
+    return {
+      id: `tenant-plan:${condominioId}`,
+      condominio_id: condominioId,
+      plano_nome: tenant.plano,
+      status: tenant.ativo ? 'TRIALING' : 'CANCELED',
+      current_period_end: null,
+      stripe_customer_id: null,
+    };
   }
 }

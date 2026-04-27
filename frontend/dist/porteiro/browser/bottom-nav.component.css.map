@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/porteiro/src/app/layout/bottom-nav/bottom-nav.component.css"],
+  "sourcesContent": [".bottom-nav {\n  display: flex;\n  background: var(--c-bg-raised);\n  border-top: 1px solid var(--c-border);\n  padding: var(--s-2) 0;\n  padding-bottom: calc(var(--s-2) + env(safe-area-inset-bottom));\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: 100;\n}\n.bottom-nav__item {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 3px;\n  padding: var(--s-2) 0;\n  text-decoration: none;\n  color: var(--c-text-faint);\n  font-size: 10px;\n  font-weight: 500;\n  transition: color var(--t-fast);\n}\n.bottom-nav__item--active {\n  color: var(--c-accent);\n}"],
+  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,cAAY,IAAI;AAChB,cAAY,IAAI,MAAM,IAAI;AAC1B,WAAS,IAAI,OAAO;AACpB,kBAAgB,KAAK,IAAI,OAAO,EAAE,IAAI;AACtC,YAAU;AACV,UAAQ;AACR,QAAM;AACN,SAAO;AACP,WAAS;AACX;AACA,CAAC;AACC,QAAM;AACN,WAAS;AACT,kBAAgB;AAChB,eAAa;AACb,OAAK;AACL,WAAS,IAAI,OAAO;AACpB,mBAAiB;AACjB,SAAO,IAAI;AACX,aAAW;AACX,eAAa;AACb,cAAY,MAAM,IAAI;AACxB;AACA,CAAC;AACC,SAAO,IAAI;AACb;",
+  "names": []
+}
