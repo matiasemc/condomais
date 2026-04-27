@@ -71,9 +71,6 @@ export class SessionService implements OnDestroy {
     const token = session?.access_token ?? null;
 
     if (!options.force && token && token === this.lastSessionToken) {
-      if (options.redirect) {
-        await this.redirectForResolvedRole();
-      }
       return;
     }
 
